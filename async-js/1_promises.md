@@ -12,7 +12,7 @@ One way of thinking about the `Promise` is the future value. Another possibility
 
 In order to create a `Promise` we start with the revealing constructor function. 
 
-````
+````js
 new Promise((resolve, reject) {
     // do stuff
     if (success) {
@@ -41,15 +41,26 @@ A `Promise` have 3 possible states:
 ````
 promise.then(onFullfillment, onRejection)
 ````
-**Note:** `then()` is an event handler. Event handlers are JavaScript codes that execute JavaScript when something happens. In this case if a promise gets `resolved()` or `rejected()` the `then()` executes another function / callback within `()`  `onFulfillment` is the first argument and `onRejection` is the second argument or the second function.
+**Note:** `then()` is an event handler. Event handlers are JavaScript codes that execute JavaScript when something happens. In this case if a promise gets `resolved()` or `rejected()` the `then()` executes another function / callback within `()`  `onFullfillment` is the first argument and `onRejection` is the second argument or the second function.
 
-````
+````js
 const p1 = new Promise((resolve, reject) => {
         resolve(42);
 });
 p1.then(data => console.log(data)) // output 42
   .then(...);
 ````
+
+## What does actually `then()` do?
+
+`then()` is an event handler that calls other callbacks. But also a `.then()` method does return another `Promise`. 
+1. The `Promise` gets `resolved()` or `rejected()`
+2. It goes and looks for a `.then()` if `.then()` is existing it
+3. It calls the `onfFullfillment` or `onRejection` callback
+4. It returns another Promise either with the resolved value or `undefined`
+
+This is how we can chain the `.then()` methods / Promises with each other. We either pass the value to the next Promise or just return the Promise with a value `undefined`.
+
 
 ## How to compose Promises?
 
@@ -86,7 +97,7 @@ p2.then(data => data) // Promise {<pending>} this promise gets immediately resol
 
 There are two diferent possibilities to catch errors. As it was above described the `then(..)` method is an event handler that executes other JavaScript code. Consider:
 
-````
+````js
 promise.then(success => console.log(success), error => console.log(error))
 ````
 
