@@ -61,6 +61,10 @@ p1.then(data => console.log(data)) // output 42
 
 This is how we can chain the `.then()` methods / Promises with each other. We either pass the value to the next Promise or just return the Promise with a value `undefined`.
 
+![promise return undefined](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/promise-then-return.png)
+
+![promise chains](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/promise-example.png)
+
 
 ## How to compose Promises?
 
