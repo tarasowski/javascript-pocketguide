@@ -103,7 +103,7 @@ promise.then(success => console.log(success), error => console.log(error))
 
 The left side fires the success callback function and the right side fires a rejection callback function. This is how we can handle errors while working with `Promises`. But if we want just to get all the errors w/o adding the rejection callback function we can use the `.catch()` method, if error occurs it propagate the error down the chain to the `.catch()` method. 
 
-````
+````js
 promise.then(success => console.log(success))
        .catch(error => console.log(error));
 ````
