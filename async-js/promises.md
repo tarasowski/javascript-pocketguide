@@ -117,7 +117,6 @@ p2.then( function(v){
 ````
 By returning `v * 2` (i.e., `42`), we fulfill the `p2` promise that the first `then(..)` call created and returned. When p2's `then(..)` call runs, it's receiving the fulfillment from the return `v * 2` statement. Of course, `p2.then(..)` creates yet another promise, which we could have stored in a p3 variable.
 
-But it's a little annoying to have to create an intermediate variable p2 (or p3, etc.). Thankfully, we can easily just chain these together:
 
 ````
 var p = Promise.resolve( 21 );
@@ -135,6 +134,55 @@ p
 } );
 ````
 So now the first `then(..)` is the first step in an async sequence, and the second `then(..)` is the second step. This could keep going for as long as you needed it to extend. Just keep chaining off a previous `then(..)` with each automatically created Promise.
+
+`Promise.resolve(..)` directly returns a received genuine Promise, or it unwraps the value of a received thenable.
+
+The same sort of unwrapping happens if you `return` a thenable or Promise from the fulfillment (or rejection) handler. Consider:
+
+````
+var p = Promise.resolve( 21 );
+
+p.then( function(v){
+	console.log( v );	// 21
+
+	// create a promise and return it
+	return new Promise( function(resolve,reject){
+		// fulfill with value `42`
+		resolve( v * 2 );
+	} );
+} )
+.then( function(v){
+	console.log( v );	// 42
+} );
+````
+
+Even though we wrapped 42 up in a promise that we returned, it still got unwrapped and ended up as the resolution of the chained promise, such that the second `then(..)` still received 42. If we introduce asynchrony to that wrapping promise, everything still nicely works the same:
+
+````
+var p = Promise.resolve( 21 );
+
+p.then( function(v){
+	console.log( v );	// 21
+
+	// create a promise to return
+	return new Promise( function(resolve,reject){
+		// introduce asynchrony!
+		setTimeout( function(){
+			// fulfill with value `42`
+			resolve( v * 2 );
+		}, 100 );
+	} );
+} )
+.then( function(v){
+	// runs after the 100ms delay in the previous step
+	console.log( v );	// 42
+} );
+````
+
+Of course, the value passing from step to step in these examples is optional. If you don't return an explicit value, an implicit `undefined` is assumed, and the promises still chain together the same way. Each Promise resolution is thus just a signal to proceed to the next step.
+
+![Promise anatomy](https://www.sencha.com/wp-content/uploads/2016/03/asynch-javascript-promises-img3.png)
+
 
 [Source: You don't know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch3.md)
 
