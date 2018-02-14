@@ -22,7 +22,7 @@ new Promise((resolve, reject) {
     }
 });
 ````
-**Definition of revealing constructor function:** The ability to resolve or reject the promise is only revealed to the constructing code, and is crucially not revealed to anyone using the promise ([Source](https://blog.domenic.me/the-revealing-constructor-pattern/).
+**Definition of revealing constructor function:** The ability to resolve or reject the promise is only revealed to the constructing code, and is crucially not revealed to anyone using the promise ([Source](https://blog.domenic.me/the-revealing-constructor-pattern/)).
 
 Since a `Promise` is an object and objects are values we can pass it around across our program. As we can see above a `Promise` can be fullfilled or rejected. Those are the only possible outcomes of a promise. 
 
