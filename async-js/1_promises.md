@@ -38,6 +38,12 @@ A `Promise` have 3 possible states:
 * resolved (A promise is settled if it's not pending it has been resolved)
 * rejected (A promise is settled if it's not pending it has been rejected)
 
+
+When a promise has be resolved it looks for the next `then()` method and if it has a `.then()`it fires the callbacks. For success the left side `onFullfillment` and for rejection `onRejection`. 
+
+````
+promise.then(onFullfillment, onRejection)
+````
 **Note:** `then()` is an event handler. Event handlers are JavaScript codes that execute JavaScript when something happens. In this case if a promise gets `resolved()` or `rejected()` the `then()` executes another function / callback within `()`  `onFulfillment` is the first argument and `onRejection` is the second argument or the second function.
 
 ````
@@ -84,7 +90,7 @@ p2.then(data => data) // Promise {<pending>} this promise gets immediately resol
 There are two diferent possibilities to catch errors. As it was above described the `then(..)` method is an event handler that executes other JavaScript code. Consider:
 
 ````
-promise.then(success => console.log(success), (error) => console.log(error))
+promise.then(success => console.log(success), error => console.log(error))
 ````
 
 The left side fires the success callback function and the right side fires a rejection callback function. This is how we can handle errors while working with `Promises`. But if we want just to get all the errors w/o adding the rejection callback function we can use the `.catch()` method, if error occurs it propagate the error down the chain to the `.catch()` method. 
