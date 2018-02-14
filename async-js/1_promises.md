@@ -38,9 +38,6 @@ A `Promise` have 3 possible states:
 * resolved (A promise is settled if it's not pending it has been resolved)
 * rejected (A promise is settled if it's not pending it has been rejected)
 
-
-When a promise has be resolved it looks for the next `then()` method and if it has a `.then()`it fires the callbacks. For success the left side `onFullfillment` and for rejection `onRejection`. 
-
 ````
 promise.then(onFullfillment, onRejection)
 ````
