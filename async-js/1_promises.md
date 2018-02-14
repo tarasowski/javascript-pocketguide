@@ -35,8 +35,8 @@ const promise = new Promise((resolve, reject) {...});
 A `Promise` have 3 possible states:
 
 * pending (The promise will always log pending as long as its results are not resolved yet.)
-* resolved (The ability to resolve the promise is only revealed to the constructing code, and is crucially not revealed to anyone using the promise)
-* rejected (The ability to reject the promise is only revealed to the constructing code, and is crucially not revealed to anyone using the promise)
+* resolved (A promise is settled if it's not pending it has been resolved)
+* rejected (A promise is settled if it's not pending it has been rejected)
 
 **Note:** `then()` is an event handler. Event handlers are JavaScript codes that execute JavaScript when something happens. In this case if a promise gets `resolved()` or `rejected()` the `then()` executes another function / callback within `()`  `onFulfillment` is the first argument and `onRejection` is the second argument or the second function.
 
