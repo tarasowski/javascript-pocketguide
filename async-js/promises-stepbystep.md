@@ -46,6 +46,7 @@ p1.then(data => console.log(data)) // output 42
 ## How to compose Promises?
 
 <script src="https://gist.github.com/mittyo/13721121715a263e041688f5025c9402.js"></script>
+{% gist 13721121715a263e041688f5025c9402 %}
 
 
 
