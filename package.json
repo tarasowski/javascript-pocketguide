@@ -1,0 +1,22 @@
+{
+  "name": "javascript-pocketguide",
+  "version": "1.0.0",
+  "description": "> \"This is not checkers, this is mother fucking chess\" Ben Horowitz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mittyo/javascript-pocketguide.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mittyo/javascript-pocketguide/issues"
+  },
+  "homepage": "https://github.com/mittyo/javascript-pocketguide#readme",
+  "dependencies": {
+    "axios": "^0.17.1"
+  }
+}
