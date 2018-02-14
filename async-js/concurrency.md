@@ -57,6 +57,44 @@ But, going back to our notion of the event loop from earlier in the chapter, JS 
 
 [Source: You don't know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch1.md)
 
+For reference here is what I mean by sequential, concurrent and parallel:
+
+* Sequential: do this and then do that
+* Concurrent: do this and do that without waiting between
+* Parallel: do this and do that at the exact same time
+
+Here is an another example for concurrency
+
+```
+// CONCURRENT REQUESTS
+var http = require('http')
+
+function concurrentRequests(){
+  for (var i = 0; i < 5; i++) {
+    var request = {
+      hostname: 'httpbin.org',
+      headers: {'request-id': i},
+      path: '/delay/.'+  Math.floor(Math.random() * (5 - 1 + 1)) + 1
+    }
+    http.get(request, (res) => {
+        var body = ''
+        res.on('data', function (chunk) {
+          body += chunk
+        })
+        res.on('end', function () {
+          console.log(JSON.parse(body).headers['Request-Id'])
+        })
+    }).end()
+  }
+}
+
+console.log("Running concurrent requests!")
+concurrentRequests()
+```
+
+[Concurrency in JavaScript](https://gist.github.com/montanaflynn/cb349fd109b561c35d6c8500471cdb39)
+
+
 
 
 
