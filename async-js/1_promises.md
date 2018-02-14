@@ -26,7 +26,7 @@ new Promise((resolve, reject) {
 
 Since a `Promise` is an object and objects are values we can pass it around across our program. As we can see above a `Promise` can be fullfilled or rejected. Those are the only possible outcomes of a promise. 
 
-````
+````js
 const promise = new Promise((resolve, reject) {...});
 ````
 
@@ -38,7 +38,7 @@ A `Promise` have 3 possible states:
 * resolved (A promise is settled if it's not pending it has been resolved)
 * rejected (A promise is settled if it's not pending it has been rejected)
 
-````
+````js
 promise.then(onFullfillment, onRejection)
 ````
 **Note:** `then()` is an event handler. Event handlers are JavaScript codes that execute JavaScript when something happens. In this case if a promise gets `resolved()` or `rejected()` the `then()` executes another function / callback within `()`  `onFullfillment` is the first argument and `onRejection` is the second argument or the second function.
