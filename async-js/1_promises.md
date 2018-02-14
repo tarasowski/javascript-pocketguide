@@ -1,10 +1,12 @@
 # Promises Step by Step
 
-Here is the definition of promises for dummies
+Here is a step by step guide for dummies
 
 ## What is a promise? 
 
-One way of thinking about the `Promise` is the future value. Another possibility that are `Promises` are giving us is the possibility to subscribe to the completion event. (Promises are eager = it executes immediately vs. Observables are lazy = executes only if we subscribe).
+One way of thinking about the `Promise` is the future value. Another possibility that are `Promises` are giving us is the possibility to subscribe to the completion event. (Promises are eager = they execute immediately vs. Observables are lazy = execute only if we subscribe to them).
+
+**Note:** Promises are immutable once resolved (from the outside it cannot be changed to any port or outside of the system)
 
 ## How to create a Promise?
 
@@ -71,6 +73,28 @@ p2.then(data => data) // Promise {<pending>} this promise gets immediately resol
   .then(data => {console.log(data); return 38}) // undefined but if we would now return something it will be wrapped into a promise again
   .then(data => console.log(data)); // 38 so the chain can further and further
 ```
+
+*When the promise finishes it pass along the data in the next promise chain. And when the next one finishes the data is passed to the next promise in the chain. The promise chain does propagate data down from step to step. Promises don't only represent flow control but they also represent data flow.*
+
+## How to catch errors?
+
+There are two diferent possibilities to catch errors. As it was above described the `then(..)` method is an event handler that executes other JavaScript code. Consider:
+
+````
+promise.then(success => console.log(success), (error) => console.log(error))
+````
+
+The left side fires the success callback function and the right side fires a rejection callback function. This is how we can handle errors while working with `Promises`. But if we want just to get all the errors w/o adding the rejection callback function we can use the `.catch()` method, if error occurs it propagate the error down the chain to the `.catch()` method. 
+
+````
+promise.then(success => console.log(success))
+       .catch(error => console.log(error));
+````
+
+## More Sources:
+
+[Some other good stuff about Promises](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/promises.md)
+
 
 
 
