@@ -134,6 +134,7 @@ promise.then(success => console.log(success))
 ## More Sources:
 
 [Some other good stuff about Promises](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/promises.md)
+[Eloquent JavaScript 3rd Edition](http://eloquentjavascript.net/3rd_edition/11_async.html)
 
 
 
