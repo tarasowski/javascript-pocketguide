@@ -4,13 +4,29 @@ Here is a step by step guide for dummies
 
 ## What is a promise? 
 
-One way of thinking about the `Promise` is the future value. Another possibility that are `Promises` are giving us is the possibility to subscribe to the completion event. (Promises are eager = they execute immediately vs. Observables are lazy = execute only if we subscribe to them).
+One way of thinking about the `Promise` is the future value. Another description is that `Promises` are giving us is the possibility to subscribe to the completion event. (Promises are eager = they execute immediately vs. Observables are lazy = execute only if we subscribe to them).
+
+In the case of asynchronous actions you could, instead of arranging for a function to be called at some point in the future (callbacks), return an object that represents this future event (`Promise`).
+
+This is what the standard class `Promise` is for. A promise is an asynchronous action that may complete at some point and produce a value, and is able to notify anyone who is interested when that happens.
 
 **Note:** Promises are immutable once resolved (from the outside it cannot be changed to any port or outside of the system)
 
 ## How to create a Promise?
 
-In order to create a `Promise` we start with the revealing constructor function. 
+### The easy way
+
+The easiest way to create a promise is by calling Promise.resolve. This function ensures that the value you give it is wrapped in a promise. If it’s already a promise it is simply returned, and otherwise you get a new promise that immediately finishes with your value as its result.
+
+````js
+let fifteen = Promise.resolve(15);
+fifteen.then(value => console.log(`Got ${value}`));
+// → Got 15
+````
+
+### The hard way
+
+In order to create a `Promise` we start with the revealing constructor function. It has a somewhat odd interface—the constructor expects a function as argument, which it immediately calls, passing it a function that it can use to resolve the promise. 
 
 ````js
 new Promise((resolve, reject) {
@@ -32,6 +48,8 @@ const promise = new Promise((resolve, reject) {...});
 
 ## How to get the value out of the Promise?
 
+To get the result of a promise, you can use its then method. This registers a callback function to be called when the promise resolves and produces a value. You can add multiple callbacks to a single promise, and even if you add them after the promise has already resolved (finished), they will be called.
+
 A `Promise` have 3 possible states:
 
 * pending (The promise will always log pending as long as its results are not resolved yet.)
@@ -41,7 +59,7 @@ A `Promise` have 3 possible states:
 ````js
 promise.then(onFullfillment, onRejection)
 ````
-**Note:** `then()` is an event handler. Event handlers are JavaScript codes that execute JavaScript when something happens. In this case if a promise gets `resolved()` or `rejected()` the `then()` executes another function / callback within `()`  `onFullfillment` is the first argument and `onRejection` is the second argument or the second function.
+**Note:** `then()` is an event handler. Event handlers are JavaScript codes that execute JavaScript when something happens. In this case if a promise gets `resolved()` or `rejected()` the `then()` executes another function / callback / handler within `()`  `onFullfillment` is the first argument and `onRejection` is the second argument or the second function.
 
 ````js
 const p1 = new Promise((resolve, reject) => {
@@ -56,8 +74,9 @@ p1.then(data => console.log(data)) // output 42
 `then()` is an event handler that calls other callbacks. But also a `.then()` method does return another `Promise`. 
 1. The `Promise` gets `resolved()` or `rejected()`
 2. It goes and looks for a `.then()` if `.then()` is existing it
-3. It calls the `onfFullfillment` or `onRejection` callback
+3. It calls the handler `onfFullfillment` or `onRejection` and we get the value, also
 4. It returns another Promise either with the resolved value or `undefined`
+5. If the handler returns a promise, waits for that one and then resolves to its result.
 
 This is how we can chain the `.then()` methods / Promises with each other. We either pass the value to the next Promise or just return the Promise with a value `undefined`.
 
