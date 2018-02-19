@@ -12,6 +12,8 @@ All normal functions having characteristic of them with is to have the run-to-co
 ## Yield Keyword
 The yield keyword is kind of a pause button on an old VCR. You watch a movie and click the pause button, and it pauses middle in the frame, nothing changes. You can wait as long as you want, you can come later press the button and resume.
 
+**Note:** The yield statement can also pass the data written to the right of it!!! [Source](https://medium.com/@hidace/javascript-es6-generators-part-i-understanding-generators-93dea22bf1b)
+
 ## What is a Generator?
 **Generator is a pausable function** When it's running it will run across the yield keyword and at that moment, wherever the yield keyword shows up even in the middle of an expression. The Generator enters this paused state and will wait indefinetely till someone comes in and press the play button again (resumes the function).
 
