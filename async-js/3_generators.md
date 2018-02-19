@@ -176,6 +176,60 @@ const it = corouting();
 it.next();
 ```
 
+We have now a logic built-in that gets paused and resumed by receiving a value. Our programming logic our flow control is inside the `courouting()` function. The special part of this flow control is that it looks synchronous. Why is that so important is because this is how our brain works. 
+
+**Note:** Promise chain are a sequence of flow control
+
+We are writing synchrous blocking code. But the rest of the program is not blocked, only the Generator function itself. 
+
+**Note:** In order to do synchronous error handling, we can use `try/catch`. 
+
+# Promises + Generators
+
+Instead of yielding an `undefined` value we are going to yield a promise and promise resume the generator. 
+
+```js
+function foo(x,y) {
+	return request(
+		"http://some.url.1/?x=" + x + "&y=" + y
+	);
+}
+
+function *main() {
+	try {
+		var text = yield foo( 11, 31 );
+		console.log( text );
+	}
+	catch (err) {
+		console.error( err );
+	}
+}
+```
+
+But how are we going to run *main() now? We still have some of the implementation plumbing work to do, to receive and wire up the yielded promise so that it resumes the generator upon resolution. We'll start by trying that manually:
+
+```js
+var it = main();
+
+var p = it.next().value;
+
+// wait for the `p` promise to resolve
+p.then(
+	function(text){
+		it.next( text );
+	},
+	function(err){
+		it.throw( err );
+	}
+);
+```
+
+[Source: You don't Know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md)
+
+
+
+
+
 
 
 
