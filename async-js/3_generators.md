@@ -14,6 +14,11 @@ The yield keyword is kind of a pause button on an old VCR. You watch a movie and
 
 **Note:** The yield statement can also pass the data written to the right of it!!! [Source](https://medium.com/@hidace/javascript-es6-generators-part-i-understanding-generators-93dea22bf1b)
 
+```js
+[rv] = yield [expression];
+```
+Defines the value to return from the generator function via the iterator protocol. If omitted, undefined is returned instead. [Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
+
 ## What is a Generator?
 **Generator is a pausable function** When it's running it will run across the yield keyword and at that moment, wherever the yield keyword shows up even in the middle of an expression. The Generator enters this paused state and will wait indefinetely till someone comes in and press the play button again (resumes the function).
 
