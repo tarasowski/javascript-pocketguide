@@ -226,7 +226,7 @@ p.then(
 
 [Source: You don't Know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md)
 
-
+![Generators](https://cdn-images-1.medium.com/max/2000/1*G-PoVfgqsiGdn4x6urptTQ.png)
 
 
 
