@@ -1,9 +1,13 @@
-const generate = function* () {
-    console.log('Hello');
-    yield
-    console.log('World');
-};
+function getData(d) {
+    setTimeout(() => it.next(d), 1000);
+}
 
-const it = generate();
-it.next(); // 'Hello'
-it.next(); // 'World'
+const corouting = function* (params) {
+    const x = 1 + (yield getData(10));
+    const y = 1 + (yield getData(30));
+    const answer = (yield getData('Final: ' + (x + y)));
+    console.log(answer);
+}
+
+const it = corouting();
+it.next();
