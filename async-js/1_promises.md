@@ -131,6 +131,8 @@ promise.then(success => console.log(success))
        .catch(error => console.log(error));
 ````
 
+
+
 ## More Sources:
 
 [Some other good stuff about Promises](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/promises.md)
