@@ -19,6 +19,9 @@ The yield keyword is kind of a pause button on an old VCR. You watch a movie and
 ```
 Defines the value to return from the generator function via the iterator protocol. If omitted, undefined is returned instead. [Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
 
+`Yield` caused a value to be sent out from the generator during the middle of its execution, kind of like an intermediate return. [Source](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md)
+
+
 ## What is a Generator?
 **Generator is a pausable function** When it's running it will run across the yield keyword and at that moment, wherever the yield keyword shows up even in the middle of an expression. The Generator enters this paused state and will wait indefinetely till someone comes in and press the play button again (resumes the function).
 
@@ -269,6 +272,44 @@ The async/await function is actually automating the `yield/promise` loop that is
 [Source: You don't Know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md)
 
 ![Generators](https://cdn-images-1.medium.com/max/2000/1*G-PoVfgqsiGdn4x6urptTQ.png)
+
+## Mismatch for the yield/next()
+
+Notice something very important but also easily confusing, even to seasoned JS developers: depending on your perspective, there's a mismatch between the yield and the `next(..)` call. In general, you're going to have one more `next(..)` call than you have yield statements -- the preceding snippet has one yield and two `next(..)` calls.
+
+**Why the mismatch?**
+
+Because the first `next(..)` always starts a generator, and runs to the first yield. But it's the second `next(..)` call that fulfills the first paused yield expression, and the third `next(..)` would fulfill the second yield, and so on.
+
+Actually, which code you're thinking about primarily will affect whether there's a perceived mismatch or not.
+
+Consider only the generator code:
+
+```js
+var y = x * (yield);
+return y;
+```
+
+This first yield is basically asking a question: "What value should I insert here?"
+
+Who's going to answer that question? Well, the first `next()` has already run to get the generator up to this point, so obviously it can't answer the question. So, the second `next(..)` call must answer the question posed by the first yield.
+
+**Note:** We don't pass a value to the first `next()` call, and that's on purpose. Only a paused yield could accept such a value passed by a `next(..)`, and at the beginning of the generator when we call the first `next()`, there is no paused yield to accept such a value. 
+
+**Note:**And if there is no return in your generator -- return is certainly not any more required in generators than in regular functions -- there's always an assumed/implicit return; (aka return undefined;)
+
+## Generator Iterator
+
+ A generator can be treated as a producer of values that we extract one at a time through an iterator interface's `next()` calls.
+
+ So, a generator itself is not technically an iterable, though it's very similar -- when you execute the generator, you get an iterator back:
+
+```js
+
+function *foo(){ .. }
+var it = foo();
+```
+
 
 
 

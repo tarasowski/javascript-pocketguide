@@ -24,7 +24,8 @@ const myGenAsync = async function () {
     const urls = await Promise.all(url.map(url => axios.get(url)));
     const clean = urls.map(e => e.data);
     const [a, b, c] = clean;
-    console.log(a);
+    return a;
 }
 
-myGenAsync();
+const p1 = myGenAsync()
+console.log(p1);
