@@ -231,6 +231,32 @@ p.then(
 );
 ```
 
+```js
+
+// Manual async function with Generators
+const myGen = function* () {
+    const urls = yield Promise.all(url.map(url => axios.get(url)));
+    const clean = urls.map(e => e.data);
+    const [a, b, c] = clean;
+    console.log(a);
+};
+
+const it = myGen();
+const p = it.next().value;
+p.then(res => it.next(res));
+
+// The same example with the async function
+const myGenAsync = async function () {
+    const urls = await Promise.all(url.map(url => axios.get(url)));
+    const clean = urls.map(e => e.data);
+    const [a, b, c] = clean;
+    console.log(a);
+}
+
+myGenAsync();
+```
+The async/await function is actually automating the `yield/promise` loop that is created above. When the thread meets await it stops here. A parallel process is resolving the Promise and passing it back into the await keyword which is equal to `const urls`. In this case we can simply pass a promise and it's going to be resolved automatically for us and the value of the promise gets assigned to the `const urls` variable. 
+
 [Source: You don't Know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md)
 
 ![Generators](https://cdn-images-1.medium.com/max/2000/1*G-PoVfgqsiGdn4x6urptTQ.png)

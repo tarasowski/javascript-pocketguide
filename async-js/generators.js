@@ -1,13 +1,30 @@
-function getData(d) {
-    setTimeout(() => it.next(d), 1000);
+const axios = require('axios');
+
+const url = [
+    'https://jsonplaceholder.typicode.com/posts/1',
+    'https://jsonplaceholder.typicode.com/posts/2',
+    'https://jsonplaceholder.typicode.com/posts/3'
+];
+
+
+// Manual async function with Generators
+const myGen = function* () {
+    const urls = yield Promise.all(url.map(url => axios.get(url)));
+    const clean = urls.map(e => e.data);
+    const [a, b, c] = clean;
+    console.log(a);
+};
+
+const it = myGen();
+const p = it.next().value;
+p.then(res => it.next(res));
+
+// The same example with the async function
+const myGenAsync = async function () {
+    const urls = await Promise.all(url.map(url => axios.get(url)));
+    const clean = urls.map(e => e.data);
+    const [a, b, c] = clean;
+    console.log(a);
 }
 
-const corouting = function* (params) {
-    const x = 1 + (yield getData(10));
-    const y = 1 + (yield getData(30));
-    const answer = (yield getData('Final: ' + (x + y)));
-    console.log(answer);
-}
-
-const it = corouting();
-it.next();
+myGenAsync();
