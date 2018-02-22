@@ -50,6 +50,60 @@ As soon as we hit an endpoint we go through a cycle. It depicts the flow of data
 
 ![API cycle](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-api-cycle.png)
 
+## How to create a new API?
+
+The API Gateway provides 4 methods:
+1. New API: will create a new blank API
+2. Clone from existing API: we can select an existing API and clone it
+3. Import from Swagger: allows to import a Swagger definiton file. Swagger Definition is a language that allows you to define an API as a text file and it can be imported here and AWS will automatically generate the API based on that import file (you can upload API snapshots Swagger File)
+4. Example API: shows how such as Swagger File looks like. It looks like a simple JSON file
+
+### Checkbox:
+
+**Configure as proxy resource:** means that it will catch all resource, catching all other paths and methods. It will be a flexilbe path, it catches all requests? Why to do that? If you catch all incoming request and methods and forward then to whatever action we are executing, this action can be a Lambda function. And Lambda supports node.js and since it does so you can simply run your node/express and whatever app on a Lambda function, forward all request to the Lambda function and do the routing inside the Lambda function and return html whatever you want. 
+
+Enable API Gateway CORS: CORS stands for Cross Origin Resource Sharing and it's about a security model where in general it's not allowed to access resources on a server from another server. When your API's resources receive requests from a domain other than the API's own domain, you must enable cross-origin resource sharing (CORS) for selected methods on the resource. This amounts to having your API respond to the OPTIONS preflight. [Source](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-cors.html)
+
+The preflight request gets a responce from the endpoint with the following response header:
+* Access-Control-Allow-Headers: Content Type, Auth etc.
+* Access-Control-Allow-Methods: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
+* Access-Control-Allow-Origin: '*' (from every domain, the * allows to do it)
+
+**Note:** Use Lambda Proxy Integration: Will take the request and paste all the metadata as an object into the Lambda function. That also means in the Lambda function you have to extract what you need and in the end you have to send back the response from Lambda, you won't have using the native tools that API gateway gives you like the integration respose/request. If you check this, you won't be able to use that, it's like a workaround or a way to make all the logic inside the lambda.  
+
+## What is AWS Lambda
+
+Lambda is a sevice which allows you to host your code on it and run it upon certain events. 
+
+We have different event sources:
+* S3 (e.g. file gets uploaded): a file upload could trigger a Lambda function that it can transform it e.g. resize, analyse
+* Cloudwatch (scheduled): basically like a cronjob trigger a new Lambda execution every x minutes useful for clean up etc.
+* API Gateway (HTTP Request): you can run the code whenever a request hits the API Gateway
+There are also many other event sources.
+
+We want to focus on API Gateway. An HTTP request triggers our code next and this code is stored in Lambda and is written in Node.JS, Python, Java or C# (C Sharp). And when the code gets executed you can do any calculation interacting with other AWS services, like store/fetch data, send mails and at the end you will return a response or execute the callback and indicate that this function is done.
+
+![AWS Lambda](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-lambda.png)
+
+**Note:** In conjunction with API Gateway, where we have different resources and methods (get, post, delete), we can trigger different Lambda functions. 
+
+### There are three arguments in the function:
+* event: simply receives the event data and it depend on the event source what this will be. In the case of API Gateway this is configured by us, we can define which data we want to pass to Lambda.
+* context: gives the information about the execution context, like the time it started, remaining time etc.
+* callback: is a function itself that we do execute, which takes two arguments:
+    + the first one is the error argument if it's null the function succeeded
+    + the second is the data we want to pass back (if there will be an error the second argument will be omitted)
+
+```js
+exports.handler = (event, context, callback) => {
+    // TODO
+    callback(null, 'success');
+};
+```
+
+
+
+
 
 
 
