@@ -71,41 +71,50 @@ The preflight request gets a responce from the endpoint with the following respo
 
 **Note:** Use Lambda Proxy Integration: Will take the request and paste all the metadata as an object into the Lambda function. That also means in the Lambda function you have to extract what you need and in the end you have to send back the response from Lambda, you won't have using the native tools that API gateway gives you like the integration respose/request. If you check this, you won't be able to use that, it's like a workaround or a way to make all the logic inside the lambda.  
 
-## What is AWS Lambda
+## Integration Request
 
-Lambda is a sevice which allows you to host your code on it and run it upon certain events. 
+We can change the data that reaches Lambda. We do this under Integration Request and under Body mapping, where we can change the behavior. But we also can change it by activating the Lambda Proxy Integration in order to forward the complete request object with all the metadata to the Lambda function. 
 
-We have different event sources:
-* S3 (e.g. file gets uploaded): a file upload could trigger a Lambda function that it can transform it e.g. resize, analyse
-* Cloudwatch (scheduled): basically like a cronjob trigger a new Lambda execution every x minutes useful for clean up etc.
-* API Gateway (HTTP Request): you can run the code whenever a request hits the API Gateway
-There are also many other event sources.
+## Body Mapping Templates
 
-We want to focus on API Gateway. An HTTP request triggers our code next and this code is stored in Lambda and is written in Node.JS, Python, Java or C# (C Sharp). And when the code gets executed you can do any calculation interacting with other AWS services, like store/fetch data, send mails and at the end you will return a response or execute the callback and indicate that this function is done.
+If we want only wit the data that the Lambda needs, we need to pass only the data it needs and body mapping templates are helping to do so.
 
-![AWS Lambda](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-lambda.png)
-
-**Note:** In conjunction with API Gateway, where we have different resources and methods (get, post, delete), we can trigger different Lambda functions. 
-
-### There are three arguments in the function:
-* event: simply receives the event data and it depend on the event source what this will be. In the case of API Gateway this is configured by us, we can define which data we want to pass to Lambda.
-* context: gives the information about the execution context, like the time it started, remaining time etc.
-* callback: is a function itself that we do execute, which takes two arguments:
-    + the first one is the error argument if it's null the function succeeded
-    + the second is the data we want to pass back (if there will be an error the second argument will be omitted)
-
+**Lambda function**
 ```js
-exports.handler = (event, context, callback) => {
-    // TODO
-    callback(null, 'success');
+exports.handler = function(event, context, callback) {
+    const age = event.personDate.age * 2;
+    callback(null, age); // 68 is the API response
 };
+
 ```
 
+**Body request**
+```
+{
+    "personData": {
+        "name": "Dimitri",
+        "age": 34
+    }
+}
+```
 
+If we want to work only with the data we need and don't want to retrieve the data `event.personData.age` we can use body mapping templates. In case of request the data we pass into the lambda and in case of response the data that we send back from Lambda. In order to do so we are under the method we are clicking on "When there are no templates defined". 
 
+1. We need to add a template and we need to name it "application/json". It means that incoming request with "Content-Type" application/json will be handled by this template. If we do so the body will be not forwarded by default anymore, but this teample will be used.
 
+2. In order to create the templates we need to use the templating language from AWS. You can learn more about how to create such template [here](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html). If you want to see an example, simply click on **Method Request passthrough** in the body mapping template section. 
 
+```js
+{
+"body-json" : $input.json('$'),
+}
 
+```
+We leave only this stuff in the template, since it will extract data from the request body. We can also extract only specific data to pass to the lambda function. If we 
 
+```js
+{
+"age" : $input.json('$.personData.age'),
+}
 
-
+```
