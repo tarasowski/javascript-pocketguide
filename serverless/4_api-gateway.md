@@ -110,11 +110,55 @@ If we want to work only with the data we need and don't want to retrieve the dat
 }
 
 ```
-We leave only this stuff in the template, since it will extract data from the request body. We can also extract only specific data to pass to the lambda function. If we 
+We leave only this stuff in the template, since it will extract data from the request body. We can also extract only specific data to pass to the lambda function.
 
 ```js
 {
-"age" : $input.json('$.personData.age'),
+"age" : $input.json('$.personData.age'), // we assign the value to the "age" property
 }
 
 ```
+By creating a body mapping template as above the event parameter will only return the specific property.
+
+`$input`refers to the request data (e.g. params, body etc.)
+`.json()` we extract some data or some JSON from the `$input`
+`$` refers to a request body to everything in it, on that we can simply use dot notation or array notation
+
+Body mapping templates help us to restructure the input data and mapping a complex data to an easier one. And by doing so we have a clear separation between the API Gateway where we receive our request and work with and Lambda when we expect to get data in certain structure and do something with it. [Link:](http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#input-variable-reference) 
+
+json()  is a method on $input  which will retrieve a JSON representation of the data you access. $  here stands for the request body as a whole, $.person.name  therefore accesses the name property on the person property which is part of the whole requests body object.
+
+The $input.json(...)  code is wrapped into quotation marks (" ) because it should be transformed into a string in this example (since both name and id are strings). If you were to access a number, boolean or object here, you would NOT wrap the expression in quotation marks.
+
+Also in the integration response we can use body template mapping too.
+
+If we want to use body mapping template for the integrated response, we can do the following:
+
+```js
+{
+    "your-age": $input.json('$')
+}
+```
+
+`$input` is the callback info sent back by Lambda, `json('$')` then gives us the data passed with the callback.
+
+**Request body**
+```js
+{
+    "personData": {
+        "name": "Dimitri",
+        "age": 34
+    }
+}
+```
+**Response**
+```js
+{
+  "your-age": 34
+}
+
+```
+
+## Query Parameters
+
+Query parameters is a powerfull tool to have flexible APIs. For instance if someone wants to make a get request to get some variable data, which can't be hardcoded, that could be also the user id. 
