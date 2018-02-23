@@ -188,6 +188,45 @@ So why we are doing it? Because the code is not running all the time. In general
    */
  });
 ```
+Note: We need to have a `Item` & `Table` properties under all conditions. We need to tell Amazon where to add something und under which conditions. `Item` is a javascript object, now when we can define this item:
 
+```js
+const params = {
+    Item: {
+        "UserId": { // this is an object, we are passing objects
+            S: "1234569605956956" // we assign a data type it can be N (number), S (string), Map (object) etc.
+        },
+        "Age": {
+            N: "34" // we need to use here the double quotes since we are always passing everything as a string
+        },
+        "Height": {
+            N: "176"
+        },
+        "Income": {
+            N: "20000"
+        }
+    },
+    Table: "compare-yourself"
+};
+```
+You need to keep in mind these structure if you work with the DynamoDB
 
+## Defining execution roles
 
+You can manage the roles under [IAM](https://console.aws.amazon.com/iam/home?region=eu-central-1#/home). Under roles you can find the roles that were created and now are used for the Lambda functions to access different services. In order to extend the roles we can click on attach new policy and search for the predefined roles. 
+
+**Note:** `$inputRoot` holds the full request body in the body mapping templates. 
+
+**Note:** If we are trying to write some data into DynamoDB we need to pass strings and not numbers, even if these are numbers. 
+
+```js
+#set($inputRoot = $input.path('$'))
+{
+    "age": "$inputRoot.age", // to string always
+    "height": "$inputRoot.height", // to string always
+    "income": "$inputRoot.income" // to string always
+}
+```
+**Note:** Each function should have different roles according to the task it does. If you have a function that only `get` the data you need to give only the permisson for that. For a function that does `post` a data you need to create a special role for that function that only does write to DB. etc. The principle of leat privilige is to grant only needed access and not more.
+
+**Note:** every role needs to get this policy `AWSLambdaBasicExecutionRole` by doing so the Lambda function will get access to write logs to CloudWatch.
