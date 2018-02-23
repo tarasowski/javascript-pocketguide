@@ -32,5 +32,162 @@ If you want to use a combination of primary key (user id + timestamp) and an att
 
 ![DynamoDb](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-dynamodb-keys.png)
 
+## NoSQL vs. SQL
+
+We need to understand when to use NoSQL and when to use SQL databases:
+
+* NoSQL: 
+    + No relations
+    + High Flexibility (No/Weak Schemas: you can store whatever data you want in the same table)
+    + Data repetition
+    + No data integrity checks unlike in a relatiotional database 
+    + Easy scalable there are no servers to be managed it's all stored on a fleet of solid state drives
+
+* SQL:
+    + Relations: we have relations there it's not disadvantage
+    + Limited flexibility (Strong Schemas) each table has strongly defined schemas, each entry we add has to match the schema
+    + No data repetition
+    + Strong integrity checks
+    + Harder to scale because we have limited flexibility and we have to manage the servers on own (e.g. clustering)
+        - That's why AWS has no comporable service for SQL, there is no fully managed/rescale service
+
+## AWS DynamoDB + AWS Lambda
+
+DynamoDB can be an event source (trigger AWS Lambda) because you can configure Lambda to changes in DynamoDB table, if you add a new element you can trigger a function in Lambda. But you can also access DynamoDB as your data repository and store or retrieve a data from a Lambda function. 
+
+What's "Provisioned Throughput" or "Read and Write Capacity" all about? It defines how many read or write actions you may perform per action. [more](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ProvisionedThroughput.html)
+
+How do you access DynamoDB actions via Lambda? That's correct, you'll have to create a new instance of the DynamoDB object and can then start using it.
+
+What's the difference between `scan()` and `getItem()`? `getItem()` returns one item, `scan()` returns multiple items.
+
+## Provisioned Capacity?
+
+You provision (bereitstellen) certain read/write capacity. You tell AWS how often do yu plan read/write data per second. The calculation is not about only reading/writing but also about the size we are talking about kb/s (size limit 400kb per item). 5/5 is within the free tier even though it shows you costs. 
+
+## UI walkthrough
+
+* Time to live attribute: difines how long the data should lieve and when it should be deleted. 
+* Items: allows us to view and create items in the table
+* Metrics: here you can see your throttled read/write requests. !!!Important: if you exceed your read/write request you are not going to pay more it just fails.
+* Alarms: when you read the limits to get an email or sms
+* Capacity: allows to change the capacity
+* Indexes: add new global/secondary indexes
+* Access control: who can access the data in this table
+
+Programmaticaly: creating items from the Lambda function to the database or make it from the AWS Interface from their GUI just by doing it manually
+
+## Multiple DynamoDB Databases?
+
+We can only create tables? And this is exactly how DynamoDB works. For your whole account you will only have one database per region. We can also switch the region to get a new database. But if you stay within one region you will only have one database and couple of tables, which are by nature are not related to each other but there is no way of separating them into different databases. 
+
+## How to access DynamoDB from a Lambda Function?
+
+The good thing AWS gives us an SDK to do so not from the GUI but programatically from the IDE/function. [Node.js SDK](https://aws.amazon.com/sdk-for-node-js/)
+
+First of all you need to install it, but in this example we are choosing another way to work with it. When using it from Lambda you don't need to install it, you only need to install it on your machine if you plan on using it on your machine. But code is going to run on Lambda and not on our machine. On Lambda the full SDK is provided in each function by default. You can simply access AWS SDK in any of your Lambda function, no matter which language you are using. The configuration part also doesn't apply because we are using it in Lambda, we still need to do something about the permissions. 
+
+For us is the Run part is the important one.
+
+```js
+var AWS = require('aws-sdk');
+
+var s3 = new AWS.S3();
+
+// Bucket names must be unique across all S3 users
+
+var myBucket = 'my.unique.bucket.name';
+
+var myKey = 'myBucketKey';
+
+s3.createBucket({Bucket: myBucket}, function(err, data) {
+
+if (err) {
+
+   console.log(err);
+
+   } else {
+
+     params = {Bucket: myBucket, Key: myKey, Body: 'Hello!'};
+
+     s3.putObject(params, function(err, data) {
+
+         if (err) {
+
+             console.log(err)
+
+         } else {
+
+             console.log("Successfully uploaded data to myBucket/myKey");
+
+         }
+
+      });
+
+   }
+
+});
+```
+
+First of all we need to import the module `aws-sdk` and then we need to instanciate a new object for each AWS service to then access a couple of methods to use on these services. How do you know which methods and services we can use. Check out the API documentation [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/index.html)
+
+For DynamoDB you can find [here](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html) the information how to put items, how to change items etc. all the methods needed to manipulate the data. 
+
+```js
+const AWS = require('aws-sdk'); // import the AWS object with the methods
+const dynamodb = new AWS.DynamoDB(); // create new dynamodb object by invoking the DynamoDB() constructor
+```
+**Note:** We can pass settings into our constructor `const dynamodb = new AWS.DynamoDB({region: 'eu-central-1', apiVersion: '2012-08-10')});` in this case it's needed so the DynamoDB looks into the right region. The SDK documentation shows more options we can pass into the constructor as an object. [Read more here](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#constructor-property)
+
+**Note:** Why we have added the the code above outside of the handler function. It has something to do with the way Lambda is executed.
+
+```js
+// outside
+const AWS = require('aws-sdk');
+const dynamodb = new AWS.DynamoDB({region: 'eu-central-1', apiVersion: '2012-08-10')});
+
+// inside
+exports.handler = function(event, context, callback) {
+    const calc = event.income * 5;
+    callback(null, calc);
+};
+```
+
+So why we are doing it? Because the code is not running all the time. In general when the trigger occurs. AWS quickly spins up service environment some wrapper containing the Lambda function. When the function finishes it keep the wrapper alive for couple of minutes and therefore if the function executes couple of times in a short time spent it will reuse that wrapper. Now we are taking advate out of it. If the wrapper is being started it will execute everything in this file not just the function handler. If the wrapper is still up it will no re-execute the part outside of the handler and that of course gives us a little performance edge, if we put the code that doesn't need executed on the triggering event outside of that handler.
+
+## How to add a new item to the DynamoDB?
+
+```js
+/* This example adds a new item to the Music table. */
+
+ var params = {
+  Item: {
+   "AlbumTitle": {
+     S: "Somewhat Famous"
+    }, 
+   "Artist": {
+     S: "No One You Know"
+    }, 
+   "SongTitle": {
+     S: "Call Me Today"
+    }
+  }, 
+  ReturnConsumedCapacity: "TOTAL", 
+  TableName: "Music"
+ };
+ dynamodb.putItem(params, function(err, data) {
+   if (err) console.log(err, err.stack); // an error occurred
+   else     console.log(data);           // successful response
+   /*
+   data = {
+    ConsumedCapacity: {
+     CapacityUnits: 1, 
+     TableName: "Music"
+    }
+   }
+   */
+ });
+```
+
 
 
