@@ -21,3 +21,13 @@ Also it will return an ID of the user
 ```js
 Return Principal ID (User Id)
 ```
+
+**Note:** For custom authorization we can use jwt token as a service.
+
+## Cognito Adding Authentication
+
+AWS gives us a working service to sign users up, reset passwords, authenticate users, generate the tokens and the whole verificitaton process. It can be integrated with other providers Google, Facebook, Linkedin. For instance we have an application and Cognito defines how to authenticate users and issues authentication tokens that are stored on user devices.
+
+**Note:** Cognito also can issue temporary AIM credentials so you can access depending on certain roles.
+
+[Cognito](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-cognito.png)
