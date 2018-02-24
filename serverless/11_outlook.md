@@ -86,6 +86,8 @@ CloudWatch at http://localhost:4582
 SSM at http://localhost:4583
 
 Another framework that offers a lighter version is [Serverless Offline](https://github.com/dherault/serverless-offline)
+For DynamoDb [Serverless Offline](https://github.com/99xt/serverless-dynamodb-local/tree/v1)
+Read the article about testing AWS locally [here](https://medium.com/a-man-with-no-server/running-aws-lambda-and-api-gateway-locally-serverless-offline-3c64b3e54772)
 
 ## Other Services
 
