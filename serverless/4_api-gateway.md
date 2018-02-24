@@ -161,4 +161,4 @@ If we want to use body mapping template for the integrated response, we can do t
 
 ## Query Parameters
 
-Query parameters is a powerfull tool to have flexible APIs. For instance if someone wants to make a get request to get some variable data, which can't be hardcoded, that could be also the user id. 
+Query parameters is a powerfull tool to have flexible APIs. For instance if someone wants to make a get request to get some variable data, which can't be hardcoded, that could be also the user id. But we can also use it for all different kind of scenarios such as user auth etc.
