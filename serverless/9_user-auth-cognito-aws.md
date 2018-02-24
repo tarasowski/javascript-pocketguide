@@ -30,4 +30,4 @@ AWS gives us a working service to sign users up, reset passwords, authenticate u
 
 **Note:** Cognito also can issue temporary AIM credentials so you can access depending on certain roles.
 
-[Cognito](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-cognito.png)
+![Cognito](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-cognito.png)
