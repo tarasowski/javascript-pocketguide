@@ -18,3 +18,58 @@ We can use node.js, python etc. when using Lambda it gives us the possibility to
 
 The API Gateway in AWS let's us create API endpoints (not programatically) like in node/express where we need to define the routes and endpoints. We can create an API simply from the web browser inside AWS console.
 
+## What is Serverless?
+
+Related to the trend of functions as a service which provide code execution in massive and scalable way. Amazon manages the servers that are waiting to execute the code on demand. You only get charged only for the time the functions are executed. Lambda functions are usually stateless (there are cases where it can be statefull). Lambda executes code on demand, you don't know how, you don't know where it just does the job for you, you don't need to think about servers, capacity, idling, scaling groups etc. because it's all abstracted away. This is why Lambda will be the next level of cloud computing.
+
+But serverless is not about Lambda or any specific technology we can use. Serverless is an approach how we can build applications (serverless = compute + patterns). It's a set of architectural principles, which can be distilled down to compute and patterns. There are serverless compute technologies like Lambda and there are serverless architecture patterns, these are pattern for crafting systems without traditional backend service. The real power of serverless comes from integration with other services to orchestrate rich and event driven pipelines and thi is referred as a servicefull approach. 
+
+**Servicefull appraoch:** Where cloud services are heavily leveraged and serverless compute technologies are used as kind of a last mile to just wave these custom components together and third party services.
+
+## A Brief History of Cloud Computing
+
+1. Data centers: managing physical hardware
+2. Infrastructure as a service (EC2): manage programatically from the command line but still needs to be managed
+3. PAAS (plattform as a service): like Heroku takes out the configuration out of a system like patching etc.
+4. Serverless: Function as a unit of scale, you just define the single function that needs to be run. They are stateless, minimum dependencies, solving a specific task
+
+**How do containers fit into the serverless approach?**
+
+Containers are essentially a technology, they are managed container services, but container themsselves are technolog and they enable all these cloud services and they are the underlying technologies of the serverless compute services!
+
+![History of Cloud](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/history-of-cloud.png)
+
+## 5 Principles of Serverless
+
+1. Use a compute service to execute code on demand
+2. Write single-purpose stateless functions
+3. Design push-based, event-driven pipelines
+4. Create thicker, more powerful front ends
+5. Embrace third party services
+
+## Serverless Pros/Cons
+
+**Pros:**
+
+1. It's serverless! (no servers) > no server configuration, managing etc. 
+2. Versatile > build backends for crud, back office systems, ecommerce, mobile, desktop etc.
+3. Scalable > massively scalable, can be run in parallel
+4. Manageable migration > Netflix uses it for validation of operations on file transformation
+5. Low cost > you pay only for execution
+6. Less code > reduce the complexity and infra code, less need to 
+
+**Cons:**
+
+1. Public cloud > mission critical application shouldn't be built here or compliance regulation
+2. Reliance on Service Level Agreement > no SLA @ Lambda
+3. Limited customization > your memory configuraiton and CPU can be configured, but no special e.g. node.js runtime etc.
+4. Vendor lock-in > important? AWS viability, cost, support, documentation
+5. Decentralized challenges > moving from monolitic approach to functions can introduce his own challenges
+
+## Compute as Backend (Pattern #1)
+
+Our client application talks to Lambda functions through Amazon's API Gateway. The client talks to Rest over HTTP it doesn't know if Lambda are behind or any other things. The Lambda runtime instantiates required Lambda functions for each request. The security is at the API Gateway level or at each individual function. The system can handle simultanious requests. Every Lambda function connected to the API Gateway receives a request does the required processing and returns the response to the caller through the API Gateway. Every Lambda function can invoke another service too e.g. we have Lambda function that call out firebase running in Google Cloud, it's just custom coded it doesn't need to run on another AWS service. 
+
+![Compute as Backend](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/compute-as-backend1.png)
+
+## Compute as Glue (Pattern #2)
