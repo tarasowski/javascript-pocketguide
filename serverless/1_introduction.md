@@ -73,3 +73,17 @@ Our client application talks to Lambda functions through Amazon's API Gateway. T
 ![Compute as Backend](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/compute-as-backend1.png)
 
 ## Compute as Glue (Pattern #2)
+
+Here Lambda is used basically as glue between different services in the cloud. In this example we have some storage represented by S3 bucket, a relational database, search service an email sending service and push notification service that integrates with Lambda. An event happens in the S3 bucket such as a new file being created, which then propagates through a system, everything is push based and event-driven. 
+
+![Compute As Glue](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/compute-as-glue.png)
+
+There are some other patterns being used in the community are:
+
+* Command Pattern
+* Messaging Pattern
+* Priority Queue Pattern
+* Fan-out Pattern
+* Pipes and filters pattern
+
+You can find all the patterns [here](https://www.manning.com/books/serverless-architectures-on-aws)
