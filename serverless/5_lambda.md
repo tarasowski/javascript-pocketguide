@@ -119,3 +119,71 @@ Also a Lambda function can be executed synchronously or asynchronously. You choo
 3. DryRun - Test that the invocation is permitted for the caller, but don't execute the function. 
 
 **Note:** Each event source dictates how your function should be invoked. The event source is also responsible for crafting its own event parameter. The full list of the event sources and their definition you can find [here](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html) Also you can find here a better visualization of the event sources and the attributes [click here](https://d1.awsstatic.com/whitepapers/serverless-architectures-with-aws-lambda.pdf)
+
+## Lambda Function Configuration
+
+Besides the code there are also some options for function configuration with Lambda.
+
+## Versions and Aliases
+
+There are times when you need to revert the code to the previous version it was deployed. Lambda lets you version your Lamba functions. Each Lambda function has a default version built in: $LATEST. You can address the most recent code that has been uploaded to your Lambda function through the $LATEST version. You can take a snapshot of the code that's currently referred to by $LATEST and create a numbered version through the PublishVersion API.
+
+You can invoke each version of your Lambda function indepenently, at any time. Each version has it's own ARN (Amazon Resource Name), referenced like this:
+
+```
+arn:aws:lambda:[region]:[account]:function:[fn_name]:[version]
+```
+
+When calling the Invoke API or creating an event source for your Lambda function, you can also specify a specific version of the Lambda function to be executed. 
+
+**Note:** It's important to know that a Lambda function container is specific to a particular version of your function. So, for example if there are already several function containers deployed and available in the runtime environment for version 5 of the function, version 6 of the same function will not be able to execute on top of existing version 5 containers - a different set of containers will be installed and managed for each function version.
+
+Invoking functions by the version name can be useful during testing and operational activities. However it's not recommended to this, instead Lambda aliases should be used here. A function alias allows you to invoke and point event sources to a specific Lambda function version. 
+
+However, you can update what version that alias refers to at any time. For example, your event sources and clients that are invoking version number 5 through the alias live may cut over to version number 6 of your function as soon as you update the live alias to instead point at version number 6. Each alias can be referred to within the ARN, similar to when referring to a function version number:
+
+```
+arn:aws:lambda:[region]:[account]:function:[fn_name]:[alias]
+```
+**Here are some example suggestions for Lambda aliases and how you might use them:**
+
+* live/prod/active – This could represent the Lambda function version that your production triggers or that clients are integrating with.
+* blue/green – Enable the blue/green deployment pattern through use of aliases.
+* debug – If you’ve created a testing stack to debug your applications, it can integrate with an alias like this when you need to perform a deeper analysis.
+
+Here is a youtube video that shows versioning Lambda in action [Youtube](https://www.youtube.com/watch?v=RL_GaxRpniQ)
+
+**Note:** Once a version is published it's immutable, you cannot change the content of the version. If you want to change something you need to go back to the $LATEST version. If we want to define which Lambda version is active and which is not, we can go back to the API Gatway and and append the version of the function `Lambda_Function_Name:1` it will use the vesion 1 of the Lambda for e.g. /get/ request. By doing so we want use the latest version of the Lambda, we'll use the version 1 for production.
+
+## How to work with different environments?
+
+1. You just create a new version of the new Lambda function.
+2. You need to go back to the API Gateway and change Lambda function to the version you have specified `Lambda_Function_Name:2` on the /get/ request. 
+3. Instead of deploying to prod stage in the API Gateway we deploy it to the dev stage (the url is going to be different)
+4. After testing the function and everything is working you can simply go to the Deployment History Tab and deploy under prod the test version that has been tested.
+
+## Canary Testing
+
+In software testing, a canary is a push of programming code changes to a small group of end users who are unaware that they are receiving new code. Because the canary is only distributed to a small number of users, its impact is relatively small and changes can be reversed quickly should the new code prove to be buggy. Canary tests, which are often automated, are run after testing in a sandbox environment has been completed. [Source](http://whatis.techtarget.com/definition/canary-canary-testing)
+
+Under /prod/ stage we can go to the Canary tab in the API Gateway GUI and start testing the version.
+
+## IAM Role
+
+AWS Identity and Access Management (IAM) provides the capability to create IAM policies that define permissions for interacting with AWS services and APIs.
+
+IAM Role = AWS Resource (like a user)
+Policy = a set of rules that can be attached to the roles
+
+In context of Lambda, you assign an IAM role (called an execution role) to each of your Lambda functions.The IAM policies attached to that role define what AWS service APIs your function code is authorized to interact with. 
+
+**Note:** It’s important to assign each of your Lambda functions a specific, separate, and least-privilege IAM role. This strategy ensures that each Lambda function can evolve independently without increasing the authorization scope of any other Lambda functions.
+
+## Environment Variables
+
+Software Development Life Cycle (SDLC) best practice dictates that developers separate their code and their config. You can achieve this by using environment variables with Lambda. Environment variables for Lambda functions enable you to dynamically pass data to your function code and libraries without making changes to your code.
+
+Each version of your Lambda function can have its own environment variable values. However, once the values are established for a numbered Lambda function environment variables, you can change them to the $LATEST version and then publish a new version that contains the new environment variable values. This enables you to always keep track of which environment variable values are associated with a previous version of your function. 
+
+**Note:** Each Lambda version has it's own environment variables once they are assigned they cannot be changed if the new version has been published.
+
