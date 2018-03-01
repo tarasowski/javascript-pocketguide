@@ -14,6 +14,21 @@ When we use serverless apps, we don't manage all these servers, instead we use A
 
 We can use node.js, python etc. when using Lambda it gives us the possibility to use serverless APIs. But there is a still limited support for the fullstack apps. Right now there is support for node.js/express and is tricky to setup. 
 
+* No server management – You don’t have to provision or maintain any servers. There is no software or runtime to install, maintain, or administer.
+* Flexible scaling – You can scale your application automatically or by adjusting its capacity through toggling the units of consumption (for example, throughput, memory) rather than units of individual servers.
+* High availability – Serverless applications have built-in availability and fault tolerance. You don't need to architect for these capabilities because the services running the application provide them by default.
+* No idle capacity – You don't have to pay for idle capacity. There is no need to pre-provision or over-provision capacity for things like compute and storage. There is no charge when your code isn’t running.
+
+The AWS Cloud provides many different services that can be components of a serverless application. These include capabilities for:
+
+* Compute – AWS Lambda
+* APIs – Amazon API Gateway
+* Storage – Amazon Simple Storage Service (Amazon S3)
+* Databases –Amazon DynamoDB
+* Interprocess messaging – Amazon Simple Notification Service (Amazon
+SNS) and Amazon Simple Queue Service (Amazon SQS)
+* Orchestration – AWS Step Functions and Amazon CloudWatch Events
+
 ## API Gateway
 
 The API Gateway in AWS let's us create API endpoints (not programatically) like in node/express where we need to define the routes and endpoints. We can create an API simply from the web browser inside AWS console.
