@@ -154,7 +154,25 @@ There are a number of sample serverless architectures and instructions for recre
 
 ### Not clear, need more clarification
 
-- [ ] Business Logic outside the Handler
+- [ ] Business Logic outside the Handler: Separate the Lambda handler (entry point) from your core logic. This allows you to make a more unit-testable function. In Node.js this may look like:
+
+```js
+exports.myHandler = function(event, context, callback) {
+	var foo = event.foo;
+	var bar = event.bar;
+	var result = MyLambdaFunction (foo, bar);
+ 
+	callback(null, result);
+}
+ 
+function MyLambdaFunction (foo, bar) {
+	// MyLambdaFunction logic here
+}
+```
+
+[More Best Practices here](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+
+
 
 
 [Source](https://d1.awsstatic.com/whitepapers/serverless-architectures-with-aws-lambda.pdf)
