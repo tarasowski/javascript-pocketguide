@@ -30,7 +30,7 @@ AWS gives us a working service to sign users up, reset passwords, authenticate u
 
 **Note:** Cognito also can issue temporary AIM credentials so you can access depending on certain roles.
 
-![Cognito](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-cognito.png)
+![Cognito](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-cognito.png)
 
 ### Cognito Options
 
@@ -55,5 +55,5 @@ Also it has already built-in functionality of Multi-Factor-authentication (MFA) 
     + Access Token: can be used to send to Cognito if we want to change some attributes
     + Refersh Token: the refresh token is required to get new identity and access tokens, because they are only living 1h. It's a security measure since the tokens can be stolen, so they don't live that long. The refresh tokens gets a new token by singin us in without requiring email and password again.
 
-![Auth Flow](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-auth-flow.png)
+![Auth Flow](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-auth-flow.png)
 

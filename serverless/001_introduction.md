@@ -52,7 +52,7 @@ But serverless is not about Lambda or any specific technology we can use. Server
 
 Containers are essentially a technology, they are managed container services, but container themsselves are technolog and they enable all these cloud services and they are the underlying technologies of the serverless compute services!
 
-![History of Cloud](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/history-of-cloud.png)
+![History of Cloud](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/history-of-cloud.png)
 
 ## 5 Principles of Serverless
 
@@ -85,13 +85,13 @@ Containers are essentially a technology, they are managed container services, bu
 
 Our client application talks to Lambda functions through Amazon's API Gateway. The client talks to Rest over HTTP it doesn't know if Lambda are behind or any other things. The Lambda runtime instantiates required Lambda functions for each request. The security is at the API Gateway level or at each individual function. The system can handle simultanious requests. Every Lambda function connected to the API Gateway receives a request does the required processing and returns the response to the caller through the API Gateway. Every Lambda function can invoke another service too e.g. we have Lambda function that call out firebase running in Google Cloud, it's just custom coded it doesn't need to run on another AWS service. 
 
-![Compute as Backend](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/compute-as-backend1.png)
+![Compute as Backend](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/compute-as-backend1.png)
 
 ## Compute as Glue (Pattern #2)
 
 Here Lambda is used basically as glue between different services in the cloud. In this example we have some storage represented by S3 bucket, a relational database, search service an email sending service and push notification service that integrates with Lambda. An event happens in the S3 bucket such as a new file being created, which then propagates through a system, everything is push based and event-driven. 
 
-![Compute As Glue](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/compute-as-glue.png)
+![Compute As Glue](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/compute-as-glue.png)
 
 There are some other patterns being used in the community are:
 

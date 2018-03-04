@@ -6,7 +6,7 @@ We a web app, a mobile app or some other client that is reaching to our API (lik
 
 API Gateway is a service by AWS which makes much easier, where you don't have to write any code where you can convinietnly create API in an interface. We can create endpoints here which is a combination of resources/paths and http methods (get, post etc.). You can also implement authentication with the API Gateway. With API Gateway you can directly access other AWS services such as Lambda to trigger some action (e.g. to run Lambda function). 
 
-![Serverless API Gateway](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-api-gateway.png)
+![Serverless API Gateway](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-api-gateway.png)
 
 # API Keys
 
@@ -48,7 +48,7 @@ As soon as we hit an endpoint we go through a cycle. It depicts the flow of data
 
 4. Method response: defines the shape of our response. The shape our response should have. Here what we can do simply configure possible responses that we are sending back. We can define headers and type of data we want to send back (response body). It's not binding we cannot block the response even if there is an error or so. 
 
-![API cycle](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-api-cycle.png)
+![API cycle](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-api-cycle.png)
 
 ## How to create a new API?
 

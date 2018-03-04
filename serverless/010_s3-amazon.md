@@ -6,7 +6,7 @@ It's a file storage service and you can store all different fyles, it can be web
 
 In order to make it work as a webserer we need to grant access rights to the buckets. For the app bucket we need to give a standard access type and anonymous access control.
 
-![S3](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-s3-overview.png)
+![S3](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-s3-overview.png)
 
 **Note:** reverse company domain name for a bucket name: com.academind.compare-yourself in my case it would be io.hackers.compare-yourself!
 
@@ -16,4 +16,4 @@ In order to make it work as a webserer we need to grant access rights to the buc
 
 AWs Domain name service you can buy domains or manage your domains. 
 
-![Route53](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-route53.png)
+![Route53](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-route53.png)

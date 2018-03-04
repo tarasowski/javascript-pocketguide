@@ -30,7 +30,7 @@ If you want to use a combination of primary key (user id + timestamp) and an att
 
 **Note:** Often we'll work only with the combination of primary key and sometimes with a global secondary index. The key takeaway is that DynamoDB is very flexible and gives many options for structuring the data and then quering the data.
 
-![DynamoDb](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-dynamodb-keys.png)
+![DynamoDb](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-dynamodb-keys.png)
 
 ## NoSQL vs. SQL
 

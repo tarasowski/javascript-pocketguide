@@ -17,7 +17,7 @@ Here you can find the list of the event sources that can trigger AWS Lambda [lin
 
 We want to focus on API Gateway. An HTTP request triggers our code next and this code is stored in Lambda and is written in Node.JS, Python, Java or C# (C Sharp). And when the code gets executed you can do any calculation interacting with other AWS services, like store/fetch data, send mails and at the end you will return a response or execute the callback and indicate that this function is done.
 
-![AWS Lambda](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-lambda.png)
+![AWS Lambda](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-lambda.png)
 
 **Note:** In conjunction with API Gateway, where we have different resources and methods (get, post, delete), we can trigger different Lambda functions. 
 

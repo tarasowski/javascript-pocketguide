@@ -20,6 +20,6 @@ If you have a mobile app you don't need to host it somewhere. But if you build a
 
 * Cache: Optional step, but if we want to improve the performance, the delivery time. We can use a caching service from AWS and it's called Cloudfront.
 
-![Serverless](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/aws-core-services.png)
+![Serverless](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-core-services.png)
 
 **Note:** If you have an mobile app you only need: API, Lambda (Logic), DB, Authentication
