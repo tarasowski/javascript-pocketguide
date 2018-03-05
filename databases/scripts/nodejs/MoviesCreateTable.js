@@ -8,8 +8,8 @@ AWS.config.update({
 const dynamodb = new AWS.DynamoDB();
 
 const params = {
-    TableName: 'Movies',
-    KeySchema: [
+    TableName: 'Movies', // a new table name to create 
+    KeySchema: [ // schema that needs to be provided for storage primary key and sort key
         {AttributeName: 'year', KeyType: 'HASH'},
         {AttributeName: 'title', KeyType: 'RANGE'}
     ],

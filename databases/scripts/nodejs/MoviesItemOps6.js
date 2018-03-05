@@ -7,7 +7,7 @@ AWS.config.update({
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-const table = 'Movie';
+const table = 'Movies';
 const year = 2015;
 const title = 'The Big New Movie';
 
@@ -19,7 +19,7 @@ const params = {
     },
     ConditionExpression: 'info.rating <= :val',
     ExpressionAttributeValues: {
-        ':val': 5.0
+        ':val': 10.0
     }
 };
 
