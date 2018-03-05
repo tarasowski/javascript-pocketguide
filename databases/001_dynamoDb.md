@@ -48,3 +48,6 @@ Unable to add item. Error JSON: {
   "retryDelay": 18.113983295099644
 }
 ``` 
+### JSON
+* JSON.stringify turn a Javascript object into JSON text and stores that JSON text in a string
+* JSON.parse turns a string of JSON text into a Javascript object.
