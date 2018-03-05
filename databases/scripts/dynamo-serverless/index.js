@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
             "title": title
         }
     };
-
+// here is the solution https://github.com/awslabs/aws-sam-local/issues/102
     docClient.get(params, (err, data) => {
         if (err) {
             console.error('Unable to read item. Error JSON', JSON.stringify(err, null, 2));
