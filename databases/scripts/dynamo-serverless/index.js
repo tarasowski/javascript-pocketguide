@@ -19,8 +19,9 @@ exports.get = (event, context, callback) => {
 
     const table = process.env.TABLE_NAME_DEV;
     const name = event.pathParameters.projectName;
-    console.log('Print', name);
     
+    console.log(`Strating to get the data from the database for ${name}`);
+
     if (name === 'all') {
         const params = {
             TableName: table
@@ -41,6 +42,7 @@ exports.get = (event, context, callback) => {
                 name: name
             }
         };
+        
     // here is the solution for the Problem with Docker https://github.com/awslabs/aws-sam-local/issues/102
         docClient.get(params, (err, data) => {
             if (err) {
@@ -81,4 +83,28 @@ exports.post = (event, context, callback) => {
             callback(null, response);
         }
     })
+};
+
+exports.delete = (event, context, callback) => {
+    const table = process.env.TABLE_NAME_DEV;
+    const name = event.pathParameters.projectName;
+
+    const params = {
+        TableName: table,
+        Key: {
+            name
+        }
+    };
+
+    console.log(`Deleting ${name} form the database`);
+
+    docClient.delete(params, (err, data) => {
+        if (err) {
+            const response = generateResponse(400, err);
+            callback(response, null);
+        } else {
+            const response = generateResponse(200, data);
+            callback(null, response);
+        }
+    });
 };

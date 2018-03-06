@@ -41,3 +41,19 @@ Resources:
           Properties:
             Path: /projects/{projectName}
             Method: post
+  DeleteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.delete
+      #Policies: AmazonDynamoDBReadOnlyAccess
+      Environment:
+        Variables:
+          TABLE_NAME_DEV: Projects
+          TABLE_NAME_PROD: !Ref Table
+      Events:
+        DeleteProjects:
+          Type: Api
+          Properties:
+            Path: /projects/{projectName}
+            Method: delete
