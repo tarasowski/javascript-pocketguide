@@ -2,5 +2,5 @@
 /config/
 /node_modules/
 pocketguide.code-workspace
-/databases/scripts/nodejs/node_modules
+/databases/scripts/local-dynamo-crud/node_modules
 /databases/scripts/dynamo-serverless/node_modules

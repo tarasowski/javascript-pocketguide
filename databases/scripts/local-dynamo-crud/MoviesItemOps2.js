@@ -7,15 +7,15 @@ AWS.config.update({
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
-const table = 'Movies';
-const year = 2015;
-const title = 'The Big New Movie';
+const table = 'Projects';
+const link = 'https://api.github.com/repos/bitcoin/bitcoin';
+const timestamp = new Date();
 
 const params = {
     TableName: table,
     Key: {
-        "year": year,
-        "title": title
+        "link": year,
+        "timestamp": title
     }
 };
 

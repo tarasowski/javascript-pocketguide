@@ -8,14 +8,14 @@ AWS.config.update({
 const dynamodb = new AWS.DynamoDB();
 
 const params = {
-    TableName: 'Movies', // a new table name to create 
+    TableName: 'Projects', // a new table name to create 
     KeySchema: [ // schema that needs to be provided for storage primary key and sort key
-        {AttributeName: 'year', KeyType: 'HASH'},
-        {AttributeName: 'title', KeyType: 'RANGE'}
+        {AttributeName: 'name', KeyType: 'HASH'},
+        //{AttributeName: 'title', KeyType: 'RANGE'}
     ],
     AttributeDefinitions: [
-        {AttributeName: 'year', AttributeType: 'N'},
-        {AttributeName: 'title', AttributeType: 'S'}
+        {AttributeName: 'name', AttributeType: 'S'},
+        //{AttributeName: 'title', AttributeType: 'S'}
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 10,

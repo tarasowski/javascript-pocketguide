@@ -6,31 +6,79 @@ AWS.config.update({
     endpoint: 'http://172.16.123.1:8000'
 })
 
-const docClient = new AWS.DynamoDB.DocumentClient()
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-exports.handler = (event, context, callback) => {
+const generateResponse = (status, data) => {
+    return {
+        statusCode: status,
+        body: JSON.stringify(data, null, 2)
+    }
+}
 
-    const table = 'Movies';
-    const year = 2015;
-    const title = 'The Big New Movie';
+exports.get = (event, context, callback) => {
+
+    const table = process.env.TABLE_NAME_DEV;
+    const name = event.pathParameters.projectName;
+    console.log('Print', name);
     
-    const params = {
-        TableName: table,
-        Key: {
-            "year": year,
-            "title": title
+    if (name === 'all') {
+        const params = {
+            TableName: table
         }
-    };
-// here is the solution https://github.com/awslabs/aws-sam-local/issues/102
-    docClient.get(params, (err, data) => {
-        if (err) {
-            console.error('Unable to read item. Error JSON', JSON.stringify(err, null, 2));
-        } else {
-            callback(null, {
-                statusCode: 200,
-                body: JSON.stringify(data)
-            })
-        }
-    });
+        docClient.scan(params, (err, data) => {
+            if (err) {
+                const response = generateResponse(400, err);
+                callback(response, null);
+            } else {
+                const response = generateResponse(200, data);
+                callback(null, response);
+            }
+        })
+    } else {
+        const params = {
+            TableName: table,
+            Key: {
+                name: name
+            }
+        };
+    // here is the solution for the Problem with Docker https://github.com/awslabs/aws-sam-local/issues/102
+        docClient.get(params, (err, data) => {
+            if (err) {
+                const response = generateResponse(400, err);
+                callback(response, null);
+            } else {
+                const response = generateResponse(200, data);
+                callback(null, response);
+            }
+        });
+    }
+
+   
 
 }
+
+exports.post = (event, context, callback) => {
+    const table = process.env.TABLE_NAME_DEV;
+    const name = event.pathParameters.projectName;
+    const payload = event.body;
+    console.log(JSON.parse(payload).link);
+    const params = {
+        TableName: table,
+        Item: {
+            name: name,
+            link: JSON.parse(payload).link,
+            timestamp: new Date().toISOString()
+        }
+    };
+    console.log(`Adding a new item: ${name}`);
+
+    docClient.put(params, (err, data) => {
+        if (err) {
+            const response = generateResponse(400, err);
+            callback(response, null);
+        } else {
+            const response = generateResponse(200, data);
+            callback(null, response);
+        }
+    })
+};
