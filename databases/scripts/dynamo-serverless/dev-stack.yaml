@@ -2,12 +2,14 @@
 # aws cloudformation package --template-file app_spec.yml --output-template-file new_app_spec.yml --s3-bucket <your-bucket-name>
 # To deploy to cloudformation use this command:
 # aws cloudformation deploy --template-file new_app_spec.yml --stack-name <your-stack-name> --capabilities CAPABILITY_IAM
+# Use different template files for different environments such as dev, test, prod sam local start-api --template api-template.yaml
 
 AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Description: |
   An example RESTful service
+
 Resources:
   GetFunction:
     Type: AWS::Serverless::Function

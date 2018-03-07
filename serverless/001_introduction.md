@@ -102,3 +102,20 @@ There are some other patterns being used in the community are:
 * Pipes and filters pattern
 
 You can find all the patterns [here](https://www.manning.com/books/serverless-architectures-on-aws)
+
+![Serverless](https://cdn.thenewstack.io/media/2017/03/1d0fdcce-apidays-sidney.png)
+
+## 4 Main Principles of Serverless
+[Source](https://thenewstack.io/serverless-architecture-five-design-patterns/)
+* Simple but usable primitives (i.e. small, useable building blocks).
+* Scales with usage (servers are autoscaled on the user’s behalf).
+* Pay-only usage (customers only pay for the time using services).
+* Built-in availability and fault tolerance (i.e. NoOps).
+
+### The five serverless patterns for use cases that Bonner defined were:
+
+1. Event-driven data processing: One of the most common applications for serverless environments is to trigger actions after an event occurs.
+2. Web applications: At the same time, processing is initiated through the application’s API gateway to run Lambda functions that determine the application user’s context. 
+3. Mobile and Internet-of-Things applications: Similar to the web apps use case, mobile and IoT applications built in a serverless environment are looking to decide on what content to offer the user based on their context. Serverless authentication elements are used to ensure the user — whether that be a human or a machine — is authorized appropriately to access information or functionality. 
+4. Application ecosystems: Bonner gave an example of someone telling an Amazon Echo that they were giving a presentation, that voice data then triggering a lambda function to pass that message on to a remote team via the Slack API. Polling within the serverless environment then identifies when the team has responded and messages the Echo with the feedback.
+5. Event workflows: The recent release of AWS Step Functions is now adding greater sophistication to serverless workflow possibilities. Decision trees can be created in Step Functions that then align with Lambdas and AWS products to carry out workflow branched actions. Step Functions provides state machines so that Lambda functions can have some degree of transient state available for business processes where serverless applications may need to marry synchronous and asynchronous call chains.

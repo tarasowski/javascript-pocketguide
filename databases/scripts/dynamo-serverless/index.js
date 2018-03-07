@@ -6,6 +6,7 @@ AWS.config.update({
     endpoint: 'http://172.16.123.1:8000'
 })
 
+
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const generateResponse = (status, data) => {
@@ -16,11 +17,11 @@ const generateResponse = (status, data) => {
 }
 
 exports.get = (event, context, callback) => {
-
+    // carrying add here to make it more readable
     const table = process.env.TABLE_NAME_DEV;
     const name = event.pathParameters.projectName;
-    
     console.log(`Strating to get the data from the database for ${name}`);
+    console.log(process.env.CUSTOM_MESSAGE);
 
     if (name === 'all') {
         const params = {

@@ -1,0 +1,61 @@
+# To create a packge for deployment use this command:
+# aws cloudformation package --template-file app_spec.yml --output-template-file new_app_spec.yml --s3-bucket <your-bucket-name>
+# To deploy to cloudformation use this command:
+# aws cloudformation deploy --template-file new_app_spec.yml --stack-name <your-stack-name> --capabilities CAPABILITY_IAM
+
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: |
+  An example RESTful service
+
+Resources:
+  GetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.get
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Environment:
+        Variables:
+          TABLE_NAME_DEV: Projects
+          TABLE_NAME_PROD: !Ref Table
+          CUSTOM_MESSAGE: Bullshit
+      Events:
+        ListProjects:
+          Type: Api
+          Properties:
+            Path: /projects/{projectName}
+            Method: get
+  PostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.post
+      #Policies: AmazonDynamoDBReadOnlyAccess
+      Environment:
+        Variables:
+          TABLE_NAME_DEV: Projects
+          TABLE_NAME_PROD: !Ref Table
+      Events:
+        DeleteProjects:
+          Type: Api
+          Properties:
+            Path: /projects/{projectName}
+            Method: post
+  DeleteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.delete
+      #Policies: AmazonDynamoDBReadOnlyAccess
+      Environment:
+        Variables:
+          TABLE_NAME_DEV: Projects
+          TABLE_NAME_PROD: !Ref Table
+      Events:
+        DeleteProjects:
+          Type: Api
+          Properties:
+            Path: /projects/{projectName}
+            Method: delete
