@@ -21,7 +21,6 @@ exports.get = (event, context, callback) => {
     const table = process.env.TABLE_NAME_DEV;
     const name = event.pathParameters.projectName;
     console.log(`Strating to get the data from the database for ${name}`);
-    console.log(process.env.CUSTOM_MESSAGE);
 
     if (name === 'all') {
         const params = {
