@@ -498,3 +498,9 @@ An EC2 instance is started from an Image "ami". It's useful to make changes on t
         "UserData": "..."
     }
 ``` 
+In order to encode the content in base64 there is built-in function `"Fn::Base64": "A String"` this function encodes a string in base64. 
+
+**Note:** You can add a shell script to the Cloudformation template to create a custom bootstrap process. 
+
+![Bootstrap Shell Script](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-shell-bootstrap.png)
+
