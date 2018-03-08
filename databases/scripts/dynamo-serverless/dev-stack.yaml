@@ -20,7 +20,6 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME_DEV: Projects
-          TABLE_NAME_PROD: !Ref Table
       Events:
         ListProjects:
           Type: Api
@@ -36,7 +35,6 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME_DEV: Projects
-          TABLE_NAME_PROD: !Ref Table
       Events:
         DeleteProjects:
           Type: Api
@@ -52,7 +50,6 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME_DEV: Projects
-          TABLE_NAME_PROD: !Ref Table
       Events:
         DeleteProjects:
           Type: Api
