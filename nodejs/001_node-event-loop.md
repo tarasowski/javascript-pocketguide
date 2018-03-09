@@ -59,3 +59,5 @@ anonymous() // first in the bucket but last out
 ```
 
 `Ananymous()` is the wrapper function for that module you are using.
+
+![Error](/Users/tarasovsky-dl/Desktop/003_coding/javascript-pocketguide/nodejs/images/nodejs-call-stack-error.png)
