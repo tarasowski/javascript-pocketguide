@@ -63,6 +63,7 @@ exports.post = (event, context, callback) => {
     const table = process.env.TABLE_NAME_DEV;
     const name = event.pathParameters.projectName;
     const payload = event.body;
+    console.log('Starting to write data to database');
     console.log(JSON.parse(payload).link);
     const params = {
         TableName: table,

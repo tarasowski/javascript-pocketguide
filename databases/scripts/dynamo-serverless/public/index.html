@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Overview Projects Blockchain</title>
+<link rel="stylesheet" type="text/css" href="css/p1.css"/>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+<form>
+  <div class="form-horisontal">
+
+    <div class="container">
+      <form>
+    
+        <label for="projectname">Project Name</label>
+        <input type="text" id="projectname" name="projectname" placeholder="Your project name..">
+        <br>
+        <label for="projectlink">Link</label>
+        <input type="url" id="projectlink" name="projectlink" placeholder="Your project link..">
+        <input type="submit" value="Submit" onclick="getFullList()">
+    
+      </form>
+      <h1>Form To Fetch Data</h1>
+      <form>
+    
+        <label for="projectnameFetch">Project Name</label>
+        <input type="text" id="projectnameFetch" name="projectnameFetch" placeholder="Your project name..">
+        <button type="button" class="btn btn-default btn-danger", onclick="getProject()">Fetch</button></span>
+
+    
+      </form>
+    </div>
+  </form>  
+
+  <div id="content" style="padding-top:30px">
+    <span id="p1">Name:</span>&nbsp;&nbsp;&nbsp;<span id="p2">Link:</span>
+  </div>
+
+</div>
+</body>
+<script>
+  const getFullList = () => {
+      console.log('Starting to fetch the resource');
+      const name = document.getElementById("projectname").value;
+      const projectLink = document.getElementById("projectlink").value;
+      console.log(name);
+      console.log(projectLink);
+      fetch(`http://localhost:3000/projects/${name}`, 
+          {
+            method: 'POST', 
+            body: JSON.stringify({link: projectLink})
+          })
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('p1').innerHTML = data.Item.name;
+            document.getElementById('p2').innerHTML = data.Item.link;
+          })
+          .catch(err => console.log(err));
+  };
+
+  const getProject = () => {
+    const name = document.getElementById("projectnameFetch").value;
+    console.log(name);
+    fetch(`http://localhost:3000/projects/${name}`)
+        .then(response => { 
+          console.log(response);
+          return response.json();
+        })
+        .then(data => {
+            console.log('Starting to get results from DB');
+            document.getElementById('p1').innerHTML = data.Item.name;
+            document.getElementById('p2').innerHTML = data.Item.link;
+          })
+          .catch(err => console.log(err));
+  };
+  
+  </script>
+</html>
+

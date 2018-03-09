@@ -16,7 +16,7 @@ Resources:
     Properties:
       Runtime: nodejs6.10
       Handler: index.get
-      Policies: AmazonDynamoDBReadOnlyAccess
+      #Policies: AmazonDynamoDBReadOnlyAccess
       Environment:
         Variables:
           TABLE_NAME_DEV: Projects
