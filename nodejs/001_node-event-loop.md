@@ -187,3 +187,189 @@ promise1(data1)
     .then(data4 => console.log(data4))
     .catch(err => console.error(err));
 ``` 
+
+**Note:** Here is another example how to use both Promises and Callbacks
+
+```js
+const fs = require('fs');
+
+const readFileIntoArray = (file, cb = null) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, (error, data) => {
+            if (cb) {
+                return cb(error)
+                return reject(error)
+                }
+            
+            const lines = data.toString().trim().split('\n')
+            if (cb) return cb(lines)
+            else return resolve(lines)
+            
+        });
+    });
+};
+
+const printLines = (lines) => {
+    console.log(`there are ${lines.length} line(s)`);
+    console.log(lines);
+};
+
+const FILE_NAME = __filename
+
+readFileIntoArray(FILE_NAME)
+    .then(data => printLines(data)) // he was just writing .then(printLines) and it has worked
+    .catch(console.error);
+``` 
+
+## Node Events (Event Emitters)
+
+It's not about async it's more about modularization of the code and creating of good patterns and architecture of the code for your application. **Event Emitters or Observer Patter**
+
+1. Import require('events'): the first step is to import events. Events is a core module 
+2. Extend class Name extends...: now you need to extend it. Now you can extend the class, especially in node version 8 and higher. 
+3. Instantiate new Name(): then you would instantiate your class
+4. Add listeners .on(): you can add listeners
+5. Emit .emit(): you can emit events (aussenden)
+
+Why Event emitters? They allow you to put code in different places and to customize the behavior of particular class of particular module or make other components of your application interact with those particular modules/classes. 
+
+### Emitting Outside Event Emitter Class
+
+```js
+const events = require('events');
+class Encrypt extends events {
+    constructor(ops) {
+        super(ops)
+        this.on('start', () => {
+            console.log('Beginning A')
+        })
+        this.on('start', () => {
+            console.log('Beginning B')
+        })
+    }
+}
+
+const encrypt = new Encrypt();
+encrypt.emit('start');
+``` 
+
+Another example with Event listeners in Node
+
+```js
+const events = require('events');
+class Encrypt extends events {
+    constructor(ops) {
+        super(ops)
+        this.on('start', () => {
+            console.log('Beginning A')
+        })
+        this.on('start', () => {
+            console.log('Beginning B')
+            setTimeout(() => {
+                this.emit('finish', {msg: 'ok'}
+            
+            }, 0)
+        })
+    }
+}
+
+const encrypt = new Encrypt();
+encrypt.on('finish', (data) => {
+    console.log(`Finished with message: ${data.msg}`)
+})
+encrypt.emit('start');
+```
+In the example above the logic is flipped, now the event listener for finish is outside the class, it somewhere it could be even in different file or different program/project. Now we are emitting in a module and listening in a main program, but it can be also the reverse. That's how flexible and powerful event emitters are. 
+
+### Working with Events
+Events are about building extensible functionality and making modular code flexible. A lot of npm modules use events and events are everwhere. 
+
+* `.emit()` can be in the module and `.on()` in the main program which consumes the module 
+* `on()` can be in the module and `.emit()` in the main program, and in constructor or in instance
+* pass the data with `.emit()` and that data will end up for the callback for the function `.on()` 
+* error is a special event (if listen to it then no crashes): if you setup `.on(error)` the program the node code would not crush the entire app, it will just execute the code and then you want to exit the code by yourself (process.exit())* `on()` execution happen in the order in which they are defined (prependListener (put the event in the beginning) or removeListener (will remove an existing listnere))  
+
+### Default Max Event Listener
+
+Default maximum listeneres is 10 (to find memory leaks), use `setMaxListeners` 
+
+```js
+const defaultMaxListeneres = 10;
+EventEmitter.prototype.setMaxListeneres = function setMaxListeners(n) {
+    if (typeof n !== 'number' || n < 0 || isNaN(n))
+    const errors = lazyErrors();
+    throw new errors.RangeError('ERR_OUT_OF_RANGE', 'n', 'a negative number', n)
+}
+    this._maxListeners = n;
+    return this;
+};
+``` 
+You shouldn't neet more than 10 on a object. If you have to many of them, if you are creating event listeners, that could lead to a memory leak. 
+
+**Note:** A memory leak is when you have those type of situations you are running out of memory becauce garbage collection cannot pick them up. Garbage collection pick them up only, pick object or references when nothing refers to them.
+
+### Promises vs. Events
+
+* Events are synchronous while Promises are typically asynchronous. Promises allow you to execute multiple function with `Promise.all([])`. They allow us to have one or multiple `.catch()`
+
+* Events is about moudlarizing and having loosly coupled architecture. The looser your architecture the better. 
+
+* Events react to same event from multiple places, Promise just from one call. 
+
+### .nextTick() in class
+
+It helps to emit events later such as in a class constructor
+
+```js
+class Encrypt extends events {
+    constructor() {
+        process.nextTick(() => { // otherwise, emit will happen before .on()
+            this.emit('ready', {})
+        })
+    }
+}
+const encrypt = new Encrypt();
+encrypt.on('ready', data => {});
+``` 
+In the example above if we would remove `process.nextTick()` while the class is going to instantiated the constructor will run the `this.emit('ready')`but the main thread will be still on the line `const encrypt` there will be no listner registered, therefore nothing will happen. By adding `process.nextTick()` we are pushing the listener into the queue (or making it async), by doing to it goes futher in the code and when the call stack is empty it fires the `emit('ready')` but we have already registered the event lister `ecnrypt.on()`
+
+### Async/Await
+
+* Most of the times you will consume async/await function from libraries with support. 
+* Very rare you have to create your own callback or promises - not often (Node's util.promisify - it's a node.js utility which you can use to create async/await and also promises)
+
+You need Node v8+ for both
+
+```js
+const axios = requre('axios');
+const getAzatsWebsite = async () => {
+    const response = await axios.get('http://....');
+    return response.data
+}
+
+getAzatsWebsite().then(console.log);
+``` 
+**Remember:** Async/await always returns a promise that can be accessed with the `then()` method.
+
+### util.promisify
+
+```js
+const fs = require('fs');
+const util = require('util');
+const f = async () => {
+    try {
+        const data = await util.promisify(fs.readFile)('os.js', 'utf-8')
+        console.log(data);
+    } catch (e) {
+        console.log('oops');
+        console.error(e);
+        process.exit(1);
+    }
+}
+
+fn()
+console.log('could be doing something else');
+```
+(Can be use just for Promises as well). Inside of async/await we can use try/catch > `util.promisify()` can be used to create a promise out of the function. 
+
+
