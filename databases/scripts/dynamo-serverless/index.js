@@ -1,5 +1,6 @@
 'use strict';
 const AWS = require('aws-sdk');
+const axios = require('axios');
 
 AWS.config.update({
     region: 'eu-central-1',
@@ -11,10 +12,22 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 const generateResponse = (status, data) => {
     return {
-        statusCode: status,
-        body: JSON.stringify(data, null, 2)
+        "statusCode": status,
+        "body": JSON.stringify(data)
     }
 }
+
+const createResponse = (statusCode, body) => {
+	return {
+		"statusCode": statusCode,
+		"headers": {
+			"Access-Control-Allow-Headers": "Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token",
+			"Access-Control-Allow-Methods": "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT",
+			"Access-Control-Allow-Origin": "*"
+		},
+		"body": body || ""
+	};
+};
 
 exports.get = (event, context, callback) => {
     // carrying add here to make it more readable
@@ -29,6 +42,7 @@ exports.get = (event, context, callback) => {
         docClient.scan(params, (err, data) => {
             if (err) {
                 const response = generateResponse(400, err);
+                console.error(err);
                 callback(response, null);
             } else {
                 const response = generateResponse(200, data);
@@ -39,7 +53,7 @@ exports.get = (event, context, callback) => {
         const params = {
             TableName: table,
             Key: {
-                name: name
+                name
             }
         };
         
@@ -62,28 +76,44 @@ exports.get = (event, context, callback) => {
 exports.post = (event, context, callback) => {
     const table = process.env.TABLE_NAME_DEV;
     const name = event.pathParameters.projectName;
-    const payload = event.body;
-    console.log('Starting to write data to database');
-    console.log(JSON.parse(payload).link);
-    const params = {
-        TableName: table,
-        Item: {
-            name: name,
-            link: JSON.parse(payload).link,
-            timestamp: new Date().toISOString()
-        }
-    };
-    console.log(`Adding a new item: ${name}`);
+    const link = JSON.parse(event.body).link;
+    console.log('Starting to write data to database:', link);
+    
+    axios.get(link).then(res => {
+        console.log(`The ${link} is working with a status code: ${res.status}`)
+        const params = {
+            TableName: table,
+            Item: {
+                name,
+                link,
+                timestamp: new Date().toISOString()
+            }
+        };
+        docClient.put(params, (err, data) => {
+            if (err) {
+                const response = generateResponse(400, err);
+                callback(response, null);
+            } else {
+                const response = generateResponse(200, data);
+                callback(null, {
+                    "statusCode": 200,
+                    "body": "urls is working and saved to db"
+                });
+            }
+        })
 
-    docClient.put(params, (err, data) => {
-        if (err) {
-            const response = generateResponse(400, err);
-            callback(response, null);
-        } else {
-            const response = generateResponse(200, data);
-            callback(null, response);
-        }
+
+    }, err => {
+        console.log(`The ${link} is NOT working`)
+        const response = generateResponse(400, "this url doesnt exists");
+        console.log(response);
+        callback(null, {
+            "statusCode": 400,
+            "body": "Url is not working"
+        });
     })
+    .catch(err => console.log(err));
+    
 };
 
 exports.delete = (event, context, callback) => {
@@ -101,11 +131,12 @@ exports.delete = (event, context, callback) => {
 
     docClient.delete(params, (err, data) => {
         if (err) {
-            const response = generateResponse(400, err);
+            const response = createResponse(400, err);
             callback(response, null);
         } else {
-            const response = generateResponse(200, data);
+            const response = createResponse(200, data);
             callback(null, response);
         }
     });
 };
+

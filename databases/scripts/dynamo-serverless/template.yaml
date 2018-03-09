@@ -31,6 +31,7 @@ Resources:
     Properties:
       Runtime: nodejs6.10
       Handler: index.post
+      Timeout: 10
       #Policies: AmazonDynamoDBReadOnlyAccess
       Environment:
         Variables:
@@ -56,3 +57,4 @@ Resources:
           Properties:
             Path: /projects/{projectName}
             Method: delete
+  
