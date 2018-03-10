@@ -17,17 +17,6 @@ const generateResponse = (status, data) => {
     }
 }
 
-const createResponse = (statusCode, body) => {
-	return {
-		"statusCode": statusCode,
-		"headers": {
-			"Access-Control-Allow-Headers": "Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token",
-			"Access-Control-Allow-Methods": "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT",
-			"Access-Control-Allow-Origin": "*"
-		},
-		"body": body || ""
-	};
-};
 
 exports.get = (event, context, callback) => {
     // carrying add here to make it more readable
@@ -108,8 +97,8 @@ exports.post = (event, context, callback) => {
         const response = generateResponse(400, "this url doesnt exists");
         console.log(response);
         callback(null, {
-            "statusCode": 400,
-            "body": "Url is not working"
+            "statusCode": 409,
+            "body": "Url is not working - Conflict, please re-submit the URL"
         });
     })
     .catch(err => console.log(err));
@@ -119,7 +108,6 @@ exports.post = (event, context, callback) => {
 exports.delete = (event, context, callback) => {
     const table = process.env.TABLE_NAME_DEV;
     const name = event.pathParameters.projectName;
-
     const params = {
         TableName: table,
         Key: {

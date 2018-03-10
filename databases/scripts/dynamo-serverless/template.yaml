@@ -55,6 +55,6 @@ Resources:
         DeleteProjects:
           Type: Api
           Properties:
-            Path: /projects/{projectName}
+            Path: /projects/{proxy}
             Method: delete
   
