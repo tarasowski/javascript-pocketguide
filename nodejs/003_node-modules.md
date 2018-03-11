@@ -23,7 +23,7 @@ const init = require('./modules/module-1');
 console.log(init);
 
 Module {
-  id: '/Users/tarasovsky-dl/Desktop/003_coding/javascript-pocketguide/nodejs/scripts/code/modules/module-1.js',
+  id: '/Users/myfamily-dl/Desktop/003_coding/javascript-pocketguide/nodejs/scripts/code/modules/module-1.js',
   exports: {},
   parent:
    Module {
