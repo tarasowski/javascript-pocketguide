@@ -80,6 +80,7 @@ console.log('Hello %s from %s', 'Azat', {city: 'San Francisco'}) // Hello Azat f
 console.log('Hello %s from %s', 'Azat', util.inspect({city: 'San Francisco'})) // Hello Azat from { city: 'San Francisco' }
 console.log('Hello %s from %s', 'Azat', JSON.stringify({city: 'San Francisco'})) // Hello Azat from {"city":"San Francisco"}
 ```
+**Note:** We can also use `.toString()` method to explore the content of the [Function], [object Object] etc.
 
 ## console.dir()
 
@@ -220,7 +221,10 @@ If you don't know to look at:
 * Trial and error: remove code you think is leaky
 * Modularize&refactor your code (that will help you to isolate the problems)
 
-You can use this tool to loadtest your http requests [loadtest npm](https://www.npmjs.com/package/loadtest)
+**Note:** You can use this tool to loadtest your http requests [loadtest npm](https://www.npmjs.com/package/loadtest)
+
+**Note:** You can install [heapdump npm](https://www.npmjs.com/package/heapdump) it will create heap snapshots and you can load the snapshots into the DevTool and analyse them inside Google DevTools. 
+
 
 
 
