@@ -55,3 +55,28 @@ How does the serverless deployment works:
 1. Look ahead - Write testable function code (not testable Lambda function, the code can be deployed everwhere)
 2. Separate business logic and IaaS - specific code
 3. Unit test for business logic and integration tests with other services
+
+### After Deployment
+
+1. serverless invoke --function dailyReminder --log
+    + --log: we make sure any logging information is printed to the console
+    + --function: function name specified in the serverless.yml template
+    + invoke: manually invoking the function for testing
+
+## Serverless Plugins
+
+External plugins are added per service-basis and are not usually applied globally. If you want to install a plugin, make sure you are at the service root directory and install the plugin with the help of nmp
+
+* npm install --save-dev custom-serverless-plugin: this is the command and if we want to use the plugin for development purposes we should save it as a dev dependency `--save-dev`
+* plugin configuration: the next step after the installation is the configuration of the plugin in the serverless.yml:
+    ```yml
+    # serverless.yml
+    plugins: // here we include the plug
+        - custom-serverless-plugin
+    
+    custom: // custom configuration for the plugin 
+        custom-config-category:
+            configBucket: configBucketName
+    ``` 
+
+**Note:** For better visualization you can install `tree` package, so in the terminal if you are in a folder you simply type `tree` and you'll get a `tree` visualisation shown. 
