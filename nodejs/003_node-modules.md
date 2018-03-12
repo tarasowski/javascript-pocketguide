@@ -409,4 +409,25 @@ I rule
 {}
 >
 ``` 
+**Note:** We can place our file not only in the node_modules directory we can place it anywhere we want. In order to call it we just need to provide a relative path to it `./lib/file.js` 
 
+### What is an absolute path?
+An absolute path is defined as the specifying the location of a file or directory from the root directory(/). In other words we can say absolute path is a complete path from start of actual filesystem from / directory.
+
+### What is a relative path?
+Relative path is defined as path related to the present working directory(pwd). Suppose I am located in /var/log and I want to change directory to /var/log/kernel.
+
+## Child & Parent Relationship
+
+Now we can create following folder structure and files to investigate the child/parent relationship of modules
+
+```
+learn-node
+|   index.js
+|___lib
+    |   util.js
+``` 
+
+```js
+console.log('Iam index', module); require('./lib/util.js') 
+``` 
