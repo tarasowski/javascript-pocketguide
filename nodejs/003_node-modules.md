@@ -603,4 +603,4 @@ function (require, module, __filename, __dirname) {
 
 ### The require object
 
-There is nothing special about `require?. It’s an object that acts mainly as a function that takes a module name or path and returns the `module.exports` object. We can simply override the require object with our own logic if we want to.
+There is nothing special about `require`?. It’s an object that acts mainly as a function that takes a module name or path and returns the `module.exports` object. We can simply override the require object with our own logic if we want to.
