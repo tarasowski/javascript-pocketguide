@@ -428,6 +428,133 @@ learn-node
     |   util.js
 ``` 
 
+**index.js**
 ```js
 console.log('Iam index', module); require('./lib/util.js') 
 ``` 
+
+**./lib/util.js**
+```js
+console.log('Iam util', module);
+``` 
+
+If we run $ node index.js we'll get the following output:
+
+``` 
+Iam index Module {
+  id: '.',
+  exports: {},
+  parent: null,
+  filename: '/Users/familyname/Desktop/003_coding/javascript-pocketguide/nodejs/scripts/learn-node/index.js',
+  loaded: false,
+  children: [],
+  paths:...
+
+In util Module {
+  id: '/Users/familyname/Desktop/003_coding/javascript-pocketguide/nodejs/scripts/learn-node/lib/util.js',
+  exports: {},
+  parent:
+   Module {
+     id: '.',
+     exports: {},
+     parent: null,
+     filename: '/Users/familyname/Desktop/003_coding/javascript-pocketguide/nodejs/scripts/learn-node/index.js',
+     loaded: false,
+     children: [ [Circular] ],
+     paths:
+
+``` 
+
+**Note:** The module.exports object in every module is what the require function returns when we require that module. 
+
+## Circular module dependency
+
+Let’s now try to answer the important question about circular dependency in Node: What happens when module 1 requires module 2, and module 2 requires module 1?
+
+module-1.js
+```js
+'use strict'
+console.log('Loading module 1');
+exports.a = 1;
+
+require('./module-2');
+
+exports.b = 2;
+exports.c = 3;
+
+``` 
+module-2.js
+```js
+'use strict'
+console.log('Loading module', 2);
+const Module1 = require('./module-1');
+console.log('Module 1 is partially loaded here', Module1);
+``` 
+
+Output
+``` 
+Loading module 1
+Loading module 2
+Module 1 is partially loaded here { a: 1 }
+``` 
+We required module2 before module1 was fully loaded, and since module2 required module1 while it wasn’t fully loaded, what we get from the exports object at that point are all the properties exported prior to the circular dependency. Only the a property was reported because both b and c were exported after module2 required and printed module1.
+
+Node keeps this really simple. During the loading of a module, it builds the exports object. You can require the module before it’s done loading and you’ll just get a partial exports object with whatever was defined so far.
+
+## JSON and C/C++ addons
+
+We can natively require JSON files and C++ addon files with the require function. You don’t even need to specify a file extension to do so.
+
+Requiring JSON files is useful if, for example, everything you need to manage in that file is some static configuration values, or some values that you periodically read from an external source. For example, if we had the following config.json file:
+
+```
+{
+  "host": "localhost",
+  "port": 8080
+}
+``` 
+
+We can require it directly like this:
+
+```js
+const { host, port } = require('./config');
+console.log(`Server will run at http://${host}:${port}`);
+// Server will run at http://localhost:8080
+``` 
+
+## All code you write in Node will be wrapped in functions
+
+We can use the exports object to export properties, but we cannot replace the exports object directly because it’s just a reference to module.exports
+
+```js
+exports.id = 42; // This is ok.
+exports = { id: 42 }; // This will not work.
+module.exports = { id: 42 }; // This is ok.
+``` 
+
+In a browser, when we declare a variable in a script like this:
+
+```js
+var answer = 42;
+``` 
+
+That answer variable will be globally available in all scripts after the script that defined it. **This is not the case in Node.** When we define a variable in one module, the other modules in the program will not have access to that variable. 
+
+The answer is simple. Before compiling a module, Node wraps the module code in a function, which we can inspect using the wrapper property of the module module.
+
+```
+~ $ node
+> require('module').wrapper
+[ '(function (exports, require, module, __filename, __dirname) { ',
+  '\n});' ]
+>
+``` 
+
+Node does not execute any code you write in a file directly. It executes this wrapper function which will have your code in its body. This is what keeps the top-level variables that are defined in any module scoped to that module.
+
+This wrapper function has 5 arguments: `exports, require, module, __filename, __dirname`. This is what makes them appear to look global when in fact they are specific to each module.
+
+All of these arguments get their values when Node executes the wrapper function. `exports` is defined as a reference to `module.exports` prior to that. `require` and `module` are both specific to the function to be executed, and `__filename/__dirname` variables will contain the wrapped module’s absolute filename and directory path.
+
+Moreover, since every module gets wrapped in a function, we can actually access that function’s arguments with the arguments keyword:
+
