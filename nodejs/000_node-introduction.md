@@ -117,6 +117,17 @@ If you want to get the command line arguments you can use `process.arg` to get o
 
 `process.exit()`or `process.kill()` we can finish or exit process or we can terminate another process. It's handy for scalability to launch new processes.
 
+## global === GLOBAL in NodeJS
+
+<Object> The global namespace object.
+
+In browsers, the top-level scope is the global scope. That means that in browsers if you're in the global scope var something will define a global variable. In Node.js this is different. The top-level scope is not the global scope; var something inside an Node.js module will be local to that module. [Source](https://stackoverflow.com/questions/43627622/what-is-the-global-object-in-nodejs)
+
+Each JS file is treated as a module. Node automatically wraps the code of a JS file in a self IIFE with  `exports, require, module, __filename, __dirname` as parameters to the function.
+
+Inside a Node module, `this` by design refers to module's `exports` object: 
+`console.log(this === exports); // true`
+
 
 
 
