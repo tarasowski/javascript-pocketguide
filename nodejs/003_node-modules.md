@@ -558,3 +558,49 @@ All of these arguments get their values when Node executes the wrapper function.
 
 Moreover, since every module gets wrapped in a function, we can actually access that function’s arguments with the arguments keyword:
 
+``` 
+~/learn-node $ echo "console.log(arguments)" > index.js
+~/learn-node $ node index.js
+{ '0': {},
+  '1':
+   { [Function: require]
+     resolve: [Function: resolve],
+     main:
+      Module {
+        id: '.',
+        exports: {},
+        parent: null,
+        filename: '/Users/samer/index.js',
+        loaded: false,
+        children: [],
+        paths: [Object] },
+     extensions: { ... },
+     cache: { '/Users/samer/index.js': [Object] } },
+  '2':
+   Module {
+     id: '.',
+     exports: {},
+     parent: null,
+     filename: '/Users/samer/index.js',
+     loaded: false,
+     children: [],
+     paths: [ ... ] },
+  '3': '/Users/samer/index.js',
+  '4': '/Users/samer' }
+``` 
+
+The first argument is the exports object, which starts empty. Then we have the require/module objects, both of which are instances that are associated with the index.js file that we’re executing. They are not global variables. The last 2 arguments are the file’s path and its directory path.
+
+The wrapping function’s return value is `module.exports`. Inside the wrapped function, we can use the `exports` object to change the properties of `module.exports`, but we can’t reassign exports itself because it’s just a reference.
+
+```js
+function (require, module, __filename, __dirname) {
+  let exports = module.exports;
+  // Your Code...
+  return module.exports;
+}
+``` 
+
+### The require object
+
+There is nothing special about `require?. It’s an object that acts mainly as a function that takes a module name or path and returns the `module.exports` object. We can simply override the require object with our own logic if we want to.
