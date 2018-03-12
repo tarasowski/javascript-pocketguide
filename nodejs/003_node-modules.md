@@ -381,3 +381,32 @@ npm repo express // will open up repo of express
 npm docs express // will open up a documentation page of express
 ``` 
 
+---
+## Requiring modules in Node.js: Everything you need to know
+
+[Source](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8)
+
+In REPL type $ node && module
+```repl
+> module
+Module {
+  id: '<repl>',
+  exports: {},
+  parent: undefined,
+  filename: null,
+  loaded: false,
+  children: [],
+  paths: [ ... ] }
+``` 
+Each module has it's own path, under path Node is going to do search for our module if we want to load it. We can require files to load `file.js` but also we can require folders to load `require('folder')` In the same folder there needs to be e.g. `index.js` that is going to be loaded. The `index.js` will be used by default but we can set another file to load inside the `package.json` 
+
+```repl
+~/learn-node $ echo "console.log('I rule');" > node_modules/find-me/start.js
+~/learn-node $ echo '{ "name": "find-me-folder", "main": "start.js" }' > node_modules/find-me/package.json
+~/learn-node $ node
+> require('find-me');
+I rule
+{}
+>
+``` 
+
