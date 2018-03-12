@@ -1,0 +1,65 @@
+# To create a packge for deployment use this command:
+# aws cloudformation package --template-file app_spec.yml --output-template-file new_app_spec.yml --s3-bucket <your-bucket-name>
+# To deploy to cloudformation use this command:
+# aws cloudformation deploy --template-file new_app_spec.yml --stack-name <your-stack-name> --capabilities CAPABILITY_IAM
+# Use different template files for different environments such as dev, test, prod sam local start-api --template api-template.yaml
+
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: |
+  A personal blockchain monitoring project based on github
+
+Resources:
+  GetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.get
+      CodeUri: ./package.zip
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        ListProjects:
+          Type: Api
+          Properties:
+            Path: /projects/{blockchian}
+            Method: get
+  PostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.post
+      CodeUri: ./package.zip
+      Timeout: 10
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        DeleteProjects:
+          Type: Api
+          Properties:
+            Path: /projects/{blockchian}
+            Method: post
+  DeleteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.delete
+      CodeUri: ./package.zip
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        DeleteProjects:
+          Type: Api
+          Properties:
+            Path: /projects/{blockchian}
+            Method: delete
+  Table:
+    Type: AWS::Serverless::SimpleTable
+  

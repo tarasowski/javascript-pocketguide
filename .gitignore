@@ -4,3 +4,4 @@
 pocketguide.code-workspace
 /databases/scripts/local-dynamo-crud/node_modules
 /databases/scripts/dynamo-serverless/node_modules
+/databases/scripts/dynamo-serverless/deployment/node_modules
