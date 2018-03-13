@@ -87,7 +87,7 @@ functions:
     events:
       - schedule: rate(10 minutes)
     environment:
-      TWITTER_ACCESS_TOKEN: ${ssm:batmanToken}
+      TWITTER_ACCESS_TOKEN: ${ssm:batmanToken~true} # true means it is decrypted
 ```
 You can find more information [here](https://serverless.com/blog/serverless-secrets-api-keys/)
 
