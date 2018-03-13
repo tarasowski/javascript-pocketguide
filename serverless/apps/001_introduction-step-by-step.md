@@ -37,7 +37,9 @@ function:
 
 ## Deployment Options
 
+
 * serverless create --template aws-nodej: to create a boilerplate for serverless
+* serverless deploy --stage <stagename>: you can specify any stage name you want for deployment, but it needs to be referenced in the yaml template which stage is the default one and which is from the console.
 * serverless deploy (we can run this command): this command will deploy or update the entire application. You need to run this specific command if you first time deploy your service. 
 * serlverless deploy function --function Emailer: once we have deployed our service we can run only this command, that will speed up the deployment process and will only deploy the function (case sensitive). 
 * serverless deploy --package package-path: you can use this command to specify particular package (mostly reserved for integration for continious integration - CI and continious deployment pipelines)
@@ -50,6 +52,44 @@ How does the serverless deployment works:
 3. Zips up the code and dependencies and sends to S3
 4. Function will be created by Cloudformation from the Zip packages that were stored in S3
 5. If everything is finished Serverless will display the output of the template
+
+### Managing Secrets, API Keys with Serverless
+
+In order to avoid any leaks of keys to github or any other resources. You can use the AWS Parameter Store to store your secrets. Serverless has added an integration with Parameter Store. The values that will be stored can be found at aws.amazon.com > AWS System Manager > Paremeter Store
+
+1. Use AWS CLI to store new SSM parameters
+
+```yaml
+aws ssm put-parameter --name supermanToken --type String --value mySupermanToken
+aws ssm put-parameter --name batmanToken --type String --value myBatmanToken
+``` 
+
+2. Add paramters to the yaml configuration file
+
+```yaml
+service: env-variables
+
+provider:
+  name: aws
+  runtime: python3.6
+  stage: dev
+  region: us-east-1
+
+functions:
+  superman:
+    handler: superman.main
+    events:
+      - schedule: rate(10 minutes)
+    environment:
+      TWITTER_ACCESS_TOKEN: ${ssm:supermanToken}
+  batman:
+    handler: batman.main
+    events:
+      - schedule: rate(10 minutes)
+    environment:
+      TWITTER_ACCESS_TOKEN: ${ssm:batmanToken}
+```
+You can find more information [here](https://serverless.com/blog/serverless-secrets-api-keys/)
 
 ### Testing
 
