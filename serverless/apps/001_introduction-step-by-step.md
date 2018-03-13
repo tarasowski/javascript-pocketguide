@@ -37,6 +37,7 @@ function:
 
 ## Deployment Options
 
+* serverless create --template aws-nodej: to create a boilerplate for serverless
 * serverless deploy (we can run this command): this command will deploy or update the entire application. You need to run this specific command if you first time deploy your service. 
 * serlverless deploy function --function Emailer: once we have deployed our service we can run only this command, that will speed up the deployment process and will only deploy the function (case sensitive). 
 * serverless deploy --package package-path: you can use this command to specify particular package (mostly reserved for integration for continious integration - CI and continious deployment pipelines)
