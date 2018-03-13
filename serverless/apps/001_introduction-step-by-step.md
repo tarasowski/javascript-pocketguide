@@ -63,6 +63,8 @@ How does the serverless deployment works:
     + --function: function name specified in the serverless.yml template
     + invoke: manually invoking the function for testing
 
+**Note:** For the function name use only the function name not the file .js, you don't need to specify the folder or any directory, since it's already specified in yml configuration file.
+
 ## Serverless Plugins
 
 External plugins are added per service-basis and are not usually applied globally. If you want to install a plugin, make sure you are at the service root directory and install the plugin with the help of nmp
@@ -80,3 +82,36 @@ External plugins are added per service-basis and are not usually applied globall
     ``` 
 
 **Note:** For better visualization you can install `tree` package, so in the terminal if you are in a folder you simply type `tree` and you'll get a `tree` visualisation shown. 
+
+## Serverless CRUD Opertions Workflow
+
+1. HTTP request is made by the browser or another HTTP client
+2. Those request are sent to the API Gateway where the request data gets processed and directed to a specific Lambda function depending on the API endpoint requested.
+3. Each CRUD operation will have their own Lambda function. If the API receives a request to create an endpoint it will directed to the Lambda create function, alternatively if theere is a DELETE request it will rout it to the delete function. 
+4. Each of this functions will process the JSON payload which comes in via the API Gateway in order to validate them and take appropriate actions on the backing DynamoDB database.
+
+### DynamoDB Overview
+
+1. Tables
+2. Items:
+    + Needs to have distinct primary keys (simple primary key - partition key only)
+    + Composed primary key (partition key + sort key): you can have multiple items with the same partition key as long as they have different sort keys. Example (primary key:name + sort key:date)
+3. Attributes: are the fundamental data element in DynamoDb (in many ways similar to fields and columns)
+    + If the key is avaiable everything else is schemaless
+
+### DynamoDB Gotchas
+
+* NOSQL isn't relational: table scans are expensive
+* Table keys are immutable: once set you cannot change them, so if you need to change them you need to create a new DynamoDb table. 
+* Picking uniform partition keys: for scaling can be an issue
+
+## Severless Debugging
+
+* CloudWatch Logs for monitoring of logs (console.log() too)
+* Postman to test serverless APIs (create and test HTTP request)
+* Serverless framework GitHub Issues section
+
+**Note:** If you get {"message: "Internal server error"} go and see Cloudwatch logs 
+
+
+
