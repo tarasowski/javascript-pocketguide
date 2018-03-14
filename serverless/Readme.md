@@ -1,7 +1,8 @@
 # Serverless Introduction
 
+This list doesn't contain everything about serverless. Mainly this is my personal collection. The courses I've done and stuff I've read about serverless. 
 
-## Exprets in Serverless
+## Follow them or die!
 
 * Yan Cui - [All my posts on Serverless & AWS Lambda](https://medium.com/theburningmonk-com/all-my-posts-on-serverless-aws-lambda-43c17a147f91) - [Yan's Blog](https://theburningmonk.com/)
 * Gojko Adzic - [Blog Articles Archive](https://gojko.net/posts.html)
