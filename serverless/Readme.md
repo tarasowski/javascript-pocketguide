@@ -3,7 +3,7 @@
 
 ## Exprets in Serverless
 
-* Yan Cui - [All my posts on Serverless & AWS Lambda](https://medium.com/theburningmonk-com/all-my-posts-on-serverless-aws-lambda-43c17a147f91)
+* Yan Cui - [All my posts on Serverless & AWS Lambda](https://medium.com/theburningmonk-com/all-my-posts-on-serverless-aws-lambda-43c17a147f91) - [Yan's Blog](https://theburningmonk.com/)
 * Gojko Adzic - [Blog Articles Archive](https://gojko.net/posts.html)
 * Paul Johnston - [My Serverless Blog Posts](https://medium.com/@PaulDJohnston/my-serverless-blog-posts-4f84ee5dced)
 * Mike Roberts - [Serverless Architectures](https://martinfowler.com/articles/serverless.html)
