@@ -18,9 +18,11 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [AWS Serverless APIs & Apps - A Complete Introduction - No CLI](https://www.udemy.com/aws-serverless-a-complete-introduction/learn/v4/overview)
 * [Automating AWS with CloudFormation](https://app.pluralsight.com/library/courses/aws-automating-cloudformation/table-of-contents)
 
-## Presentations
+## Presentations & Podcasts
 * [GOTO 2017 • Designing for the Serverless Age • Gojko Adzic](https://www.youtube.com/watch?v=w7X4gAQTk2E)
 * [GOTO 2017 • Serverless: the Future of Software Architecture • Peter Sbarski](https://www.youtube.com/watch?v=LAWjdZYrUgI&t=32s)
+* [Serverless Startup with Yan Cui](https://softwareengineeringdaily.com/2017/08/04/serverless-startup-with-yan-cui/)
+* [Cloud Insiders - Serverless](https://podtail.com/podcast/cloud-insiders/serverless/)
 
 ## Serverless Tutorials
 
