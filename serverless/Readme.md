@@ -1,6 +1,6 @@
 # Serverless Introduction
 
-This list doesn't contain everything about serverless. Mainly this is my personal collection. The courses I've done and stuff I've read about serverless. There will be a bunch of typos and grammar mistakes. You can also checkout out my summaries above. Under /apps you can find also some code examples to play around. If you like it and would like to see more, hit star ⭐️ and help to spread this information among other GitHub geeks.
+This list doesn't contain everything about serverless. Mainly this is my personal collection. The courses I've done and stuff I've read about serverless. There will be a bunch of typos and grammar mistakes. You can also checkout out my summaries above. Under /apps you can find also some code examples to play around. If you like it and would like to see more, hit star ⭐️ and help to spread this information among other GitHub geeks!
 
 ## Follow them or die!
 
@@ -48,3 +48,17 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 
 ## Medium & Blog Articles
 * [Managing multi-environment serverless architecture using AWS — an investigation](https://medium.com/2pax/managing-multi-environment-serverless-architecture-using-aws-an-investigation-6cd6501d261e)
+
+
+## My summaries from online courses, books and blog articles
+
+* [Introduction to Lambda & AWS](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/001_introduction.md)
+* [Introducton to Serverless](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/production-ready-serverless-course/001_introduction.md)
+* [Introduction Step-by-Step into Serverless Framework](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/apps/001_introduction-step-by-step.md)
+* [AWS Core Services](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/002_aws_core.md)
+* [AWS API Gateway](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/004_api-gateway.md)
+* [AWS Lambda Introduction](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/005_lambda.md)
+* [AWS DynamoDB Overview](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/008_dynamoDB.md)
+* [Serverless Architecture Best Practices](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/013_serverless-best-practices.md)
+* [YAML Templates](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/014_yaml-templates.md)
+* [Everything you need to know about CloudFormation](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/015_cloudformation.md)
