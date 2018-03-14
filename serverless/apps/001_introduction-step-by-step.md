@@ -103,6 +103,7 @@ You can find more information [here](https://serverless.com/blog/serverless-secr
     + --log: we make sure any logging information is printed to the console
     + --function: function name specified in the serverless.yml template
     + invoke: manually invoking the function for testing
+2. serverless invoke local --function functionName --log (test locally)
 
 **Note:** For the function name use only the function name not the file .js, you don't need to specify the folder or any directory, since it's already specified in yml configuration file.
 
