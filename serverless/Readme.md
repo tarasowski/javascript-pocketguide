@@ -1,6 +1,6 @@
 # Serverless Introduction
 
-This list doesn't contain everything about serverless. Mainly this is my personal collection. The courses I've done and stuff I've read about serverless. 
+This list doesn't contain everything about serverless. Mainly this is my personal collection. The courses I've done and stuff I've read about serverless. There will be a bunch of typos and grammar mistakes. You can also checkout out my summaries above. Under /apps you can find also some code examples to play around. If you like it and would like to see more, hit star ⭐️ and help to spread this information among other GitHub geeks.
 
 ## Follow them or die!
 
