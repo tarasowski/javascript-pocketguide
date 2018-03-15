@@ -11,7 +11,7 @@ Ops is the umbralle term for everything that is keeping your system operational 
 * monitoring
 * alerting
 * destributed tracing
-* configuration management
+* configuration management!
 * security
 
 ![Mental Model](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/production-ready-serverless-course/images/aws-ops-still-there.png)
