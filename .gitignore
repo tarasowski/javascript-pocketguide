@@ -5,3 +5,5 @@ pocketguide.code-workspace
 /databases/scripts/local-dynamo-crud/node_modules
 /databases/scripts/dynamo-serverless/node_modules
 /databases/scripts/dynamo-serverless/deployment/node_modules
+serverless/production-ready-serverless-course/examples/big-mouth/serverless.yml
+serverless/production-ready-serverless-course/examples/big-mouth/node_modules
