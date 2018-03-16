@@ -277,3 +277,8 @@ Resources:
 You can read more about the use case. You can find here JavaScript code, CloudFormation Template and more. [Click here](https://aws.amazon.com/blogs/compute/introducing-simplified-serverless-application-deplyoment-and-management/)
 
 
+## Environment Variables Available to Lambda Functions
+
+The following is a list of environment variables that are part of the AWS Lambda execution environment and made available to Lambda functions. The table below indicates which ones are reserved by AWS Lambda and cannot be changed as well as which ones you can set when creating your Lambda function. 
+
+Get full list of all Lambda environment variables available at runtime [Lambda Environment Variables](https://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html)

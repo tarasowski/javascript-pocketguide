@@ -64,3 +64,6 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [Serverless Architecture Best Practices](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/013_serverless-best-practices.md)
 * [YAML Templates](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/014_yaml-templates.md)
 * [Everything you need to know about CloudFormation](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/015_cloudformation.md)
+
+## Todo
+* [The Tao of Microservices](https://www.manning.com/books/the-tao-of-microservices?utm_source=utm_source%20https%3A%2F%2Flivevideo.manning.com%2Fcourse%2F38%2Faws-lambda-in-motion&utm_campaign=utm_campaign%3Dcrosspromobooks&utm_content=utm_content%20livevideolink)
