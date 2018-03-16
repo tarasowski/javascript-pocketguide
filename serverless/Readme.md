@@ -23,6 +23,7 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [GOTO 2017 • Serverless: the Future of Software Architecture • Peter Sbarski](https://www.youtube.com/watch?v=LAWjdZYrUgI&t=32s)
 * [Serverless Startup with Yan Cui](https://softwareengineeringdaily.com/2017/08/04/serverless-startup-with-yan-cui/)
 * [Cloud Insiders - Serverless](https://podtail.com/podcast/cloud-insiders/serverless/)
+* [Serverless Design Patterns (London Dev Community)](https://www.slideshare.net/theburningmonk/serverless-design-patterns)
 
 ## Serverless Tutorials
 

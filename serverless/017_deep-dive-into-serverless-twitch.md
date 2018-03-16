@@ -59,3 +59,4 @@ Here is the app that manages the Retweet Leaderboard from the example ![Github R
 
 # Todo:
 * Read about dependency injection in node.js [link](https://blog.risingstack.com/dependency-injection-in-node-js/)
+* Dependency Injection in Node.js series [link](https://medium.com/@Jeffijoe/dependency-injection-in-node-js-2016-edition-f2a88efdd427)
