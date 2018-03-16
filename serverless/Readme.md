@@ -17,6 +17,7 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [Serverless for Beginners](https://acloud.guru/learn/serverless-for-beginners)
 * [AWS Serverless APIs & Apps - A Complete Introduction - No CLI](https://www.udemy.com/aws-serverless-a-complete-introduction/learn/v4/overview)
 * [Automating AWS with CloudFormation](https://app.pluralsight.com/library/courses/aws-automating-cloudformation/table-of-contents)
+* [Serverless Applications with AWS](https://www.manning.com/livevideo/serverless-applications-with-AWS)
 
 ## Presentations & Podcasts
 * [GOTO 2017 • Designing for the Serverless Age • Gojko Adzic](https://www.youtube.com/watch?v=w7X4gAQTk2E)
