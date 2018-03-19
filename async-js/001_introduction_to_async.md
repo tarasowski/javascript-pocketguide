@@ -181,13 +181,13 @@ In the case above if someone clicks on the button in the browser, if there is so
 
 The next one is the `send weather` request (just summaries the whole http request to the weather api). Behind the scenes our browser makes a request to the weather api and it waits for the response. Somewhere behind the scenes outside of our JavaScript engine the `request currrent weather` is happening outside of the JavaScript engine. So that request will set there and now the work to send the weather request is done it desolves out of the stack as well. And control goes back to the `load()` function and the next thing on the load function is `console.log(2)`. Once it's done it gets popped off from the stack and `send weather` request is pushed on top of the stack. When this fires off, we fire another request to get the `5day` data from the API. The other request will be handled by the browser behin the scenes for us. 
 
-![Button click](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-button-click.png)
+![Button click](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/asyn-button-click.png)
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-button-stack.png)
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-load-stack.png)
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-log-stack.png)
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-stack.png)
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-off-stack.png)
-![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-log2.png)
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-log2-stack.png)
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-5day-stack.png)
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-5day-request-stack.png)
 
