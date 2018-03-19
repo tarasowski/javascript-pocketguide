@@ -7,4 +7,3 @@ pocketguide.code-workspace
 /databases/scripts/dynamo-serverless/deployment/node_modules
 serverless/production-ready-serverless-course/big-mouth/serverless.yml
 serverless/production-ready-serverless-course/big-mouth/node_modules
-design-patterns/dependency-injection/js-examples
