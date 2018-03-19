@@ -181,6 +181,12 @@ In the case above if someone clicks on the button in the browser, if there is so
 
 The next one is the `send weather` request (just summaries the whole http request to the weather api). Behind the scenes our browser makes a request to the weather api and it waits for the response. Somewhere behind the scenes outside of our JavaScript engine the `request currrent weather` is happening outside of the JavaScript engine. So that request will set there and now the work to send the weather request is done it desolves out of the stack as well. And control goes back to the `load()` function and the next thing on the load function is `console.log(2)`. Once it's done it gets popped off from the stack and `send weather` request is pushed on top of the stack. When this fires off, we fire another request to get the `5day` data from the API. The other request will be handled by the browser behin the scenes for us. 
 
+The machanism that is behind to make requests will listen to the response (JavaScript Browser OR NodeJS). Sending the request, the work is done and sending the request pops off the stack. The load function has more to do it's log out the value `3` `console.log(3)`. 
+
+So let's say while we are printing `3` to the console, the request for current weather completes and the response is now available. Let's also say that is successfully complete. We can't handle this response right now because we have work inside of the call stack. But we can push something to handle that response in the qeueue. 
+
+Something that we push is the weather success function that we setup when we registered the request. We'll get to the weather success function once we have finished everything on the call stack. Everything that is on top of the stack gets popped off the stack. And imagine the second 5day request gets a response that the request is failed. It gets put into the qeueue with the `failure()`. This all happening is behind the scenes and the browser is handling all the requests. It can hae multiple threads, handling multiple requests at the same time. So while our single-threaded JavaScript engine is doing work behind the scenes other things can be happening, we just don't have this things happening inside our JavaScript engine. Now if the stack is empty means we can handle the next thing inside of our qeueu our weather success function is pushed on to the stack  so it begins to execute the weather success function. Once it's done it goes and executes the `failure()` funciton and once that is complete our program is sitting idle and waiting for something else to happen, perhaps for somebody click a button or do something else.
+
 ![Button click](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/asyn-button-click.png)
 
 ---
@@ -215,6 +221,37 @@ The next one is the `send weather` request (just summaries the whole http reques
 
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-5day-request-stack.png)
 
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-stack-load-only.png)
+
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-load3-stack-new.png)
+
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-load3-stack-new.png)
+
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-response-back.png)
+
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-empty-stack.png)
+
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-weather-success.png)
+
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-current-weather.png)
+
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-log-error.png)
 
 
 
