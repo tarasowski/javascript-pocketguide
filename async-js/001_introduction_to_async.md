@@ -258,6 +258,203 @@ Something that we push is the weather success function that we setup when we reg
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-final-step-empty-stack.png)
 
 
+## Little Programs
+
+Our program is composed of different parts. JavaScript program has a bunch of programs nested inside. It's like our programs are composed of smaller programs. But also we can call this programs, tasks/operations. Our program is broken into little parts that run at different times. 
+
+If you can look for the scenes a synchronousity in your own programs, you'll be starting better in reasoning about the asynchronisity of your JavaScript application. You can start looking at scenes where something is defined and will be executed later on. There is an event loop that acceesses the queue and all these little programs have to line up. These little programs will be pushed in the queue when various events happen e.g. clicking a button, getting a response back from a web request, these little programs be better not blocking and quick. The little programs shouldn't take more than 500ms, if they do need to go that long you should consider something like running these programs in the background with the web worker. 
+
+## Sources of Async
+
+* User interactions: if the user clicks a button on the page, the button click handler is pushed on to the qeueu > the callback is the button handler that is defined. So this is a source of async, something is lined up in order to be executed later on. 
+* Network I/O: request/response
+* Disk I/O: writing/reading
+* IPC: Inter process communication, for example if you use web workers behind the scenes you could have a separate process where your web workers is running and as you communicate with your web worker or it communicates back to you, as you communicate back and forth this is inter process communication. 
+* Timers: scheduling some work later happen on. 
+
+### Source: User Interactions
+
+[User Interactions - Exercise](http://plnkr.co/edit/SmSpPS5ZgPvkgn8RE6y1?p=info)
+
+Each time you start to drag the box it pushes the function to the event qeue and gets executed. So drag and drop is a source of asynchronousity in your application. 
+
+### Source: Timers
+
+In JavaScript we have `setTimeout()`and in NodeJS we have `setImmediate()` and `process.nextTick()` in order to defer some execution of the code. 
+
+[Timer - Exercise](http://plnkr.co/edit/gafgKCrxnDIJ6YaG9Jpx?p=info)
+
+**Note:** In this example we have a race condition because we are executing the file in the head and the `<body>` is not available, so we cannot manipulate the content of the `<body>`. What we could do (not in reality) to set some sort of delay and wait for until the `div` is avaiable. 
+
+```js
+onReady()
+
+function onReady() {
+  const content = document.getElementById("content");
+  if (!content) {
+    setTimeout(onReady, 100);
+    return;
+  }
+
+  content.innerHTML = "Main content here from JS";
+}
+``` 
+
+When you call `setTimeout()`, when the timer elapses `100ms`, once that time is up, the function that you provide will be pushed on the qeueu of the event loop and then once whatever is running is done and everything in front of this function in the queue is processed , then this function will kick-off. This highlights an important aspect of `setTimeout()` that is often overlooked. There is no guarantee that our function will be called at exactly 100ms from now. In `100ms` the function will be pushed into the queue, but if there is a lot of work in front of it, it won't be called until the work is done. 
 
 
+[Challenge](http://plnkr.co/edit/kPOgzEuIvUmN4o6Jenem?p=info)
+
+**Note:** You can increment or decrement inside of an if statement. The function below will run 100 times and will stop and `console.log()` finish.
+
+```js
+
+let tick = 0;
+const total = 100;
+
+const run = () => {
+    console.log(tick);
+    if (tick++ > total) {
+        console.log('finish');
+        return;
+    } else {
+        run(); // recursive function that calls itself over and over again
+    }
+}
+``` 
+
+**Note:** The Timer delay not guaranteed that the function you pass will be invoked at that right amount of time. There could be something else on the stack or in the queue before the function is going to be executed. And again this is becuase a timer is just the amount of time that elapses before an item has pushed on to the queue. It has still flows through the queue and compete whatever is there first, before the code will actually execute. 
+
+
+## How to make execution async?
+
+**Synchoronious execution**
+```js
+const numbers = [1, 2, 3];
+
+console.log('start');
+
+const forEach = (items, callback) => {
+    for (const item of items) {
+            callback(item);
+    }
+}
+
+forEach(numbers, (number) => {
+    console.log(number * 2);
+})
+
+console.log('end');
+```
+
+**Asynchronious Execution**
+```js
+const numbers = [1, 2, 3];
+
+console.log('start');
+
+const forEach = (items, callback) => {
+    for (const item of items) {
+        setTimeout(() => {
+            callback(item);
+        }, 0)
+    }
+}
+
+forEach(numbers, (number) => {
+    console.log(number * 2);
+})
+
+console.log('end');
+
+```
+
+
+## Debugging of Async Operations
+
+You can use `debugger;` keyword to stop the execution and see what is happening with the program. In general you can put the `debugger;` inside the callback function and see when it will arrive at the point and you can watch for exceptions. 
+
+[Debugging Asynchronous JavaScript](https://app.pluralsight.com/player?course=asynchronous-javascript-reasoning&author=wes-mcclure&name=asynchronous-javascript-reasoning-m3&clip=6&mode=live)
+
+**Note:** If you try to validate asynchronous assumptions you should check a box for asynchronous debugging in Chrome. It will show the async function on top of the function that caused to call the async function. It shows where async calls came from
+
+## Source: Disk I/O
+
+```js
+const fs = require('fs');
+
+fs.readFile('./text.txt', 'utf-8', (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log(data);
+})
+``` 
+
+This is an synchronious operation in NodeJS
+
+## Node.js nextTick and setImmediate
+
+These two methods allow us to schedule a work for later on. 
+
+* process.nextTick(): The process object is a one of the few global objects provided by the Node.js core API. It can be access from anywhere, thus its methods can also be accessed. Such is a method called process.nextTick() which is used by developers in realtime applications everyday to defer the execution of a function until the next Event Loop Iteration.
+
+* setImmediate(): We recommend developers use setImmediate() in all cases because it's easier to reason about (and it leads to code that's compatible with a wider variety of environments, like browser JS.) Schedules the "immediate" execution of the callback after I/O events' callbacks. Returns an Immediate for use with clearImmediate(). When multiple calls to setImmediate() are made, the callback functions are queued for execution in the order in which they are created. The entire callback queue is processed every event loop iteration. If an immediate timer is queued from inside an executing callback, that timer will not be triggered until the next event loop iteration. callback <Function> The function to call at the end of this turn of the Node.js Event Loop. Schedules the "immediate" execution of the callback after I/O events' callbacks. Returns an Immediate for use with clearImmediate().
+
+[The Node.js Event Loop, Timers, and process.nextTick()](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+
+```js
+setTimeout(() => {
+    console.log('st-1');
+})
+
+process.nextTick(() => {
+    console.log('nt-1');
+})
+
+// output 
+// nt-1
+// st-1
+``` 
+
+```js
+setTimeout(() => {
+    console.log('st-1');
+})
+
+process.nextTick(() => {
+    console.log('nt-1');
+})
+
+setTimeout(() => {
+    console.log('st-2');
+})
+
+setTimeout(() => {
+    console.log('st-3');
+})
+
+//output
+// nt-1
+// st-1
+// st-2
+// st-3
+``` 
+
+**Note:** If you want to see the error stack trace just use the following command `console.log(new Error().stack)`
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-event-loop-order-node.png)
+
+You may have noticed that process.nextTick() was not displayed in the diagram, even though it's a part of the asynchronous API. This is because process.nextTick() is not technically part of the event loop. Instead, the nextTickQueue will be processed after the current operation completes, regardless of the current phase of the event loop.
+
+Looking back at our diagram, any time you call process.nextTick() in a given phase, all callbacks passed to process.nextTick() will be resolved before the event loop continues. This can create some bad situations because it allows you to "starve" your I/O by making recursive process.nextTick() calls, which prevents the event loop from reaching the poll phase.
+
+`nextTick()` all the callback that you register will be run at the end of the current event loop. That means whatever is running right now which is our script at this point to register all these things (callbacks from the code above) all that's done the things that we registered at the next tick will be called all of them. With the `nextTick()` you are putting things in the front of the line. 
+
+**Note:**Note: The next tick queue is completely drained on each pass of the event loop before additional I/O is processed. As a result, recursively setting nextTick callbacks will block any I/O from happening, just like a while(true); loop. [nextTick() Docs](https://nodejs.org/api/process.html#process_process_nexttick_callback_args) With `setImmediate()` you can register callbacks and they will be called in the order you have registered them.
+
+## Web Workers - IPC
+
+[Web Workers Code - Examples](https://plnkr.co/edit/Yy7BOZU9sIa8EyrxJwGH)
 
