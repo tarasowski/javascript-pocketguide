@@ -253,6 +253,10 @@ Something that we push is the weather success function that we setup when we reg
 
 ![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-log-error.png)
 
+---
+
+![Stack](https://github.com/mittyo/javascript-pocketguide/blob/master/async-js/images/async-final-step-empty-stack.png)
+
 
 
 
