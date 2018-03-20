@@ -458,3 +458,4 @@ Looking back at our diagram, any time you call process.nextTick() in a given pha
 
 [Web Workers Code - Examples](https://plnkr.co/edit/Yy7BOZU9sIa8EyrxJwGH)
 
+The benefit of JavaScript is it's single threaded but we can spun other threads they can't work with the same state, they can't share memory, they can't work on the DOM together, but they can do they own thing and can easily pass messages back and forth and via first-class asynchronously of JavaScript we can pass message back and forth. We can have even concurrency in JavaScript with multiple engines running. 
