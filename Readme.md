@@ -60,3 +60,11 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 * Frontendmasters Online Courses [Link](https://frontendmasters.com/)
 * Node University [Link](https://node.university/+)
 * 30 seconds of code JavaScript [Github Repo](https://github.com/Chalarangelo/30-seconds-of-code)
+
+---
+
+### Enterprise Application Architecture
+
+- [] Reactive Design Patterns [Ebook](https://www.manning.com/books/reactive-design-patterns)
+- [] Patterns of Enterprise Application Architecture [Ebook](https://www.amazon.de/Patterns-Enterprise-Application-Architecture-Martin/dp/0321127420/ref=sr_1_3?ie=UTF8&qid=1519287673&sr=8-3&keywords=martin+fowler&dpID=51IuDvAU1CL&preST=_SX198_BO1,204,203,200_QL40_&dpSrc=srch)
+- [] A pattern language for microservices [Website](http://microservices.io/patterns/index.html)
