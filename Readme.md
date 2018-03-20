@@ -38,12 +38,13 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 ### Serverless Architecture: 
 - [ ] cloudformation, 
 - [ ] microservices, 
-- [ ] sqs/sns, 
+- [ ] message broker (sqs/sns), 
 - [ ] writing tests, 
 - [ ] container
 
 **Resources:**
 * Everything related to serverless [My Serverless Collection](https://github.com/mittyo/javascript-pocketguide/tree/master/serverless)
+* Enterprise Integration Patterns [Messaging Patterns](http://www.enterpriseintegrationpatterns.com/patterns/messaging/)
 
 ---
 
