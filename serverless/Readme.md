@@ -18,11 +18,13 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [AWS Serverless APIs & Apps - A Complete Introduction - No CLI](https://www.udemy.com/aws-serverless-a-complete-introduction/learn/v4/overview)
 * [Automating AWS with CloudFormation](https://app.pluralsight.com/library/courses/aws-automating-cloudformation/table-of-contents)
 
+
 ## Presentations & Podcasts
 * [GOTO 2017 • Designing for the Serverless Age • Gojko Adzic](https://www.youtube.com/watch?v=w7X4gAQTk2E)
 * [GOTO 2017 • Serverless: the Future of Software Architecture • Peter Sbarski](https://www.youtube.com/watch?v=LAWjdZYrUgI&t=32s)
 * [Serverless Startup with Yan Cui](https://softwareengineeringdaily.com/2017/08/04/serverless-startup-with-yan-cui/)
 * [Cloud Insiders - Serverless](https://podtail.com/podcast/cloud-insiders/serverless/)
+* [Serverless Design Patterns (London Dev Community)](https://www.slideshare.net/theburningmonk/serverless-design-patterns)
 
 ## Serverless Tutorials
 
@@ -64,3 +66,7 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [Serverless Architecture Best Practices](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/013_serverless-best-practices.md)
 * [YAML Templates](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/014_yaml-templates.md)
 * [Everything you need to know about CloudFormation](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/015_cloudformation.md)
+
+## Todo (need to read / check the stuff below)
+* [The Tao of Microservices](https://www.manning.com/books/the-tao-of-microservices?utm_source=utm_source%20https%3A%2F%2Flivevideo.manning.com%2Fcourse%2F38%2Faws-lambda-in-motion&utm_campaign=utm_campaign%3Dcrosspromobooks&utm_content=utm_content%20livevideolink)
+* [Serverless Applications with AWS](https://www.manning.com/livevideo/serverless-applications-with-AWS)
