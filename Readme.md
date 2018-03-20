@@ -58,4 +58,5 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 * Eloquent JavaScript 3rd Edition [Online Edition](https://eloquentjavascript.net/)
 * You don't know JavaScript [Github Edition](https://github.com/getify/You-Dont-Know-JS)
 * Frontendmasters Online Courses [Link](https://frontendmasters.com/)
-* Node University [Link](https://node.university/)
+* Node University [Link](https://node.university/+)
+* 30 seconds of code JavaScript [Github Repo](https://github.com/Chalarangelo/30-seconds-of-code)
