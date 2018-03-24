@@ -18,6 +18,7 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 - [ ] dependency injection, 
 - [ ] service locator
 
+
 **Resources:**
 * Many of the patterns are covered in the book of [Addy Osmani](https://addyosmani.com/resources/essentialjsdesignpatterns/book/) + [Github Repo](https://github.com/addyosmani/essential-js-design-patterns)
 
@@ -41,10 +42,12 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 - [ ] message broker (sqs/sns), 
 - [ ] writing tests, 
 - [ ] container
+- [ ] hexagonal architecture
 
 **Resources:**
 * Everything related to serverless [My Serverless Collection](https://github.com/mittyo/javascript-pocketguide/tree/master/serverless)
 * Enterprise Integration Patterns [Messaging Patterns](http://www.enterpriseintegrationpatterns.com/patterns/messaging/)
+* A summary of heaxagonal architecture [My Github Summary](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/design-patterns/001_hexagon-patter.md)
 
 ---
 
