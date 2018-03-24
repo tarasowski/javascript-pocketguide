@@ -226,3 +226,10 @@ AuthController
 **Note:** If we want to run a specific set of tests we can simply add to the `describe.only()` and it will run only this test. So you can focus on the stuff that you are currently working on.
 
 **Note:** If you want to skip tests and sections that are failing because of someone has checked in broken code or something else. You want to work on your stuff. You can simply add `describe.skip()` and it's going to skip the tests. The tests that are skipped are going to be shows as pending in the console. If we don't want to run a test and creating an `if` condition, we can simply use `this.skip()` it's going to be shown as pending 
+
+A test suite in mocha is a block of unit tests that are closely related because they test the same function or they test similar parts of the code base. We introduce a test suite in mocha using `describe()`. Describe is a function that takes two arguments: a string and another function. 
+
+
+In other words, a test suite is a collection of specs/testcases united by a common property, logic. For instance, you may have suites for different types of functionality of your application, homepage, search etc:
+
+a collection of test cases that are intended to be used to test a software program to show that it has some specified set of behaviours. A test suite often contains detailed instructions or goals for each collection of test cases and information on the system configuration to be used during testing.

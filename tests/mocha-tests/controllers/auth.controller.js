@@ -14,8 +14,6 @@ const AuthController = () => {
    
     const isAuthorized = (neededRole) => {
        if (user) {
-        console.log(user, neededRole, 'user from the isAuthorized')
-        console.log(user.isAuthorized.toString(), 'this is the user object')
         return user.isAuthorized(neededRole)
         }
     }
