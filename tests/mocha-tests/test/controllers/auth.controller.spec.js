@@ -14,7 +14,7 @@ describe('AuthController', () =>{
         //console.log('running before each')
         //authController.setRoles(['user'])
     })
-    describe.only('isAuthorized', () => {
+    describe('isAuthorized', () => {
         let user = {}
         beforeEach(function() {
             user = {
@@ -29,7 +29,7 @@ describe('AuthController', () =>{
         })
         it('Should return false if not authorized', () => {
             const isAuth = authController.isAuthorized('admin')
-            expect(isAuth).to.be.false
+            user.isAuthorized.calledOnce.should.be.true
         })
         it('Should return true if authorized', () => {
             //authController.setRoles(['user', 'admin'])
@@ -54,15 +54,29 @@ describe('AuthController', () =>{
                 })
                 
     })
-    describe('getIndex', () => {
-        it('should render index', () => {
-            const req = {}
+    describe.only('getIndex', () => {
+            let user = {}
+            beforeEach(function() {
+                user = {
+                    roles: ['user'],
+                    isAuthorized: function (neededRole) {
+                        return this.roles.indexOf(neededRole) >= 0
+                    }
+                }    
+            })
+        
+        it('should render index if authorized', () => {
+            const isAuth = sinon.stub(user, 'isAuthorized').returns(true)
+            const req = {user: user}
             const res = {
-                render: sinon.spy()
+                render: () => {}
             }
+            const mock = sinon.mock(res)
+            mock.expects('render').once().withExactArgs('index')
             authController.getIndex(req, res)
-            res.render.calledOnce.should.be.true
-            res.render.firstCall.args[0].should.equal('index')
+            isAuth.calledOnce.should.be.true
+
+            mock.verify()
         })
     })
         

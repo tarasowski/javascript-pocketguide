@@ -29,7 +29,11 @@ const AuthController = () => {
     }
 
     const getIndex = (req, res) => {
-        res.render('index')
+        if(req.user.isAuthorized('admin')) {
+          return res.render('index')
+        } 
+        res.render('error')
+        
     }
 
     return {setRoles, isAuthorized, isAuthorizedAsync, isAuthorizedPromise, getIndex, setUser}
