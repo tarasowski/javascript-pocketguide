@@ -233,3 +233,5 @@ A test suite in mocha is a block of unit tests that are closely related because 
 In other words, a test suite is a collection of specs/testcases united by a common property, logic. For instance, you may have suites for different types of functionality of your application, homepage, search etc:
 
 a collection of test cases that are intended to be used to test a software program to show that it has some specified set of behaviours. A test suite often contains detailed instructions or goals for each collection of test cases and information on the system configuration to be used during testing.
+
+**Note:** The first thing we need to test is the service. The author always starts with a failing test.
