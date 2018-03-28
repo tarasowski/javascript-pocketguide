@@ -83,5 +83,70 @@ expect(titleCase('the great mouse detective')).to.be.a('string')
 ``` 
 We started first to write a test and expectations for the function above. We added the function. We added `return title` to meet our expectations and we passed a test. Our expectations aren't really accurate yet and this is an important lesson about testing, we can pass all our test even if it doesn't works correctly. [Writing Great Unit Tests: Best and Worst Practices](http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/)
 
+**Note:** If you write a test you need to break it into smaller `asserts` or `expectations`. Usually the most comprehensive expectation should we written last. The simple expectations will be written first. We need to think about the smallest piece of the problem.
 
+```js
+const expect = require('chai').expect
 
+function titleCase (title) {
+  return title 
+}
+
+expect(titleCase('the great mouse detective')).to.be.a('string')
+expect(titleCase('a')).to.equal('A') // the smallest expectation we can test
+
+expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detective')
+``` 
+
+Now we are adding another expectaton
+
+```js
+const expect = require('chai').expect
+
+function titleCase (title) {
+  return title.toUpperCase()
+}
+
+expect(titleCase('the great mouse detective')).to.be.a('string')
+expect(titleCase('a')).to.equal('A')
+expect(titleCase('vertigo')).to.equal('Vertigo') // added another small expectation
+
+expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detective')
+``` 
+
+Runnint the test gives us the same problem as before, but it helps to keep the problem small and comprehensible by defining our expectation to only one word. 
+
+```
+const expect = require('chai').expect
+
+function titleCase (title) {
+  return title.toUpperCase()
+}
+
+expect(titleCase('the great mouse detective')).to.be.a('string')
+expect(titleCase('a')).to.equal('A')
+expect(titleCase('vertigo')).to.equal('Vertigo)
+
+expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detective')
+``` 
+Here are the steps that we were doing from small to comperehensive expectation and the function `titleCase()` was always transformed in order to meet the expecations of each step
+
+```js
+const expect = require('chai').expect
+
+function titleCase (title) {
+  const words = title.split(' ')
+  const titleCasedWords = words.map(element => {
+    return element[0].toUpperCase() + element.substring(1)
+  })
+  return titleCasedWords.join(' ' )
+  
+}
+
+expect(titleCase('the great mouse detective')).to.be.a('string')
+expect(titleCase('a')).to.equal('A') // Step 1: one letter
+expect(titleCase('vertigo')).to.equal('Vertigo') // Step: 2 one word
+expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detective') // Step 3: full title 
+``` 
+
+This is a very simple example now we need to extend the function `titleCase()` and cover all the edge cases with it! What if people will add some strange characters etc.? 
