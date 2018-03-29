@@ -1,0 +1,29 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/bin/node',
+1 verbose cli   '/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/bin/npm',
+1 verbose cli   'run-script',
+1 verbose cli   'debug' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.3
+4 warn invalid config registry=""
+5 warn invalid config Must be a full url with 'http://'
+6 verbose stack Error: missing script: debug
+6 verbose stack     at run (/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/lib/run-script.js:151:19)
+6 verbose stack     at /Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/lib/run-script.js:61:5
+6 verbose stack     at /Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/node_modules/read-package-json/read-json.js:356:5
+6 verbose stack     at checkBinReferences_ (/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/node_modules/read-package-json/read-json.js:320:45)
+6 verbose stack     at final (/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/node_modules/read-package-json/read-json.js:354:3)
+6 verbose stack     at then (/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/node_modules/read-package-json/read-json.js:124:5)
+6 verbose stack     at /Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/node_modules/read-package-json/read-json.js:311:12
+6 verbose stack     at /Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:78:16
+6 verbose stack     at tryToString (fs.js:456:3)
+6 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:443:12)
+7 verbose cwd /Users/tarasovsky-dl/Desktop/003_coding/javascript-pocketguide
+8 error Darwin 16.7.0
+9 error argv "/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/bin/node" "/Users/tarasovsky-dl/.nvm/versions/node/v6.10.3/bin/npm" "run-script" "debug"
+10 error node v6.10.3
+11 error npm  v3.10.10
+12 error missing script: debug
+13 error If you need help, you may report this error at:
+13 error     <https://github.com/npm/npm/issues>
+14 verbose exit [ 1, true ]

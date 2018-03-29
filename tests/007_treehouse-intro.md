@@ -83,5 +83,76 @@ expect(titleCase('the great mouse detective')).to.be.a('string')
 ``` 
 We started first to write a test and expectations for the function above. We added the function. We added `return title` to meet our expectations and we passed a test. Our expectations aren't really accurate yet and this is an important lesson about testing, we can pass all our test even if it doesn't works correctly. [Writing Great Unit Tests: Best and Worst Practices](http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/)
 
+BBD (Behavior Driven Development) we write our tests before we start writing our application. What separates unit testing from logging to the console is that tests describe expected behaviors, unit tests focus on concrete output of functions without worrying about how the function does it. 
+
+## New Test Project Setup
+
+1. You need to initialise the project `npm init -y`
+2. You need to install dependencies `npm install mocha --save-dev`, `npm install chai --save-dev` etc.
+3. You need to adjust your `package.json` file in order to run all tests from a folder automatically
+4. Add a `test` folder and add following to the `package.json` file `"test": "mocha"` 
+      + It makes it easy to import code from other files in our project
+      + Easy to organise the tests
+      + Easy to find a test file after seeing its output in the console
+5. Now can run `npm test` in the console and we'll get the same output as running mocha
+
+**Note:** If we want to customize which files from which directory should run, we can simply add additional information to the `package.json` file. For example we can add `"test": "mocha \"./test/**/*.spec.js\""` it will run all files in the `directory` and all other subdiretories files that have `.spec.js`as their naming.
+
+## Starting my first test
+
+Test suite is a block of unit tests. We need first to start with the **Test suite** a test suite consists of related tests because they test a the same function or they test similar parts of our code base. Expectation is either passes or throwing an error. 
+
+```js
+const expect = require('chai').expect
+
+// Test suite
+describe('test chai', () => {
+     // Test spec (unit test)
+   it('should return true', () => {
+    expect(true).to.be.ok
+    })
+    
+ })
+```  
+
+**What is a sanity check?**: A trivial function or test that proves we set things up correctly
+Which Mocha function groups similar tests together? `describe()`
+Which Mocha function groups similar expectations together, representing a single unit test? `it()`
 
 
+This is how a sanity check could look like
+
+```js
+const expect = require('chai').expect
+
+// Test suite
+describe('test chai', () => {
+     // Test spec (unit test)
+   it('should return true', () => {
+    expect(true).to.be.ok
+    })
+    
+ })
+
+// output ✓ should return true 
+``` 
+
+Note: `undefined` means there is no value, you can check it by using if/else statement or only if conditions
+
+```js
+let ship;
+
+const f = () => {
+  if (!ship) {
+    console.log('ship is undefined')
+    return
+  }
+  console.log('ship is defined')
+  return
+}
+
+// output ship is undefined
+``` 
+
+
+**Note:** Normally a single unit test shouldn't have more than 1 expectation, since it might be confusing for someone who reads the test. 
