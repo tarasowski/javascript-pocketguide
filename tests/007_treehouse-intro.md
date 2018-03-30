@@ -226,3 +226,86 @@ expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detecti
 
 This is a very simple example now we need to extend the function `titleCase()` and cover all the edge cases with it! What if people will add some strange characters etc.? 
 >>>>>>> 1f5b0dbba6d00cc1f59652f41d28ca7f9162ad64
+
+### Testable Code
+
+```js
+function computerFire(player) {
+  const x = Math.floor(Math.random() * 9)
+  const y = Math.floor(Math.random() * 9)
+  const coordinates = [x, y]
+
+  fire(player, coordinates)
+}
+
+function computerPlaceShip(player, ship) {
+  const direction = Math.random() > 0.5 
+    ? 'horizontal'
+    : 'vertical'
+
+    const x = Math.floor(Math.random() * 9)
+    const y = Math.floor(Math.random() * 9)
+    const coordinates = [x, y]
+    placeShip(player, ship, coordinates, direction)
+}
+``` 
+The problem with the functions above they produce random results. The problem with the functions above is that they have random outcomes built-in. Each of these functions really does different things:
+
+1. They build a random location
+2. Then they do something with that location `fire(player, coordinates)` || `placeShip(player, ship, coordinates, direction)` -> In programming we call this tight coupling, when to distinct functions are bundled up so they can only really be used toghther. The problem with tightly-coupled code is that is does our unit tests write harder. 
+
+To refactor this code we can just abstract two ideas apart. We see that the same code appears in both functions `computerFire()`&& `computerPlaceShipt()` it's the array that generates the coordinates. So we can pull it out in it's own function that generates the results. 
+
+```js
+function getRandomCoordinates() {
+  const x = Math.floor(Math.random() * 9)
+  const y = Math.floor(Math.random() * 9)
+  return [x, y]
+}
+
+function getRandomDirection() {
+  return Math.random() > 0.5 
+    ? 'horizontal'
+    : 'vertical'
+}
+
+fire(player, getRandomCoordinates())
+placeShip(computerPlayer, computerPlayer.ship[0], getRandomCoordinates(), getRandomDirection())
+
+``` 
+
+**Note:** We also can reuse the `getRandomCoordinates()`and `getRandomDirection()` in other parts of our program as well if we need to. That's a big plus. More reusable code will save us time later. In this way we don't have to add any tests at all in fact this is another thing that writing tests helps us with. When it's hard to write tests for something you might wonder whether you really need that function in the first place in this way writing tests can guide us towards simpler code, we still can do super meaningful tests for the randomizer functions, because randomizer functions have random nature. But we pulled the random pieces apart from our application code so that other parts remain testable. **Thinking about unit test have improved our code making it more reusable and modular. 
+
+## Reporter
+
+If you have many tests running and want only to see the failing tests you can use `mocha --reporter min`and will only display the failing tests. The same functionality should exist in tape as well. 
+
+**Note:** You can also print your reports in a markdown format, so you can upload them e.g. on github and other reports can read your tests. You can do that by using the following command `mocha --reporter markdown`. You can find more reports in the [Mocha Documentation](https://mochajs.org/#reporters). If you want to use another reporter you can add it in the `package.json` file in the test command like this `"test": "mocha --reporter nyan"`
+
+If you want to run your tests in a `nodemon` style you can simply add a command to the package.json file. If you save one of the files in the `test` folder your tests are going to run automatically. 
+
+```json
+"scripts":  {
+  "test": "mocha",
+  "test:watch": "mocha --watch ./test ./"
+ }
+``` 
+
+## Mocks && Stubs
+
+Mocks and stubs are two kind of fake helpers for our test suites. We were also using some fake helpers like the objects that has some random data already in the tests above. Mocks and stubs are fake functions that are filling the gaps for our test unit dependencies. Developers sometimes don't agree about the difference between mocks and stubs:
+
+* Sinon Stubs: Stubs are more hands-on than spies (though they sound more useless, don’t they). With a stub, you will actually change how functions are called in your test. You don’t want to change the subject under test, thus changing the accuracy of your test. But you may want to test several ways that dependencies of your unit could be expected to act.
+
+* Sinon Spies: Spies sound like what they do – they watch your functions and report back on how they are called. They generally avoid the violence and mayhem of a Hollywood spy, but depending on your application, this could vary.
+
+*  Sinon Mocks: Mocks take the attributes of spies and stubs, smashes them together and changes the style a bit. A mock will both observe the calling of functions and verify that they were called in some specific way. And all this setup happens previous to calling your subject under test. After the call, mocks are simply asked if all went to plan.
+
+[Why Use Fakes?](https://jaketrent.com/post/sinon-spies-vs-stubs/)
+
+### Testing Asynchronous Code
+
+Testing asynchronous code with Mocha could not be simpler! Simply invoke the callback when your test is complete. By adding a callback (usually named done) to it(), Mocha will know that it should wait for this function to be called to complete the test. This callback accepts both an Error instance (or subclass thereof) or a falsy value; anything else will cause a failed test.
+
+[Mocha Documentation](https://mochajs.org/#asynchronous-code)
+
