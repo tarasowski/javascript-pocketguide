@@ -80,3 +80,4 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 ## Todo (need to read / check the stuff below)
 * [The Tao of Microservices](https://www.manning.com/books/the-tao-of-microservices?utm_source=utm_source%20https%3A%2F%2Flivevideo.manning.com%2Fcourse%2F38%2Faws-lambda-in-motion&utm_campaign=utm_campaign%3Dcrosspromobooks&utm_content=utm_content%20livevideolink)
 * [Serverless Applications with AWS](https://www.manning.com/livevideo/serverless-applications-with-AWS)
+* [Durable Functions overview & Patterns](https://docs.microsoft.com/en-us/azure/azure-functions/durable-functions-overview)
