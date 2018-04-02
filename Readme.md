@@ -21,6 +21,9 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 
 **Resources:**
 * Many of the patterns are covered in the book of [Addy Osmani](https://addyosmani.com/resources/essentialjsdesignpatterns/book/) + [Github Repo](https://github.com/addyosmani/essential-js-design-patterns)
+* [The Comprehensive Guide to JavaScript Design Patterns](https://www.toptal.com/javascript/comprehensive-guide-javascript-design-patterns)
+* [Gang of Four book Design Patterns: Elements of Reusable javascript](http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf)
+* [All the 23 (GoF) design patterns implemented in Javascript](https://github.com/fbeline/Design-Patterns-JS)
 
 ---
 
