@@ -150,3 +150,67 @@ expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detecti
 ``` 
 
 This is a very simple example now we need to extend the function `titleCase()` and cover all the edge cases with it! What if people will add some strange characters etc.? 
+
+## Making Tests Easier with Fixtures
+
+For example if we need to simulate an object within each test we can use fixtures not to DRY. So we need to fake or mock the player object in order to test the function. Mocha comes up with several functions to setup conditions for our tests. Like creating test object or simulating conditions within our test. This is called the setup phase the part of our test where we set our conditions in our tests. In Mocha we have:
+
+* before()
+* beforeEach()
+
+### before()
+In order to use these both functions we need first to initialise the variable inside the `describe()` - test suite and then add the `before()` block with e.g. an object we need to have. The `before(function(){})` needs a function to setup any state the tests need. By adding the state needed into the `before()` all tests will have access to this state. So there is no need to pass e.g. an object with the state into each test you are creating that are within a single test suite. 
+
+
+```js
+describe('PLAYER METHODS', function () {
+  describe('validateLocation', function () {
+    var validateLocation = require('../game_logic/player_methods.js').validateLocation;
+    var player;
+
+    beforeEach(function () {
+      player = {
+        ships: [
+          {
+            locations: [[9, 9]]
+          }
+        ]
+      };
+    });
+
+    it('shoud confirm valid for unoccupied locations in range', function () {
+      var location = [0, 0];
+      var actual = validateLocation(player, location);
+
+      expect(actual).to.be.ok;
+    })
+``` 
+
+### beforeEach()
+If a function that we want to set is doing side-effects such as changing the state or pushing something into an object. We need to reset it and use the `beforeEach()
+
+### Teardown
+
+In addition if the tests change the environment like creating and writing to database or startup a local server. We can use the teardown block to setup the system back to the starting point. You'll need teardowns more often if your test pretend to need a database or interact with the DOM somehow. For example you can test a function that setups up a remote database or create a local file or starts a server instance. If these functions starts their job, they are going to pulute the environment with the bunch of testing tables or files. 
+
+**Note:** We should avoid passing state between our test suites. That adds unnecessary complexity and room for error. Remember our tests should be clever, they don't need to do anything fancy, they should prove our basic expectations. 
+
+In order to destroy objects we can use `after()` and `afterEach()` hooks.  `after()` takes one function that will run at the end of the test suite when every spec has finished. Just like `after()` the `afterEach()` block has a function that will run at the very end of each test in our test suite. 
+
+## Writing tests first as an outline
+
+* Write tests retroactively (if we need to cover code that was written but not covered by any tests)
+* Only focus on what a function does and focus only on that part
+* Write simple expectations first and get them to pass before writing more involved ones
+
+### Edge Case
+
+An edge case is a radical situation when your function might end up in but it's not how your function normally work. For example an email validator might work when users type properly formatted emails but if they type non-sense by accident? 
+
+**Note:** If you are starting with a new project that has a good test coverage. The first thing you can do in order to understand the logic, you can run the tests and see what you'll get as the output and which steps are covered by the test. 
+
+One of the best things of BDD is that our code is always testable. It has to be because we write our tests first, but if you end up with code before tests it can be hard to have unit tests for existing functions. That's because some code is not testable
+
+### Testable Code
+
+In programming we call tight-coupling, when to distinct functions are bundled up so they can only be used together. Now the hallmark of tightly-coupled code is that it makes our job in writing unit tests harder. So the refactor the 
