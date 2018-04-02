@@ -83,6 +83,81 @@ expect(titleCase('the great mouse detective')).to.be.a('string')
 ``` 
 We started first to write a test and expectations for the function above. We added the function. We added `return title` to meet our expectations and we passed a test. Our expectations aren't really accurate yet and this is an important lesson about testing, we can pass all our test even if it doesn't works correctly. [Writing Great Unit Tests: Best and Worst Practices](http://blog.stevensanderson.com/2009/08/24/writing-great-unit-tests-best-and-worst-practises/)
 
+<<<<<<< HEAD
+BBD (Behavior Driven Development) we write our tests before we start writing our application. What separates unit testing from logging to the console is that tests describe expected behaviors, unit tests focus on concrete output of functions without worrying about how the function does it. 
+
+## New Test Project Setup
+
+1. You need to initialise the project `npm init -y`
+2. You need to install dependencies `npm install mocha --save-dev`, `npm install chai --save-dev` etc.
+3. You need to adjust your `package.json` file in order to run all tests from a folder automatically
+4. Add a `test` folder and add following to the `package.json` file `"test": "mocha"` 
+      + It makes it easy to import code from other files in our project
+      + Easy to organise the tests
+      + Easy to find a test file after seeing its output in the console
+5. Now can run `npm test` in the console and we'll get the same output as running mocha
+
+**Note:** If we want to customize which files from which directory should run, we can simply add additional information to the `package.json` file. For example we can add `"test": "mocha \"./test/**/*.spec.js\""` it will run all files in the `directory` and all other subdiretories files that have `.spec.js`as their naming.
+
+## Starting my first test
+
+Test suite is a block of unit tests. We need first to start with the **Test suite** a test suite consists of related tests because they test a the same function or they test similar parts of our code base. Expectation is either passes or throwing an error. 
+
+```js
+const expect = require('chai').expect
+
+// Test suite
+describe('test chai', () => {
+     // Test spec (unit test)
+   it('should return true', () => {
+    expect(true).to.be.ok
+    })
+    
+ })
+```  
+
+**What is a sanity check?**: A trivial function or test that proves we set things up correctly
+Which Mocha function groups similar tests together? `describe()`
+Which Mocha function groups similar expectations together, representing a single unit test? `it()`
+
+
+This is how a sanity check could look like
+
+```js
+const expect = require('chai').expect
+
+// Test suite
+describe('test chai', () => {
+     // Test spec (unit test)
+   it('should return true', () => {
+    expect(true).to.be.ok
+    })
+    
+ })
+
+// output ✓ should return true 
+``` 
+
+Note: `undefined` means there is no value, you can check it by using if/else statement or only if conditions
+
+```js
+let ship;
+
+const f = () => {
+  if (!ship) {
+    console.log('ship is undefined')
+    return
+  }
+  console.log('ship is defined')
+  return
+}
+
+// output ship is undefined
+``` 
+
+
+**Note:** Normally a single unit test shouldn't have more than 1 expectation, since it might be confusing for someone who reads the test. 
+=======
 **Note:** If you write a test you need to break it into smaller `asserts` or `expectations`. Usually the most comprehensive expectation should we written last. The simple expectations will be written first. We need to think about the smallest piece of the problem.
 
 ```js
@@ -150,6 +225,7 @@ expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detecti
 ``` 
 
 This is a very simple example now we need to extend the function `titleCase()` and cover all the edge cases with it! What if people will add some strange characters etc.? 
+<<<<<<< HEAD
 
 ## Making Tests Easier with Fixtures
 
@@ -214,3 +290,89 @@ One of the best things of BDD is that our code is always testable. It has to be 
 ### Testable Code
 
 In programming we call tight-coupling, when to distinct functions are bundled up so they can only be used together. Now the hallmark of tightly-coupled code is that it makes our job in writing unit tests harder. So the refactor the 
+=======
+>>>>>>> 1f5b0dbba6d00cc1f59652f41d28ca7f9162ad64
+
+### Testable Code
+
+```js
+function computerFire(player) {
+  const x = Math.floor(Math.random() * 9)
+  const y = Math.floor(Math.random() * 9)
+  const coordinates = [x, y]
+
+  fire(player, coordinates)
+}
+
+function computerPlaceShip(player, ship) {
+  const direction = Math.random() > 0.5 
+    ? 'horizontal'
+    : 'vertical'
+
+    const x = Math.floor(Math.random() * 9)
+    const y = Math.floor(Math.random() * 9)
+    const coordinates = [x, y]
+    placeShip(player, ship, coordinates, direction)
+}
+``` 
+The problem with the functions above they produce random results. The problem with the functions above is that they have random outcomes built-in. Each of these functions really does different things:
+
+1. They build a random location
+2. Then they do something with that location `fire(player, coordinates)` || `placeShip(player, ship, coordinates, direction)` -> In programming we call this tight coupling, when to distinct functions are bundled up so they can only really be used toghther. The problem with tightly-coupled code is that is does our unit tests write harder. 
+
+To refactor this code we can just abstract two ideas apart. We see that the same code appears in both functions `computerFire()`&& `computerPlaceShipt()` it's the array that generates the coordinates. So we can pull it out in it's own function that generates the results. 
+
+```js
+function getRandomCoordinates() {
+  const x = Math.floor(Math.random() * 9)
+  const y = Math.floor(Math.random() * 9)
+  return [x, y]
+}
+
+function getRandomDirection() {
+  return Math.random() > 0.5 
+    ? 'horizontal'
+    : 'vertical'
+}
+
+fire(player, getRandomCoordinates())
+placeShip(computerPlayer, computerPlayer.ship[0], getRandomCoordinates(), getRandomDirection())
+
+``` 
+
+**Note:** We also can reuse the `getRandomCoordinates()`and `getRandomDirection()` in other parts of our program as well if we need to. That's a big plus. More reusable code will save us time later. In this way we don't have to add any tests at all in fact this is another thing that writing tests helps us with. When it's hard to write tests for something you might wonder whether you really need that function in the first place in this way writing tests can guide us towards simpler code, we still can do super meaningful tests for the randomizer functions, because randomizer functions have random nature. But we pulled the random pieces apart from our application code so that other parts remain testable. **Thinking about unit test have improved our code making it more reusable and modular. 
+
+## Reporter
+
+If you have many tests running and want only to see the failing tests you can use `mocha --reporter min`and will only display the failing tests. The same functionality should exist in tape as well. 
+
+**Note:** You can also print your reports in a markdown format, so you can upload them e.g. on github and other reports can read your tests. You can do that by using the following command `mocha --reporter markdown`. You can find more reports in the [Mocha Documentation](https://mochajs.org/#reporters). If you want to use another reporter you can add it in the `package.json` file in the test command like this `"test": "mocha --reporter nyan"`
+
+If you want to run your tests in a `nodemon` style you can simply add a command to the package.json file. If you save one of the files in the `test` folder your tests are going to run automatically. 
+
+```json
+"scripts":  {
+  "test": "mocha",
+  "test:watch": "mocha --watch ./test ./"
+ }
+``` 
+
+## Mocks && Stubs
+
+Mocks and stubs are two kind of fake helpers for our test suites. We were also using some fake helpers like the objects that has some random data already in the tests above. Mocks and stubs are fake functions that are filling the gaps for our test unit dependencies. Developers sometimes don't agree about the difference between mocks and stubs:
+
+* Sinon Stubs: Stubs are more hands-on than spies (though they sound more useless, don’t they). With a stub, you will actually change how functions are called in your test. You don’t want to change the subject under test, thus changing the accuracy of your test. But you may want to test several ways that dependencies of your unit could be expected to act.
+
+* Sinon Spies: Spies sound like what they do – they watch your functions and report back on how they are called. They generally avoid the violence and mayhem of a Hollywood spy, but depending on your application, this could vary.
+
+*  Sinon Mocks: Mocks take the attributes of spies and stubs, smashes them together and changes the style a bit. A mock will both observe the calling of functions and verify that they were called in some specific way. And all this setup happens previous to calling your subject under test. After the call, mocks are simply asked if all went to plan.
+
+[Why Use Fakes?](https://jaketrent.com/post/sinon-spies-vs-stubs/)
+
+### Testing Asynchronous Code
+
+Testing asynchronous code with Mocha could not be simpler! Simply invoke the callback when your test is complete. By adding a callback (usually named done) to it(), Mocha will know that it should wait for this function to be called to complete the test. This callback accepts both an Error instance (or subclass thereof) or a falsy value; anything else will cause a failed test.
+
+[Mocha Documentation](https://mochajs.org/#asynchronous-code)
+
+>>>>>>> f984ddb5f648336e360ea1849aa8530801f12fa7

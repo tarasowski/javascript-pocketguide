@@ -10,6 +10,7 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * Mike Roberts - [Serverless Architectures](https://martinfowler.com/articles/serverless.html)
 * Alexander Simovic [Github Profile](https://github.com/simalexan)
 * Martin Fowler - [Seems to be an important guy - Microservices](https://martinfowler.com/)
+* Slobodan Stojanović [Founder of ClaudiaJS & motherfuckin' "scotty beam me up"](https://twitter.com/slobodan_)
 
 ## Online Courses
 * [Production-Ready Serverless](https://www.manning.com/livevideo/production-ready-serverless)
@@ -38,12 +39,17 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [aws-serverless-samfarm](https://github.com/awslabs/aws-serverless-samfarm)
 * [AWS Well-Architected Framework - General Information about Architecture](http://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf)
 
+## Serverless Examples
+* [AWS Serverless Application Repository](https://aws.amazon.com/ru/blogs/compute/innovation-flywheels-and-the-aws-serverless-application-repository/)
+
 ## Tooling
 * [AWS SAM Local](https://github.com/awslabs/aws-sam-local)
 * [AWS Serverless Application Model (AWS SAM)](https://github.com/awslabs/serverless-application-model)
 * [Serverless Framework](https://github.com/serverless/serverless)
 * [Serverless Framework Plugins](https://github.com/serverless/serverless#v1-plugins)
 * [Seed.run - Deploy, Manage, and Monitor Serverless Applications on AWS](https://seed.run/)
+* [Lambda Monitoring](https://www.iopipe.com/)
+* [ClaudiaJS - Deploy Node.js microservices to AWS easily](https://github.com/claudiajs)
 
 ## Books
 * [Lambda in Action](https://www.manning.com/books/aws-lambda-in-action)
@@ -52,6 +58,10 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 
 ## Medium & Blog Articles
 * [Managing multi-environment serverless architecture using AWS — an investigation](https://medium.com/2pax/managing-multi-environment-serverless-architecture-using-aws-an-investigation-6cd6501d261e)
+* [A Cloud Guru Medium Blog](https://read.acloud.guru/)
+
+## Chats & Communication
+* [ClaudiaJS Chat Gitter](https://gitter.im/claudiajs/claudia)
 
 
 ## My summaries from online courses, books and blog articles
@@ -70,3 +80,4 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 ## Todo (need to read / check the stuff below)
 * [The Tao of Microservices](https://www.manning.com/books/the-tao-of-microservices?utm_source=utm_source%20https%3A%2F%2Flivevideo.manning.com%2Fcourse%2F38%2Faws-lambda-in-motion&utm_campaign=utm_campaign%3Dcrosspromobooks&utm_content=utm_content%20livevideolink)
 * [Serverless Applications with AWS](https://www.manning.com/livevideo/serverless-applications-with-AWS)
+* [Durable Functions overview & Patterns](https://docs.microsoft.com/en-us/azure/azure-functions/durable-functions-overview)
