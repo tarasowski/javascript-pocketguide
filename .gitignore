@@ -9,3 +9,4 @@ serverless/production-ready-serverless-course/big-mouth/serverless.yml
 serverless/production-ready-serverless-course/big-mouth/node_modules
 /tests/mocha-tests/node_modules
 /tests/treehouse_battleship-engine/node_modules
+/tests/rocket-shop/node_modules

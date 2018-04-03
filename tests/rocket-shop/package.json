@@ -1,0 +1,19 @@
+{
+  "name": "rocket-ship",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^5.0.5",
+    "sinon": "^4.5.0"
+  },
+  "dependencies": {
+    "moment": "^2.22.0"
+  }
+}
