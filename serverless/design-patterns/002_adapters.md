@@ -68,7 +68,7 @@ if (!(process.env.LAMBDA_TASK_ROOT && process.env.AWS_EXECUTION_ENV)) {
 }
 ``` 
 
-We divide the business logic from the event wrappers. The event wrapper is the adapter in this case. The first even wrapper is for API Gateway and the second is for Express.js. You can add a Dockerfile and run it in the container or everywhere you like. 
+We divide the business logic from the event wrappers. The event wrapper is the adapter in this case. The first even wrapper is for API Gateway and the second is for Express.js. You can add a Dockerfile and run it in the container or everywhere you like. The second adapter checks the execution context if we are not in Lambda execution context, just run Express. Here is a list of environment variables you can use to make such checks: [Environment Variables Available to Lambda Functions](https://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html)
 
 The best logic would be splitting the logic, adapters and ports into different interfaces. 
 

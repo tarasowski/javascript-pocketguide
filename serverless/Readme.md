@@ -26,6 +26,7 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * [Serverless Startup with Yan Cui](https://softwareengineeringdaily.com/2017/08/04/serverless-startup-with-yan-cui/)
 * [Cloud Insiders - Serverless](https://podtail.com/podcast/cloud-insiders/serverless/)
 * [Serverless Design Patterns (London Dev Community)](https://www.slideshare.net/theburningmonk/serverless-design-patterns)
+* [SE-Radio Episode 320: Nate Taggart on Serverless Paradigm](SE-Radio Episode 320: Nate Taggart on Serverless Paradigm)
 
 ## Serverless Tutorials
 
