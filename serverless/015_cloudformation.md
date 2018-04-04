@@ -504,3 +504,12 @@ In order to encode the content in base64 there is built-in function `"Fn::Base64
 
 ![Bootstrap Shell Script](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-shell-bootstrap.png)
 
+**Note:** Use can use package.json as a task runner to deploy your cloudformation stack, since npm run is running terminal commands
+
+```
+"scripts": {
+    "package": "aws cloudformation package --template-file template.yaml --s3-bucket app-sam --output-template-file packaged-template.yaml",
+    "deploy": "aws cloudformation deploy --template-file packaged-template.yaml --stack-name app-sam-1-stack --capabilities CAPABILITY_IAM"
+  },
+``` 
+[Source](https://github.com/simalexan/twitch-serverless-app-with-aws-sam/blob/master/package.json)
