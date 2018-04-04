@@ -78,3 +78,8 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 
 ## Coding Philosophy
 - [ ] The art of unix programming [Online Version](http://www.catb.org/esr/writings/taoup/html/)
+
+## Todo
+- [ ] Clean Code: A Handbook of Agile Software Craftsmanship (Robert C. Martin Series) [Kindle](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship-ebook/dp/B001GSTOAM/ref=mt_kindle?_encoding=UTF8&me=)
+- [ ] Martin Fowler Refactoring 2 [Sommer 2018](https://martinfowler.com/articles/201803-refactoring-2nd-ed.html)
+- [ ] SOLID need to find some good resources
