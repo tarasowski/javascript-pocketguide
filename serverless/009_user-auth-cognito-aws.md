@@ -57,3 +57,85 @@ Also it has already built-in functionality of Multi-Factor-authentication (MFA) 
 
 ![Auth Flow](https://github.com/mittyo/javascript-pocketguide/blob/master/serverless/images/aws-auth-flow.png)
 
+---
+
+# Authentication & Authorization - ClaudiaJS
+
+[Source](https://livebook.manning.com/#!/book/serverless-apps-with-node-and-claudiajs/chapter-6/v-5/5)
+
+There are two things that needs to be done:
+* Enable the users to authenticate themselves via email or any other social networks
+* Create a user list for the API, and restrict each user to seeing only their own orders
+
+**Authentication:** This process of validating a persons identity is called authentication. If the person identity is trusted, the person is authenticated. -- Checking if the user is who they claim to be is authentication. 
+**Authorization:** This process of validating if the person is allowed to do something in the system is called authorization. -- Checking if the user is allowed to access is authorization. Most applications needs authorization, and its usually an email/password combination.
+**Permission:** The right of spending e.g. the company’s money, or doing something restrictive, is called a permission. The right given to a user to do something is called permission.
+**Identity:** Information representing who the user is, is called identity.
+**User Pool:** A user pool represents a single user collection or a user directory.
+
+![Cognito](./images/aws-claudiajs-cognito.png)
+
+## 1. Create an User Pool
+To create a new user pool, you can use following command from the AWS CLI. Just provide the right name, all other settings can be used as here in this example
+
+``` 
+aws cognito-idp create-user-pool \
+    --pool-name Pizzeria \
+    --policies "PasswordPolicy={MinimumLength=8,RequireUppercase=false,RequireLowercase=false,RequireNumbers=false,RequireSymbols=false}" \
+    --username-attributes email \
+    --query UserPool.Id \
+    --output text
+``` 
+
+**Note:** The output will be the id, keep the id you'll need it for later steps. You can do the same from the user interface [link](https://console.aws.amazon.com/cognito/home?region=us-east-1) be aware that there many other options from the user interface. You can add different validation rules..
+
+## 2. Create a Client
+Now you need at least one client for your user pool. Remember: you need to provide the pool id from the step above. Here is an simple web client without a client secret. If you want to connect e.g. a mobile app, you need to setup another client.
+
+``` 
+aws cognito-idp create-user-pool-client \
+  --user-pool-id eu-central-1_userPoolId \
+  --client-name PizzeriaClient \
+  --no-generate-secret \
+  --query UserPoolClient.ClientId \
+  --output text
+``` 
+
+This command will return a client id. Keep this client id for the next step.
+
+## 3. Create an Identity Pool
+
+Here you need to provide the identitiy provider name and also check false for the ServerSideTokenCheck. Also don't forget to adjust the ClientId in the command below
+
+```
+aws cognito-identity create-identity-pool \
+  --identity-pool-name Pizzeria \
+  --allow-unauthenticated-identities \
+  --supported-login-providers graph.facebook.com=266094173886660 \
+  --cognito-identity-providers ProviderName=cognito-idp.eu-central-1.amazonaws.com/eu-central-1_qpPMn1Tip,ClientId=4q14u0qalmkangdkhieekqbjma,ServerSideTokenCheck=false \
+  --query IdentityPoolId \
+  --output text
+``` 
+
+## 4. Setup the Roles
+
+After the creation of the identity pool you need to create two roles:
+
+* Authenticated users
+* Unauthenticated users
+
+[More Information](https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-authentication-part-3-roles-and-policies/)
+
+**Note:** You can do it from the user interface.
+
+```
+aws cognito-identity set-identity-pool-roles \
+  --identity-pool-id eu-central-1:2a3b45c6-1234-123d-1234-1e23fg45hij6 \
+  --roles authenticated=<ROLE1_ARN>,unauthenticated=<ROLE2_ARN>
+``` 
+
+**Note:** This command will return an empty response if it was successfully executed.
+
+## 5. Control API Access with Cognito
+
+The Cognito Identity Pool is not used by Lambda function. It's used by the front-end applications to get temporary access to Cognito user pools without having to hardcode the AWS profile access and secret keys. 
