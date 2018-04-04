@@ -11,6 +11,7 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 * Alexander Simovic [Github Profile](https://github.com/simalexan)
 * Martin Fowler - [Seems to be an important guy - Microservices](https://martinfowler.com/)
 * Slobodan Stojanović [Founder of ClaudiaJS & motherfuckin' "scotty beam me up"](https://twitter.com/slobodan_)
+* Danilo Poccia [Author of http://awslambdainaction.com  from Manning.] (https://twitter.com/danilop)
 
 ## Online Courses
 * [Production-Ready Serverless](https://www.manning.com/livevideo/production-ready-serverless)
@@ -60,6 +61,9 @@ This list doesn't contain everything about serverless. Mainly this is my persona
 ## Medium & Blog Articles
 * [Managing multi-environment serverless architecture using AWS — an investigation](https://medium.com/2pax/managing-multi-environment-serverless-architecture-using-aws-an-investigation-6cd6501d261e)
 * [A Cloud Guru Medium Blog](https://read.acloud.guru/)
+
+## Benchmarks
+* [The right way to distribute messages effectively in serverless applications](https://medium.com/epsagon/the-right-way-to-distribute-messages-effectively-in-serverless-applications-f427e4229e67)
 
 ## Chats & Communication
 * [ClaudiaJS Chat Gitter](https://gitter.im/claudiajs/claudia)
