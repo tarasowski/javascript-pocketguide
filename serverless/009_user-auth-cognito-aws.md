@@ -161,8 +161,14 @@ The Cognito Identity Pool is not used by Lambda function. It's used by the front
 
 You can find detailed explanation in the following video: [Deep Dive on User Sign-up and Sign-in with Amazon Cognito](https://www.youtube.com/watch?v=KWjgiNgDfwI). Here are some important explanations summarized:
 
-![Auth](./images/aws-cognito-auth-process.png)
-![Federation](./images/aws-cognito-federation.png)
-![Pools](./images/aws-user-identity-pools.png)
-![Process](./images/aws-identity-pools.png)
 
+![Federation](./images/aws-cognito-federation.png)
+---
+
+![Pools](./images/aws-user-identity-pools.png)
+---
+
+![Process](./images/aws-identity-pools.png)
+---
+
+![Auth](./images/aws-cognito-auth-process.png)
