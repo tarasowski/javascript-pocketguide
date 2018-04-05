@@ -77,6 +77,8 @@ There are two things that needs to be done:
 
 **User Pool:** A user pool represents a single user collection or a user directory.
 
+![Authentication/Authorization](./images/aws-cognito-auth-author.jpg)
+
 ![Cognito](./images/aws-claudiajs-cognito.png)
 
 ![Cognito](https://d2908q01vomqb2.cloudfront.net/0a57cb53ba59c46fc4b692527a38a87c78d84028/2017/07/19/CognitoDiagram.png)
@@ -172,3 +174,34 @@ You can find detailed explanation in the following video: [Deep Dive on User Sig
 ---
 
 ![Auth](./images/aws-cognito-auth-process.png)
+---
+
+![Cognito Flow](./images/aws-cognito-flow.jpg)
+
+## Custom Authorizer with Cognito User Pools & Lambda
+
+![Steps](./images/aws-cognito-step-1.png)
+---
+
+![Steps](./images/aws-cognito-step-2.png)
+---
+
+![Steps](./images/aws-cognito-step-3.png)
+---
+
+![Steps](./images/aws-cognito-step-4.png)
+---
+
+![Steps](./images/aws-cognito-step-5.png)
+---
+
+![Steps](./images/aws-cognito-step-6.png)
+---
+
+![Steps](./images/aws-cognito-step-7.png)
+---
+
+![Steps](./images/aws-cognito-step-8.png)
+---
+
+[Source - Securing Serverless Workloads with Cognito and API Gateway Part II](https://www.slideshare.net/AmazonWebServices/securing-serverless-workloads-with-cognito-and-api-gateway-part-ii-aws-security-day)
