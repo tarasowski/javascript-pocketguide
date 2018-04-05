@@ -6,7 +6,7 @@ In the API Gateway you can choose the option for authorization it's called Autho
 
 ## Customer Authorizer
 
-A custom authorizer uses Lambda behind the scenes. It does tell the API Gateway to call a specific Lambda function, to pass some data/information from the incoming request to the function and that function then has to run some code to validate to authenticate the user. In this function you can chan the jwt token, setup your own authentificatio workflow. 
+A custom authorizer uses Lambda behind the scenes. It does tell the API Gateway to call a specific Lambda function, to pass some data/information from the incoming request to the function and that function then has to run some code to validate to authenticate the user. In this function you can chain the jwt token, setup your own authentification workflow. 
 
 The goal fot the Lambda function is to return the AIM policy back to us. The policy needs to decide are you a user that makes a request, are you allowed to invoke this API endpoint. The policy will be generated dynamically and it will expire after a certain time, but before doing so it will grant/deny the access.
 
@@ -68,12 +68,28 @@ There are two things that needs to be done:
 * Create a user list for the API, and restrict each user to seeing only their own orders
 
 **Authentication:** This process of validating a persons identity is called authentication. If the person identity is trusted, the person is authenticated. -- Checking if the user is who they claim to be is authentication. 
-**Authorization:** This process of validating if the person is allowed to do something in the system is called authorization. -- Checking if the user is allowed to access is authorization. Most applications needs authorization, and its usually an email/password combination.
+
+**Authorization:** This process of validating if the person is allowed to do something in the system is called authorization. -- Checking if the user is allowed to access is authorization. 
+
 **Permission:** The right of spending e.g. the company’s money, or doing something restrictive, is called a permission. The right given to a user to do something is called permission.
+
 **Identity:** Information representing who the user is, is called identity.
+
 **User Pool:** A user pool represents a single user collection or a user directory.
 
 ![Cognito](./images/aws-claudiajs-cognito.png)
+
+![Cognito](https://d2908q01vomqb2.cloudfront.net/0a57cb53ba59c46fc4b692527a38a87c78d84028/2017/07/19/CognitoDiagram.png)
+Source: [Building fine-grained authorization using Amazon Cognito User Pools groups](https://aws.amazon.com/blogs/mobile/building-fine-grained-authorization-using-amazon-cognito-user-pools-groups/)
+
+**The details of this flow are as follows:**
+
+1. Client authenticates against a user pool.
+2. The user pool assigns 3 JWT tokens (Id, Access, and Refresh) to the client.
+3. The Id JWT is passed to the identity pool and a role is chosen via the JWT claims.  The user then receives IAM temporary credentials with privileges that are based on the IAM role that was mapped to the group that user belongs to.
+4. The user can then make calls to DynamoDB based on their privileges.  Those privileges are dictated by IAM policies that we provide later in this post.
+
+
 
 ## 1. Create an User Pool
 To create a new user pool, you can use following command from the AWS CLI. Just provide the right name, all other settings can be used as here in this example
@@ -139,3 +155,14 @@ aws cognito-identity set-identity-pool-roles \
 ## 5. Control API Access with Cognito
 
 The Cognito Identity Pool is not used by Lambda function. It's used by the front-end applications to get temporary access to Cognito user pools without having to hardcode the AWS profile access and secret keys. 
+
+---
+## Amazon Cognito Explained
+
+You can find detailed explanation in the following video: [Deep Dive on User Sign-up and Sign-in with Amazon Cognito](https://www.youtube.com/watch?v=KWjgiNgDfwI). Here are some important explanations summarized:
+
+![Auth](./images/aws-cognito-auth-process.png)
+![Federation](./images/aws-cognito-federation.png)
+![Pools](./images/aws-user-identity-pools.png)
+![Process](./images/aws-identity-pools.png)
+
