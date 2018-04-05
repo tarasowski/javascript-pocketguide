@@ -80,6 +80,8 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 - [ ] The art of unix programming [Online Version](http://www.catb.org/esr/writings/taoup/html/)
 
 ## Todo
+- [ ] Introduction to Computer Science and Programming in Python (in general CS101 should be good)- MIT [Link](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/index.htm)
+- [ ] - Read code of open source projects such as React, Vue.js, Express - code quality of such a projects should be very good (many reviewers). Also [Spectrum](https://github.com/withspectrum/spectrum) was recommended
 - [ ] Clean Code: A Handbook of Agile Software Craftsmanship (Robert C. Martin Series) [Kindle](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship-ebook/dp/B001GSTOAM/ref=mt_kindle?_encoding=UTF8&me=)
 - [ ] Martin Fowler Refactoring 2 [Sommer 2018](https://martinfowler.com/articles/201803-refactoring-2nd-ed.html)
 - [ ] SOLID need to find some good resources
