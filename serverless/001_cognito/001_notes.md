@@ -150,7 +150,7 @@ userPool.signUp(email, password, null, null, function(err, result){
     }
 ``` 
 
-### Step 6: Singout functionality for the user with your app
+#### Step 6: Singout functionality for the user with your app
 
 1. Now we need to add also a signout functionality for the user
 
