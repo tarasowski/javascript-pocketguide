@@ -6,13 +6,13 @@ While working on the authenticationa and authorization service for Claudia CRM. 
 
 There are many tutorials online and many videos, but they are not very concise. Often lot of different use cases are mixed within one tutorial. In this post I'm going to explain following cases:
 
-1. Adding sign-up and sign-in functionality to your app (email + password) w/o (facebook, google, twitter)
+1. Cogntio User Pool: Adding sign-up and sign-in functionality to your app (email + password) w/o (facebook, google, twitter)
     + Cogntio User Pool: You have an API (Api Gateway) and you want to make some resources private. So only registered users can make API calls to specific HTTP methods and resources behind them. If you don't want to use other 3rd party services for authentication (facebook, twitter, google etc.). If you only want to stick with Cognito User Pools (a user pool is simply just a record of registered users that are able to log-in and access your private resources). 
 
-2. Adding sing-up and sign-in functionality to your app (email + password) and other services such as facebook, google, twitter
+2. Federated Identity Pool: Adding sing-up and sign-in functionality to your app (email + password) and other services such as facebook, google, twitter
     + Federated Identity Pool: With federated identity user can sign-in and sign-up with social networks such as facebook, twitter, google and many other provider. Federated identity gives you the possiblity to get access to internal AWS resources from your app. That means you're having private resources and you want to access them e.g. with your facebook or twitter credentials. Federated identity grants access to internal resources through IAM roles (very important, you'll see it later)
 
-## What is Amazon Cognito User Pool
+## Case #1: Cogntio User Pool
 
 The AWs Cognito User Pools give you the possibility easily to integrate sing-up and sing-in functionality in your mobile or web app. It's a fully managed service by AWS, you don't need to care about the security, protocols and other stuff. 
 
@@ -25,7 +25,180 @@ Next 9,000,000	$0.00325
 Greater than 10,000,000	$0.00250
 
 
-**Important:** In your API Gateway you need to add as Authorizer your Cognito User Pool. Also you need to add to your HTTP request method "Authorization": Cognito 
+#### Step 1.: Setting up new user pool
+1. You need to create a new user pool (here we'll use the interface)
+2. You need to click "step through settings". 
+3. Under Attributes please choose: "Email address or phone number"
+4. On the step with App clients: Add an app client, if you use JavaScript/frontend remove **Generate client secret** 
+5. Now you have your User Pool:
+    + Note your Pool Id
+    + Note your Pool ARN
+
+#### Step 2.: Setup Cognito SDK for JavaScript
+
+We are going here with the simplest method (plain JS). If you want to go with React or any other frameworks, you can find examples [here](https://github.com/aws/aws-amplify/tree/master/packages/amazon-cognito-identity-js)
+
+1. Download the JavaScript [library file](https://raw.githubusercontent.com/aws/aws-amplify/master/packages/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js) and place it in your project
+
+2. Include all of the files in your HTML page before calling any Amazon Cognito Identity SDK APIs:
+
+```html
+<script src="/path/to/amazon-cognito-identity.min.js"></script>
+    <!-- optional: only if you use other AWS services -->
+    <script src="/path/to/aws-sdk-2.6.10.js"></script>
+``` 
+3. Remember to import or qualify access to any of these types:
+
+```js
+// When using loose Javascript files:
+    var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
+``` 
+
+#### Step 3: Init() function to initialize the webpage
+
+**Note:** We want to set the values and put in the condition appropriate to the start of an operation here.
+
+1. Initialising variables
+```js
+const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool
+      const COGNITO_POOL_ID = 'put your pool id here'
+      const COGNITO_CLIENT_ID = 'put your client id here'
+      let userPool
+      let idToken
+      let cognitoUser
+``` 
+
+2. Initialising the `userPool` and `cognitoUser`
+```js
+        function init() {
+        const data = { 
+          UserPoolId : COGNITO_USER_POOL_ID, 
+          ClientId : CLIENT_ID
+        };
+        userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(data);
+        cognitoUser = userPool.getCurrentUser();
+        if (cognitoUser != null) {          
+          cognitoUser.getSession(function(err, session) {
+            if (err) {
+                alert(err);
+                return;
+            }
+            idToken = session.idToken.jwtToken;
+            console.log('idToken: ' + idToken);
+            console.log('session validity: ' + session.isValid());
+          });
+        }
+        init()
+``` 
+
+#### Step 4: Registration functionality for the user with your application
+
+1. We are using here only email and password for user registration. 
+
+```js
+// Let's assume we have a form in our app and we can get ask for email and password
+const email = document.getElementById('#email-from-the-form').value
+const password = document.getElementById('#password-from-the-form').value
+
+// now here comes the part with the user registration
+const email = document.getElementById('#email-from-the-form').value
+
+userPool.signUp(email, password, null, null, function(err, result){
+        if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+        }
+        cognitoUser = result.user;
+        console.log('user name is ' + cognitoUser.getUsername());
+    });
+
+``` 
+
+#### Step 5: Login functionality for the user with your app
+
+1. Now we are adding the authentication details and asking to Cognito to authenticate a user
+
+```js
+      const email = document.getElementById('loginEmail').value
+      const password = document.getElementById('loginPassword').value
+
+      const authenticationData = {
+        Email: email,
+        Password: password,
+      }
+      
+      const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+    
+      
+      const userData = {
+        Email: email,
+        Pool: userPool
+      }
+
+      cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+      cognitoUser.authenticateUser(authenticationDetails, {
+          onSuccess: function (result) {
+            console.log('access token : ' + result.getAccessToken().getJwtToken());
+            idToken = result.idToken.jwtToken;
+            console.log('idToken : ' + idToken);
+            alert('You are now logged in')
+          },
+          onFailure: function(err) {
+            alert(err);
+          }
+        });
+    }
+``` 
+
+### Step 6: Singout functionality for the user with your app
+
+1. Now we need to add also a signout functionality for the user
+
+```js
+ if (cognitoUser !== null) {
+        cognitoUser.signOut()
+        console.log('user signed out')
+      }
+``` 
+
+#### Step 7: Adding Cognito Authorizer to API Gateway
+
+1. In order to make your API resources private you can now add an Congnito User Pool as an authorizer to your resource
+
+    1. Got to your API in the API Gateway
+    2. Go to Authorizers
+    3. Create New Authorizer
+    4. Name, choose Cognito, choose the right Cognito User Pool
+    5. Add as Token Source: Authorization
+
+2. Add Cognito Pool as Authorization Method for your resource
+
+    1. In your API in the API Gateway go to resources
+    2. Choose the right resource you want to make private
+    3. Click on the Resource method and click on Method Request
+    4. On method request choose Authorization: your Cognito User pool
+
+3. Deploy the new version of your API. 
+
+This is actually everything you need to do in order to create sing-up and sing-in for your users in your app. Now if someone is signed-in he/she can access your resources.
+
+
+#### Step 8: How to make calls to the API
+
+1. In order to access your private resources you need to add `idToken` to the headers with your request to the resource. 
+
+```js
+fetch('put your http address here', {
+        method: 'GET',
+        headers: {
+          "Authorization": idToken
+        },
+      })
+      .then(response => response.json())
+      .catch(err => console.error(err))
+``` 
+
+**Note:** If e.g. a Lambda function is sitting behind the API Gateway and requested resource, you'll get all information about the authenticated user as part of the `event` object.
     
 
 
