@@ -29,10 +29,12 @@ Greater than 10,000,000	$0.00250
 1. You need to create a new user pool (here we'll use the interface)
 2. You need to click "step through settings". 
 3. Under Attributes please choose: "Email address or phone number"
-4. On the step with App clients: Add an app client, if you use JavaScript/frontend remove **Generate client secret** 
-5. Now you have your User Pool:
+4. Message customization choose Verification type: Link
+5. On the step with App clients: Add an app client, if you use JavaScript/frontend remove **Generate client secret** 
+6. Now you have your User Pool:
     + Note your Pool Id
-    + Note your Pool ARN
+    + Note your Client Id
+7. Under App integration go to Domain name and add a domain name (needed for email verification link)
 
 #### Step 2.: Setup Cognito SDK for JavaScript
 
@@ -45,7 +47,7 @@ We are going here with the simplest method (plain JS). If you want to go with Re
 ```html
 <script src="/path/to/amazon-cognito-identity.min.js"></script>
     <!-- optional: only if you use other AWS services -->
-    <script src="/path/to/aws-sdk-2.6.10.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.222.1.min.js"></script>
 ``` 
 3. Remember to import or qualify access to any of these types:
 
@@ -88,7 +90,9 @@ const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool
             console.log('session validity: ' + session.isValid());
           });
         }
+        }
         init()
+
 ``` 
 
 #### Step 4: Registration functionality for the user with your application
@@ -202,7 +206,7 @@ fetch('put your http address here', {
     
 
 
-
+---
 
 
 
