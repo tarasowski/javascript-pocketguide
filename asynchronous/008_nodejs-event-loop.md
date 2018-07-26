@@ -1,3 +1,57 @@
+# Morning Keynote- Everything You Need to Know About Node.js Event Loop - Bert Belder, IBM
+
+![Slide1](./images/slide1.png)
+
+* The event loop always starts with the actual program `index.js` whatever happens if you do `npm start`
+
+* At the very end we also know that you have this process#exit event. It’s the last thing that’s ever going to happen and since nodejs is async, you set a timer it will never fire, you try to write some data to the network it might go out but you will never know
+---
+
+![Slide2](./images/slide2.png)
+
+* There are 4 steps that en event loop takes every iteration. 
+	1. timers: this phase executes callbacks scheduled by setTimeout() and setInterval().
+	2. poll: retrieve new I/O events; execute I/O related callbacks. Then there is a unicorn, but that 	does the most of the magic, if there is any disk or network 	activity going on in your process it 	will find those events there and it will call your callbacks.
+	3. check: setImmediate() callbacks are invoked here.
+	4. close callbacks: some close callbacks, e.g. socket.on('close', ...).
+
+
+**Note:** The 4 js boxes because there is no event loop that sends things, the event loop just goes back and forth. It goes into lubuv and figures timers and call your javascript and then it figures out network events and calls your javascript and then it goes into setImmediate queue so that’s everything you did with setImmediate and at that point it will call your callbacks and finally there is this sort of internal phase where we create close events and clean up, open sockets
+
+* At the end node decides wheter to keep running or go to that infamous process.exit() event
+
+---
+
+![Slide3](./images/slide3.png)
+
+* Let’s say the javascript runs after the `setImmediate() callbacks. It calls setTimeout() what will happen internally is we compute when to set the alarm and we add it to the timer heap. By the time when the event loop gets to the little alarm spot, it will look at the timer heap figure out which one have expired call your callback
+
+---
+
+![Slide4](./images/slide4.png)
+
+* The same goes for creating a server, the server is not done with the thread pool its we go directly to the opering system and asking give us notification if a new connection is made to our server and when the unicor function is trying to figure those events it will pick up the fact that there is a new connection
+
+---
+
+![Slide5](./images/slide5.png)
+
+* The minions (the workers) the worker threads, there are typicall 4 not 3 and if you do something with the file system it will get a worker it will go and do it for you and then and again the unicor function will figure that out. 
+
+---
+
+![Slide6](./images/slide6.png)
+
+* This is also explain how node knows where it should exit or it should just keep going. It’s simple as that everytime we send/start an operation like this file stuff that we send to the worker we add one to the reference counter and then when the callback comes, when the event happens we just subtract one. It means at this little split where we can decide either exit or we continue we can just look if the reference counter is 0 we exit otherwise we don’t 
+
+---
+
+![Slide7](./images/slide7.png)
+
+* Before each phase in the event loop, the event loop goes and checks if there are some tasks in the `process.nextTick()` or in the micro-stak queue (usually promises), if there are any it will take them first and push them into the call stack of JavaScript
+
+---
+
 # Nodejs Event Loop
 
 [Source](https://jsblog.insiderattack.net/promises-next-ticks-and-immediates-nodejs-event-loop-part-3-9226cbe7a6aa)
@@ -247,4 +301,7 @@ setImmediate(() => console.log('set immediate4'));
 ### Some other example but not in node
 [Starved Event Loop](https://gist.github.com/jesstelford/9a35d20a2aa044df8bf241e00d7bc2d0#file-event-loop-md)
 
+---
+# Node's Event Loop From the Inside Out by Sam Roberts, IBM
 
+[Source](https://www.youtube.com/watch?v=P9csgxBgaZ8)
