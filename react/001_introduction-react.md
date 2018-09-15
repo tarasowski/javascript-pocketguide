@@ -110,3 +110,8 @@ render() {
 ReactDOM.render(<App />, mountNode)
 
 ``` 
+
+**Note:** Rendering is the convertion of data that describes the state of the user interface into document object model object that the browser can use to produce a user interface that the user can see and interact with. 
+
+**Note:** Event handling lets the programmer detect when the user interacts with their program and to specify how the program should response.
+
