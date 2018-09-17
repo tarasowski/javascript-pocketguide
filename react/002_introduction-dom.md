@@ -49,3 +49,9 @@
 * You can use different methods to add new elements, review elements, change some elements of the document object.
 
 * A "node", in this context, is simply an HTML element. The "DOM" is a tree structure that represents the HTML of the website, and every HTML element is a "node".
+
+* The DOM is an object-oriented representation of the web page, which can be modified with a scripting language such as JavaScript.
+
+* All of the properties, methods, and events available for manipulating and creating web pages are organized into objects (e.g., the document object that represents the document itself)
+
+**Note:** So `document`is an object that represent the web page that can be manipulated with a scripting language such as Javascript
