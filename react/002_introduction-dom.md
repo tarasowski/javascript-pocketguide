@@ -55,3 +55,7 @@
 * All of the properties, methods, and events available for manipulating and creating web pages are organized into objects (e.g., the document object that represents the document itself)
 
 **Note:** So `document`is an object that represent the web page that can be manipulated with a scripting language such as Javascript
+
+* A Document object represents the HTML document that is displayed in that window. The Document object has various properties that refer to other objects which allow access to and modification of document content.
+
+* **The HTML DOM document object is the owner of all other objects in your web page.**
