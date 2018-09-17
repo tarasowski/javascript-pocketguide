@@ -4,7 +4,7 @@
 
 * Document is just a file (html, excel, json)
 * In the context of DOM we are talking about HTMl
-* An Object in the DOM is anything you put inside an HTML document
+* An (Element) Object in the DOM is anything you put inside an HTML document
 	a) HTML tag is an object
 	b) Body / title tag is an object
 * A model is how you layout all of this structure
