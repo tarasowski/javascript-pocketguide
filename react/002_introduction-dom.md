@@ -58,4 +58,6 @@
 
 * A Document object represents the HTML document that is displayed in that window. The Document object has various properties that refer to other objects which allow access to and modification of document content.
 
-* **The HTML DOM document object is the owner of all other objects in your web page.**
+* **The HTML DOM document object is the owner of all other objects in your web page. The HTML DOM model is constructed as a tree of Objects**
+
+![Object](https://www.w3schools.com/js/pic_htmltree.gif)
