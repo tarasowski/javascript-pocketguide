@@ -127,3 +127,13 @@ ReactDOM.render(<App />, mountNode)
 
 ![Arch](./images/react-architecture.png)
 
+* React only handles the UI and reacts to events! Nothing else, if you need to do other stuff you need to use other libraries. 
+
+* React uses plain Javascript for view logic.
+
+* Components are orgnised in a tree of components. 
+
+* Components are the fundamental uni of a react application. Each component corresponds to an element in the DOM. The component is responsible for rendering of the content of the element and for handling any events that occur within it. 
+
+* Components can be nested inside other components. It’s called composing components and it’s a powerful technique achieving reuse. Such components correspond to nested DOM nodes.  
+
