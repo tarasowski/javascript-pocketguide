@@ -145,6 +145,8 @@ ReactDOM.render(<App />, mountNode)
 
 * Component lifecycle method are useful when you want to wrap an impirivite API e.g. you may creating a component for jquery plugin, you would use component lifecycle to initialize jquery and possibly remove it when it’s no longer required.
 
+![Life](./images/component-lifecycle.png)
+
 * State is local, mutable data and can be created within a component. State increases the complexity and composability of the component. As such you should avoid using state as possbile!
 
 * You need to use `setState()` method that react knows that the state has changed and the components needs to be rerendered. Avoid class components and state whenever possible. The `setState()` method merges the new state with the old state. Previous state remains unless it’s overwritten. For performance reasons `setState()` calls are batched, there is no guarantee that state change will occur immediately. 
