@@ -206,5 +206,56 @@ const props = {a: 4, b: 10}
 const element = <Sum {…props} />
 ```
 
-* React data flow. Data is passed down to the hierarchy by passing values into component propes. Data is passed back up the component hierarchy by passing as function arguments by functions passed in that props. 
+* React data flow. Data is passed down to the hierarchy by passing values into component propes. Data is passed back up the component hierarchy by passing as function arguments by functions passed in that props.
+
+* This is how JSX compiles to HTML
+
+```jsx
+<label 
+	htmlFor=‘name’
+	className=‘highlight’
+	style={{ backgroundColor: ‘yello’ }}
+>
+Foo Bar
+</label
+```
+
+equal to
+
+```html
+<label
+	for=“name”
+	class=“highlight”
+	style=“background-color: yellow”
+>
+Foo Bar
+</label>
+```
+
+* JSX is hierarchical so any valid JSX expression maybe a child of other JSX expressions. You can have many of the JSX expressions and elements within a single JSX component. JSX elements can be nested
+
+```jsx
+<Hello>
+	<First />
+	<Second />
+</Hello>
+```
+
+* Within a compoent you can reference it’s child element via special propery `props.children`. This means we can create component to wrap other componenents. We can e.g. create a component that controls the visibilty of the children. Anything within this component can be shown or hidden.
+
+```jsx
+<ConditionalDisplay isVisible={state.showSum}>
+	<h1>A <span>Sum</span></h1>
+	<Sum a={4} b={2}
+</ConditionalDisplay>
+```
+
+```jsx
+const ConditionalDisplay = (props) => {
+return (
+	<div>{props.isVisible ? props.children : null}</div>
+)
+```
+
+
 
