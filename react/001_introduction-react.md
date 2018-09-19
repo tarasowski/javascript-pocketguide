@@ -115,3 +115,15 @@ ReactDOM.render(<App />, mountNode)
 
 **Note:** Event handling lets the programmer detect when the user interacts with their program and to specify how the program should response.
 
+* A react component is a function that converts a model object into a piece of user interace. 
+
+* React is a library and not a framework. To build complex applications you will likely need to add a router, managing state changes, validation, form support etc. You can assemble a system you want!
+
+* As much as possible you should use component that don’t have state. Because they are simple. The flow of data always in the same direction from the model to the render to the DOM. The DOM is the direct result of rendering: Model + Component = DOM
+
+* The way to change the DOM, you need to change the model (data). Once the DOM has been rendered it can generate events which feeds back into the component state that triggers another render cycle
+
+* For any state change react will regenerate the component and child components. It will update the virtual DOM and regenerate the real DOM
+
+![Arch](./images/react-architecture.png)
+
