@@ -137,3 +137,72 @@ ReactDOM.render(<App />, mountNode)
 
 * Components can be nested inside other components. It’s called composing components and it’s a powerful technique achieving reuse. Such components correspond to nested DOM nodes.  
 
+* Elements that represents the DOM tags are written in a lower case. 
+
+* User defined elements such as functions / classes must start with a capital letter. Attributes on user defined elements are passed to the user component as an object.
+
+> “All react components must act like a pure functions with respect to their props. For a given props object the output should be the same. This allows react to optimize rendering, if the props have not changes then component doesn’t need to be rerendered. Theh output should be the same”
+
+* Component lifecycle method are useful when you want to wrap an impirivite API e.g. you may creating a component for jquery plugin, you would use component lifecycle to initialize jquery and possibly remove it when it’s no longer required.
+
+* State is local, mutable data and can be created within a component. State increases the complexity and composability of the component. As such you should avoid using state as possbile!
+
+* You need to use `setState()` method that react knows that the state has changed and the components needs to be rerendered. Avoid class components and state whenever possible. The `setState()` method merges the new state with the old state. Previous state remains unless it’s overwritten. For performance reasons `setState()` calls are batched, there is no guarantee that state change will occur immediately. 
+
+* JSX is an external domain specific language. That is optimized to generate XML like documents. The web application markup language is HTML and HTML is XML like. For React application JSX is used to generate HTML, but it also supports custom react components. JSX compiles to JavaScript!
+
+* JSX allows us to include XML like syntax in JavaScript. React uses JSX to describe the composition of React Components in a readable way. 
+
+* The JSX transformer pre-processes JSX and converts each element into a Javascript function call.
+
+* JSX is a syntax that is used inline in JSX files and that is converted by Babel into regular JavaScript
+
+
+* When a component is combined with some props it’s called a REACT ELEMENT!!!
+```jsx
+<Sum a={4} b={10} />
+```
+
+equals to
+
+```js
+React.createElement(
+	Sum,
+	{a: 4, b: 10},
+	null
+)
+``` 
+
+* Anther example with nested elements
+
+```jsx
+<h1>
+	<Sum a={4} b={10} />
+</h1>
+```
+
+equals to 
+
+```js
+React.createElement(
+	‘h1’,
+	null,
+	React.createElement(
+		Sum,
+		{a: 4, b: 10},
+		null
+	)
+)
+```
+
+**Note:** In above example the `React.createElement()` is passed a a third argument, because it’s a child of `<h1>`. 
+
+* In JSX we can use spread attributes. Instead of defining each prop, we can simply use the spread attributes, see example below.
+
+```js
+const props = {a: 4, b: 10}
+const element = <Sum {…props} />
+```
+
+* React data flow. Data is passed down to the hierarchy by passing values into component propes. Data is passed back up the component hierarchy by passing as function arguments by functions passed in that props. 
+
