@@ -1,6 +1,7 @@
 # React.js: Getting Started
 
 [Source](https://app.pluralsight.com/library/courses/react-js-getting-started/table-of-contents)
+[Source](https://reactjs.org/docs/thinking-in-react.html)
 
 * React is JS library and not a framework. React is small and not a complete solution, we often need to use more libs to use with React. It focuses only on UI. 
 
@@ -416,5 +417,26 @@ function WelcomeDialog() {
 
 > Props and composition give you all the flexibility you need to customize a component’s look and behavior in an explicit and safe way. Remember that components may accept arbitrary props, including primitive values, React elements, or functions.
 
+* Single responsibility principle, that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents. Just break it up into components that represent exactly one piece of your data model.
+
+![Comp](https://reactjs.org/static/thinking-in-react-components-eb8bda25806a89ebdc838813bdfa3601-82965.png)
+
+You’ll see here that we have five components in our simple app. We’ve italicized the data each component represents.
+
+1. FilterableProductTable (orange): contains the entirety of the example
+2. SearchBar (blue): receives all user input
+3. ProductTable (green): displays and filters the data collection based on user input
+4. ProductCategoryRow (turquoise): displays a heading for each category
+5. ProductRow (red): displays a row for each product
+
+* FilterableProductTable
+
+	* SearchBar
+	* ProductTable
+
+		* ProductCategoryRow
+		* ProductRow
+
+> If you’re familiar with the concept of state, don’t use state at all to build this static version. State is reserved only for interactivity, that is, data that changes over time. 
 
 
