@@ -377,5 +377,44 @@ this.setState((prevState, props) => ({
 
 * If you want to prevent a component from rendering, return `return null` instead of its render output.
 
+* Ofren, several components need to reflect the same changing data. We recommend lifting the shared state up to their closes common ancestor.
+
+> There should be a single “source of truth” for any data that changes in a React application. Usually, the state is first added to the component that needs it for rendering. Then, if other components also need it, you can lift it up to their closest common ancestor. Instead of trying to sync the state between different components, you should rely on the top-down data flow.
+
+* Some components don’t know their children ahead of time. This is especially common for components like Sidebar or Dialog that represent generic “boxes”. We recommend that such components use the special children prop to pass children elements directly into their output:
+
+```jsx
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      
+{props.children}
+    </div>
+  );
+}
+
+//……………
+function WelcomeDialog() {
+  return (
+    <FancyBorder color="blue">
+      
+<h1 className="Dialog-title">
+        Welcome
+      
+</h1>
+      
+<p className="Dialog-message">
+        Thank you for visiting our spacecraft!
+      
+</p>
+    </FancyBorder>
+  );
+}
+``` 
+
+**Note:** Anything inside the <FancyBorder> JSX tag gets passed into the FancyBorder component as a children prop. Since FancyBorder renders {props.children} inside a <div>, the passed elements appear in the final output.
+
+> Props and composition give you all the flexibility you need to customize a component’s look and behavior in an explicit and safe way. Remember that components may accept arbitrary props, including primitive values, React elements, or functions.
+
 
 
