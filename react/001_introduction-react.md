@@ -257,5 +257,125 @@ return (
 )
 ```
 
+* JSX is used to describe how the UI should look like.
+* JSX produces React “elements”. React separates concerns with loosely couples units called “components”.
+
+```jsx
+const element = <h1>Hello, world!</h1>
+``` 
+
+* If you split JSX over multiple lines, you need to use () in order to avoid pitfalls of automatic semicolon insertion.
+
+```jsx
+const element = (
+	<h1>
+	Hello,
+	{formatName(user)}!	
+	</h1>
+)
+```
+
+* After compilation, JSX expressions become regular JavaScript function calls and evaluate to JavaScript objects.
+
+* If a tag is empty, you may close it immediately with `/>` like XML
+
+```jsx
+const element = <img src={user.avatarUrl} />;
+``` 
+
+* JSX represents objects
+
+```jsx
+const element = (
+  <h1 className="greeting">
+    Hello, world!
+  </h1>
+);
+``` 
+
+gets converted to
+
+```js
+const element = React.createElement(
+  'h1',
+  {className: 'greeting'},
+  'Hello, world!'
+);
+```
+
+* React.createElement() creates an object. These objects are called react elements. You can think of them as descriptions of what you want to see on the screen. React reads these objects and uses them to construct the DOM and keep it up to date. 
+
+```js
+const element = {
+  type: 'h1',
+  props: {
+    className: 'greeting',
+    children: 'Hello, world!'
+  }
+};
+```
+
+> Elements are the smallest building blocks of React apps. Elements are what components are made of!
+
+* Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props” and return React elements describing what should apear on the screen.
+
+```jsx
+cosnt Welcome = (props) => {
+	return <h1>Hello, {props.name}</h1>
+}
+const element = <Welcome name=“Sara” />
+ReactDOM.render(element, document.getElementById(‘root’)
+```
+
+* We call `ReactDOM.render()` to change the rendered output.
+
+1. We call `ReactDOM.render()` with the `<Welcome name=“Sara” />`element.
+2. React calls the `Welcome` component with `{name: ‘Sara’}`as the props
+3. Our `Welcome` component return a `<h1>Hello, Sara</h1>`element as the result
+4. React DOM updates the DOM to match `<h1>Hello, Sara</h1>`
+
+**Note:** Always start components with names with capital letter. React treat components starting with lowercase letters as DOM tags.
+
+* Don’t be afraid to split components into smaller components. A good rule of thumb is that if a part of your UI is used several times (Button, Panel, Avatar), or complex enought on its own (App, FeedStory, Comment), it is a good candiate to be a reusable component.
+
+* State is similar to props, but it is private and fully controlled by the component.
+
+* Whenever a component is rendered to the DOM for the first time, it’s called “mounting”.
+
+* Whenever the component gets removed from the DOM it’s called unmounting.
+
+* `componentDidUpdate()` is invoked immediately after updating occurs. This method is not called for the intital render. This is a good place to do network request as long as you companre the current props to previous props (e.g. a network request may not be necessary if the props have not changed)
+
+```
+componentDidUpdate(prevProps, prevState, snapshot)
+
+componentDidUpdate(prevProps) {
+	// Typical usage (don’t forget to compare props)
+	if (this.props.userId !== prevPros.userId) {
+		this.fetchData(this.props.userId)
+}
+```
+
+* React my batch multiple `setState()` calls into a single update for performance. Because  `this.props` and `this.state` may be updated asynchronously, you should not rely on their values for calculating the next state.
+
+```js
+//Wrong this.setState({
+	counter. this.state.counter + this.props.increment
+})
+
+// Correct
+this.setState((prevState, props) => ({
+	counter: prevState.counter + props.increment
+}))
+```
+
+* A component may choose to pass its state down as props to its child components. This is commonly called a “top-down” or “undirectional” data flow. Any state is always owned by some spcific component, and any data or UI dreived from that state can only affect coponents “below” them in the tree.
+
+* When you define a component using an ES6 class, a common pattern is for an event handler to be a method on the class.
+
+> whenever conditions become to complex, it might be a good time to extract a component.
+
+* If you want to prevent a component from rendering, return `return null` instead of its render output.
+
 
 
