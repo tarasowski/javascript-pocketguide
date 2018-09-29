@@ -179,7 +179,6 @@ console.log(adder('getting back the values: ', ...numbers))
 
 * Using an example with `trace()` in order isolate side effects, since the function `trace()` returns another function. So side-effects!
 
-# Notes from the Live Session
 ```js
 const toSlug = pipe(
   trace('input'),
@@ -195,7 +194,7 @@ console.log(toSlug('JS Cheerleader'));
 // '== after map:  js,cheerleader'
 // 'js-cheerleader'
 ``` 
-
+# Notes from the Live Session
 ```js
 console.clear();
 
