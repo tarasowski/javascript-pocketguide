@@ -1,3 +1,4 @@
+```js
 console.clear();
 
 const rotate = ([first, ...rest]) => [...rest, first];
@@ -68,3 +69,4 @@ f(2) // same as below
 
 All functions with referrential transparency are safe to memoize.
 */
+
