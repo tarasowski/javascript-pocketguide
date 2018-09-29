@@ -1,3 +1,4 @@
+# Notes from the Live Session
 ```js
 console.clear();
 
