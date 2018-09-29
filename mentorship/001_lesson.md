@@ -179,6 +179,7 @@ console.log(adder('getting back the values: ', ...numbers))
 
 * Using an example with `trace()` in order isolate side effects, since the function `trace()` returns another function. So side-effects!
 
+# Notes from the Live Session
 ```js
 const toSlug = pipe(
   trace('input'),
@@ -194,3 +195,91 @@ console.log(toSlug('JS Cheerleader'));
 // '== after map:  js,cheerleader'
 // 'js-cheerleader'
 ``` 
+
+```js
+console.clear();
+
+// Functions
+
+//  input -> [ f(x) = 2x ] -> output
+
+// double = n => Number
+const double = n => n * 2;
+
+// add = a => b => Number
+/* What is a curried function?
+A curried function is a function that takes multiple parameters one at a time by producing a series of functions which take exactly one parameter each, and returning the completed application from the last function.
+*/
+const add = a => b => a + b;
+
+// partial application
+/*
+A function which has already been applied to some of its parameters (but not yet all of them).
+*/
+
+// inc = n => Number (add 1 to any number)
+/* point-free style
+A function that is defined without reference to its arguments.
+
+No =>
+No function keyword
+No Function() constructor tricks.
+*/
+const inc = add(1);
+const inc10 = add(10);
+const inc100 = add(100);
+
+/*
+What is a closure?
+*/
+
+console.log(
+  inc(2), // 3
+  inc(4), // 5
+  inc10(10), // 20
+  inc100(10), // 110
+  inc(6) // 7
+);
+
+const counter = (value = 0) => ({
+  inc: () => value++,
+  valueOf: () => value
+});
+
+const count1 = counter();
+
+console.log(
+  +count1.inc(),
+  +count1.inc(),
+  +count1.inc(),
+);
+
+
+/*
+Shared mutable state is the root of all evil.
+
+shared mutable state + concurrency = non-determinism
+
+For business logic, favor pure functions.
+*/
+
+/*
+What is a pure function?
+
+Given the same input, will always return the same output.
+
+No side-effects.
+
+What are side-effects?
+
+Any mutation of externally observable state, other than the function's return value.
+
+* I/O
+  - database/server/network/console/screen/disk
+* Mutating any mutable arguments
+
+* Throwing errors/exceptions
+  - instead of throwing errors, you could return a monad
+    e.g., a promise.
+*/
+```
