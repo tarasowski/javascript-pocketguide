@@ -1,3 +1,39 @@
+# What is a Closure
+
+[Source](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36)
+
+* A closure gives you access to an outer function’s scope from an inner function. 
+
+* Closures are created every time a function is created, at function creation time.
+
+* To use a closure, simply define a function inside another function and expose it. To expose a function, return it or pass it to another function.
+
+* In JavaScript, closures are the primary mechanism used to enable data privacy.
+
+```js
+const getSecret = (secret) => {
+  return {
+    get: () => secret
+  };
+};
+const obj = getSecret(1);
+obj.get() // 1
+``` 
+
+Note: In the example above, the `.get()` method is defined inside the scope of `getSecret()`, which gives it access to any variables from `getSecret()`, and makes it a privileged method. In this case, the parameter, `secret`.
+
+* Closures can also be used to create stateful functions whose return values may be influenced by their internal state, e.g.:
+
+
+```js
+const secret = msg => () => msg
+```
+
+* In functional programming, closures are frequently used for partial application & currying:
+	a) Application: The process of applying a function to its arguments in order to produce a return value.
+	b) Partial Application: The process of applying a function to some of its arguments. The partially applied function gets returned for later use.
+
+
 # Notes from the Live Session
 ```js
 console.clear();
