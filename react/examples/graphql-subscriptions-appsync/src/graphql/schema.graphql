@@ -1,0 +1,12 @@
+﻿type Mutation {
+  addNums(numberToAdd: Int!): Int
+}
+
+type Query {
+  getNums: [Int!]
+}
+
+type Subscription {
+  streamNums: Int
+    @aws_subscribe(mutations:["addNums"])
+}
