@@ -32,7 +32,38 @@ const secret = msg => () => msg
 * In functional programming, closures are frequently used for partial application & currying:
 	a) Application: The process of applying a function to its arguments in order to produce a return value.
 	b) Partial Application: The process of applying a function to some of its arguments. The partially applied function gets returned for later use.
+	
+# Higher Order Functions
+[Source](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99)
 
+* A higher order function is a function that takes a function as an argument, or returns a function. 
+* Higher order function is in contrast to first order functions, which don’t take a function as an argument or return a function as output.
+
+* Earlier we saw examples of `.map()` and `.filter()`. Both of them take a function as an argument. They're both higher order functions.
+
+* Below is an example of first order function:
+```js
+const censor = words => {
+  const filtered = [];
+  for (let i = 0, { length } = words; i < length; i++) {
+    const word = words[i];
+    if (word.length !== 4) filtered.push(word);
+  }
+  return filtered;
+};
+censor(['oops', 'gasp', 'shout', 'sun']);
+// [ 'shout', 'sun' ]
+``` 
+* JavaScript has first class functions.
+
+- Assigned as an identifier (variable) value
+- Assigned to object property values
+- Passed as arguments
+- Returned from functions
+
+* In other words, you can use higher order functions to make a function polymorphic.
+
+**Note:** Polymorphism is the ability of an object to take on many forms. The most common use of polymorphism in OOP occurs when a parent class reference is used to refer to a child class object. 
 
 # Notes from the Live Session
 ```js
