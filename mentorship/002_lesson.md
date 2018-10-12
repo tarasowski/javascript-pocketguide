@@ -65,6 +65,20 @@ censor(['oops', 'gasp', 'shout', 'sun']);
 
 **Note:** Polymorphism is the ability of an object to take on many forms. The most common use of polymorphism in OOP occurs when a parent class reference is used to refer to a child class object. 
 
+# Reduce
+[Sourc](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
+
+* Reduce (aka: fold, accumulate) utility commonly used in functional programming that lets you iterate over a list, applying a function to an accumulated value and the next item in the list, until the iteration is complete and the accumulated value gets returned.
+
+```js
+array.reduce(
+  reducer: (accumulator: Any, current: Any) => Any,
+  initialValue: Any
+) => accumulator: Any
+``` 
+
+* Normally, `reduce()` works left to right. In JavaScript, we also have `[].reduceRight()`, which works right to left. 
+
 # Notes from the Live Session
 ```js
 console.clear();
