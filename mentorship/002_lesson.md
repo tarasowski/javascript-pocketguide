@@ -66,7 +66,7 @@ censor(['oops', 'gasp', 'shout', 'sun']);
 **Note:** Polymorphism is the ability of an object to take on many forms. The most common use of polymorphism in OOP occurs when a parent class reference is used to refer to a child class object. 
 
 # Reduce
-[Sourc](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
+[Source](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
 
 * Reduce (aka: fold, accumulate) utility commonly used in functional programming that lets you iterate over a list, applying a function to an accumulated value and the next item in the list, until the iteration is complete and the accumulated value gets returned.
 
@@ -77,7 +77,32 @@ array.reduce(
 ) => accumulator: Any
 ``` 
 
-* Normally, `reduce()` works left to right. In JavaScript, we also have `[].reduceRight()`, which works right to left. 
+* Normally, `reduce()` works left to right. In JavaScript, we also have `[].reduceRight()`, which works right to left.
+
+# Promises
+[Source](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
+
+* A promise is an object that may produce a single value some time in the future: either a resolved value, or a reason that it’s not resolved (e.g., a network error occurred). 
+
+* A promise may be in one of 3 possible states: fulfilled, rejected, or pending. Promise users can attach callbacks to handle the fulfilled value or the reason for rejection.
+
+* Promises are eager, meaning that a promise will start doing whatever task you give it as soon as the promise constructor is invoked.  If you need lazy, check out [observables](https://github.com/Reactive-Extensions/RxJS) or [tasks](https://github.com/rpominov/fun-task).
+
+* A promise is an object which can be returned synchronously from an asynchronous function. It will be in one of 3 possible states:
+
+- Fulfilled: onFulfilled() will be called (e.g., resolve() was called)
+- Rejected: onRejected() will be called (e.g., reject() was called)
+- Pending: not yet fulfilled or rejected
+
+**Note:** Once settled, a promise can not be resettled. Calling resolve() or reject() again will have no effect. The immutability of a settled promise is an important feature.
+
+* Promises following the spec must follow a specific set of rules:
+
+* A promise or “thenable” is an object that supplies a standard-compliant .then() method.
+* A pending promise may transition into a fulfilled or rejected state.
+* A fulfilled or rejected promise is settled, and must not transition into any other state.
+* Once a promise is settled, it must have a value (which may be undefined). That value must not change.
+
 
 # Notes from the Live Session
 ```js
