@@ -1,6 +1,6 @@
 # React / Redux Workshop
 
-![Source](https://www.meetup.com/React-Open-Source/events/253605707/)
+[Source](https://www.meetup.com/React-Open-Source/events/253605707/)
 
 * Redux has a single store and Flux has multiple stores and you take the data from you need
 
@@ -13,5 +13,7 @@
 * Redux has a lot of boilterplate, that's why lot of developers don't like it.
 
 * GraphQL and Context API ist the replacement for Redux
+
+* We can use saga or thunk in order to get a higher level of abstraction and reusability. You can use the actions in different componenents.
 
 
