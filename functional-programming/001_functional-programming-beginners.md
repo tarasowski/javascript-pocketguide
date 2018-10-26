@@ -327,3 +327,49 @@ console.log(filteredMeals)
 
 **Important:** `map(), reduce(), filter()` always create a new array. They don't mutate the original array.
 
+* How can you summarise information in an array? We can use the `reduce()` function. The reduce function is a powerful way of doing pretty much anything on lists of array. Here is the list of numbers `const numbers = [1, 2, 3] that we want to sum together. Adding numbers together that a type of transformation. And we typically transform our data with functions.
+
+```js
+const grades = [60, 55, 80, 90, 99, 92, 75, 72]
+
+const total = grades.reduce((acc, curr) => {
+  return acc + curr
+})
+
+const count = grades.length
+
+const average = total / count
+
+console.log(Math.round(average))
+
+const letterGradeCount = grades.reduce((acc, grade) => {
+    const {a = 0, b = 0, c = 0, d = 0, f = 0} = acc
+    if (grade >= 90) {
+      return {...acc, a: a + 1}
+    } else if (grade >= 80) {
+            return {...acc, b: b + 1}
+    } else if (grade >= 70) {
+            return {...acc, c: c + 1}
+    } else if (grade >= 60) {
+              return {...acc, d: d + 1}
+    } else {
+              return {...acc, f: f + 1}
+    }
+}, {})
+
+console.log(letterGradeCount)
+``` 
+```js
+// Functional Programming for Beginners Exercise
+
+const reviews = [4.5, 4.0, 5.0, 2.0, 1.0, 5.0, 3.0, 4.0, 1.0, 5.0, 4.5, 3.0, 2.5, 2.0];
+
+const countGroupedByReview = reviews.reduce(groupBy, {})
+
+function groupBy (acc, review) {
+  const count = acc[review] || 0
+  return {...acc, [review]: count + 1}
+}
+
+console.log(countGroupedByReview)
+```
