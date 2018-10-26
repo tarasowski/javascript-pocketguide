@@ -160,6 +160,8 @@ const PI = 3.14 // creates an immutable value, it can never be changed somewhere
 
 * Keeping track of these type of changes is refered to as a maintaining state in a program. In order to combine state and immutable data, we need to use this approach see below. It shows how to make changes to our state in a immutable way. We simply create new objects (records) and manipulate them. 
 
+### Updating Objects in a Immutable Way
+
 ```js
 
 // 0. INIT: Initialise state for your program
@@ -177,8 +179,8 @@ const updatedMeal = {
 
 // 2. UPDATE: In an Immutable way, increase the calories by 100 and print the result to the console
 const newCalories = {
-  ...meal,
-  calories: 300
+  ...updatedMeal,
+  calories: 300 // has a precedence over the calories property from the updateMeal object that are we are spreading here
 }
 
 
@@ -203,6 +205,123 @@ console.log(meal, updatedMeal, newCalories, mealWithoutCalories)
 // }
 ``` 
 
-* When we using spread operator is what happening the properties of what we are spreading `meal` in the case above are expanded into new thing that you have created. It's like you copy the `meal` object into a new object and the curly braces where removed. Essentially the properties of an old object are injected into a new object.  
+* When we using spread operator is what happening the properties of what we are spreading `meal` in the case above are expanded into new thing that you have created. It's like you copy the `meal` object into a new object and the curly braces where removed. Essentially the properties of an old object are injected into a new object.  Using the spread operator we can add new properts and update existing properties.
 
+* To delete a property from an object we need to combine two operations: Destructuring + Rest Syntax `const {calories, ...mealWihtoutCalories } = newCalories`. Here we are pulling the `id` out into his own `const`, then whatever remaining properties there are in `newCalories` is collected `mealWithtouCalories` `const` 
+
+* The `...` syntax does different things depending on where you use it. To spread something we use `...` on the right side of equal sign. The rest syntax which collected the remaining properties we use `...` on the left side of the equal sign. 
+
+### Updating Array in a Immutable Way
+
+* You can use the same spread `...` with Arrays too.
+
+```js
+const meals = [
+  {id: 1, description: 'Breakfast', calories: 420},
+  {id: 2, description: 'Lunch', calories: 520}
+]
+
+const meal = {
+  id: 3,
+  description: 'Snack',
+  calories: 180
+}
+
+const updatedMeals = [...meals, meal]
+
+console.log(updatedMeals)
+
+// [[object Object] {
+//   calories: 420,
+//   description: "Breakfast",
+//   id: 1
+// }, [object Object] {
+//   calories: 520,
+//   description: "Lunch",
+//   id: 2
+// }, [object Object] {
+//   calories: 180,
+//   description: "Snack",
+//   id: 3
+// }]
+``` 
+
+* Updating an array? We can update an array by using a map function. `.map()` is a function that transforms data. The map funciton always creates a new array, it never modifies the existing array as some of the methods in JS do.
+
+![Map](./images/map-function.png)
+
+* Functions are things that transform values. Functions are values similar to how Numbers, Strings, Booleans, Object Literals. In JavaScript functions are set as to be the 1st class and they are treated just like any other value. Passing one function into another function as an argument is being another big concept, that you use extensivly as a functional programmer. 
+
+**Note:** to update a value of property, we spread and reassign the key (name) with a new value. See example below:
+
+```js
+// 1. ADD: This is how you can add an item to an array
+const meals = [
+  {id: 1, description: 'Breakfast', calories: 420},
+  {id: 2, description: 'Lunch', calories: 520}
+]
+
+const meal = {
+  id: 3,
+  description: 'Snack',
+  calories: 180
+}
+
+const updatedMeals = [...meals, meal]
+
+console.log(updatedMeals)
+
+// 2. UPDATE: This is how you can update an item in an array
+const updateDescription = (element, index, array) => {
+    if (element.id === 1) {
+      return {...element, description: 'Update Description'}
+    } else {
+      return element
+    }
+}
+
+// 3. DELETE: This is how you can delete an item from an array
+const updatedMealDescription = updatedMeals.map(updateDescription)
+
+console.log(updatedMealDescription)
+
+const filteredMeals = updatedMealDescription.filter(element => element.id !== 1)
+
+console.log(filteredMeals)
+[[object Object] {
+//   calories: 420,
+//   description: "Breakfast",
+//   id: 1
+// }, [object Object] {
+//   calories: 520,
+//   description: "Lunch",
+//   id: 2
+// }, [object Object] {
+//   calories: 180,
+//   description: "Snack",
+//   id: 3
+// }]
+// [[object Object] {
+//   calories: 420,
+//   description: "Update Description",
+//   id: 1
+// }, [object Object] {
+//   calories: 520,
+//   description: "Lunch",
+//   id: 2
+// }, [object Object] {
+//   calories: 180,
+//   description: "Snack",
+//   id: 3
+// }]
+// [[object Object] {
+//   calories: 520,
+//   description: "Lunch",
+//   id: 2
+// }, [object Object] {
+//   calories: 180,
+//   description: "Snack",
+//   id: 3
+// }]
+```
 
