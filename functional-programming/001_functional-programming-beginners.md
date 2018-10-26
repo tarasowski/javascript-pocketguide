@@ -9,6 +9,10 @@
 2) Then you have bunch of them in a **list** = list of data
 3) The ability to interact with the data, retweet, liking a post, replying to an email 
 
+![App](./images/app1.png)
+![List](./images/app2.png)
+![Interact](./images/app3.png)
+
 > Most apps of their core are just lists of data, but the list of raw data isn't useful by itself. You need to transform the list of data into easily consumable information that can be interacted with.
 
 * If you want to be good at building apps, you should be good with working with:
@@ -57,6 +61,8 @@
 
 3) Boolean can be used for dealing with states e.g. true fro show a form and false for not showing the form and instead we rather show the button.
 
+4) undefined is another primitive type. It's usually a result of the flaws in the logic. 
+
 * Values are mostly used in combination with a variable. What is a variable? `const calories = 180`
 1) You see the keyword `const` is a short form for constant and means that the value doesn't change. Using `const` is consistent with using immutable data. For the most of your time as a functional programmer you don't use other variables such as `var, let`. `const` is the 20% of the JS that a programmer will use 80% of the time.
 2) The way JS knows the data type of the variable calories is by evaluating what's on the right side of the equal sign. So in this case it sees 180 as a number type. 
@@ -68,9 +74,135 @@ const calories = '180'
 console.log(calories + 1) // 181
 console.log(calories + 1) // '1801' here JS converts the 1 into a String data type - coersion
 ```
-* 
+* Take a look at the individual rows you see here in the wireframe below. Each row contains the meal description and the calories count. A row is a combination of multiple types which is a meal record. What data type should we use to combine mean and calories into a meal record?
+
+![Rows](./images/combination-data-types.png)
+
+* Given the fact that meal and calories group together. We can model the data in JavaScript similarly. We should combine these two values (meal:string, calories: number) into one piece of data. The data structure that we are going to use, which is called Object Literal.
+
+* Complex Data Types
+1) Objects = Object Literal (another world we can use for it RECORD). What we call a meal is the combination of two data types: 1) description = 'Breakfast', calories = 460. To combine the data types in JavaScript we use {}. You can think of the {} as a container of other types. You use comma as a delimter properties from each other! **Object is a piece of data that groups a list of related properties to a record.**
+
+* A basic example of creating object literals or records:
+```js
+const meal = {
+description: 'Breakfast',
+calories: 180,
+}
+```
+2) Date is another complex data type in JavaScript.
+
+```js
+const meal = {
+description: 'Breakfast',
+calories: 180,
+date: new Date(2008, 8, 1)
+}
+```
+
+* Each row in the wireframe represents a meal record. Can be modeled in JS using Object Literal Syntax. Which data can we use that can contain a bunch of records e.g. list of meals?
+
+3) Arrays is a data type that can contain 0 or more other data types. Arrays can be as large as needed.
+
+```js
+const meals = [
+{description: 'Breakfast', calories: 460},
+{description: 'Snack', calories: 220}
+]
+```
+
+* An expression: a code that resolves to a value `Match.random()` or `const grade1 = 50 + Math.rendom() + 50.0`
+
+* If statements are used to control programs flow
+
+* Functions let you reuse code in a nice and simple way. Using the return interupts the execution of the code in the function and returning some value back to the caller (line where it was called). Functions allow you to create reusable logic or code that transforms values from one thing to another X -> Y. In the example we are transforming a percent `95%` grade to a corresponding letter `A` grade from 95% -> A. 
+
+```js
+const grade = 50 + Math.random() * 50.0
+console.log(grade1)
+
+functon letterGrade(grade) {
+if (grade >= 90) {
+return 'A'
+{ else if (grade >= 80) {
+return 'B'
+} else if (grade >= 80) {
+return 'C'
+} else if (grade >= 60) {
+return 'D'
+} else {
+return 'F'
+}
+}
+``` 
+
+## Immutable Data
+
+* What is immutable data? It's data that never changes once it has been created!!!
+
+* Strings are Immutable in JavaScript. When you make a string in JavaScript it will never change `Snack`. You can use this string to create another strings `'AM' + 'Snack'` but the original string never changes. 
+
+* Avoiding mutating state is a good idea. Why? What is simpler? Immutable data or data that can be chagned? Something that never changes, such as immutable data is by defintion simpler than data that can change. 
+
+```js
+const PI = 3.14 // creates an immutable value, it can never be changed somewhere else in the codebase
+````
+* If a piece of data is immutable I don't worry to share that piece of the data that someone else wrote. I don't have to worry about that the code in that function will change my data. Data that doesn't change is SIMPLE. And keeping things simple when creating a software will result in less complicated code, the less complicated code have fewer bugs, easiert to test and maintain. 
+
+> Don't confuse simple and easy. Simple isn't easy. Often it's hard, but simple software is beautiful. 
+
+* JS doesn't support immutability. It's mostly up to you. And in JS it can be a bit misleading in particularly with the `const` keyword. With `const` you cannot mutate simple data types, but you can mutate the complex types. `const` only prevents reassignment of a value to a constant. 
+
+* In an app we often need to make state changes. State are the things that your program often remembers. Things that happen over time where your program remembers or keeps track of. In the calorie counting app the app needs to remember:
+1) When the new meals are added
+2) When meals are updated
+3) When meals are deleted
+
+* Keeping track of these type of changes is refered to as a maintaining state in a program. In order to combine state and immutable data, we need to use this approach see below. It shows how to make changes to our state in a immutable way. We simply create new objects (records) and manipulate them. 
+
+```js
+
+// 0. INIT: Initialise state for your program
+const meal = {
+  description: 'Dinner',
+};
 
 
+// 1. ADD: In an Immutable way, add a property to the meal called calories setting it's value to 200,
+const updatedMeal = {
+  ...meal,
+  calories: 200
+}
 
+
+// 2. UPDATE: In an Immutable way, increase the calories by 100 and print the result to the console
+const newCalories = {
+  ...meal,
+  calories: 300
+}
+
+
+// 3. DELETE: In an Immutable way, remove the calories property and log the result to the console
+const {calories, ...mealWithoutCalories} = newCalories
+
+console.log(meal, updatedMeal, newCalories, mealWithoutCalories)
+
+// [object Object] {
+//   description: "Dinner"
+// }
+// [object Object] {
+//   calories: 200,
+//   description: "Dinner"
+// }
+// [object Object] {
+//   calories: 300,
+//   description: "Dinner"
+// }
+// [object Object] {
+//   description: "Dinner"
+// }
+``` 
+
+* When we using spread operator is what happening the properties of what we are spreading `meal` in the case above are expanded into new thing that you have created. It's like you copy the `meal` object into a new object and the curly braces where removed. Essentially the properties of an old object are injected into a new object.  
 
 
