@@ -325,3 +325,5 @@ console.log(filteredMeals)
 // }]
 ```
 
+**Important:** `map(), reduce(), filter()` always create a new array. They don't mutate the original array.
+
