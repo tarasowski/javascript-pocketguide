@@ -452,3 +452,54 @@ const studentFeedback = [
 ]; 
 */
 ```
+* **What is currying?** The transformation from a function with multiple arguments to a function that takes a single argument and returns a function that takes a remaining argument is what's called currying. 
+
+```js
+function(greeting, name) {
+return `${greeting} ${name}`
+}
+
+// currying
+functin(greeting) {
+  return (name) {
+  return `${greeting} ${name}`
+  }
+}
+``` 
+* **What is partial application?** Partial application is when we called greet, passing into greet `Good Morning`, `greet('Good Morning')`, you can think of partial application as specializing a function. When we pass `Good Morning` into greet, we are specializing the return function into essentially into `morningGreetingFunction`  
+
+```js
+const friends = ['Nate', 'Jim', 'Dean']
+const greet = greeting => name => `${greeting} ${name}`
+
+const friendGreetings = friends.map(greet('Good morning'))
+
+// partial application
+const morningGreetingFunction = greet('Good Morning') // -> this is partial application over curried function
+morningGreetingFunction('Nate') // Good Morning Nate
+
+// partial application
+const afternoonGreet = greet('Good Afternoon') // -> this is partial application over curried function
+afternoonGreet('Nate') // Good Afternoon Nate
+```
+
+* **Currying (Design)** is what you do to a function before you use a function. It's whats done while designing the code. Currying is related to creating functions. When you are currying there is an absence of data
+
+* **Partial Application (Actual Use)** is what's done when you begin to use that function in part, by applying some of the parameters the function needs but not all of them. Partial application is what you are doing when using a currying function in part. Partial application is related to consuming or using functions with actual data.
+
+![Curry](./images/curry-partial.png)
+
+* Can you do partial application without curried function? You can have a function which performs partial application on a regular old function a non-curried function. 
+
+```js
+const add = (x, y) => x + y
+
+// we can have a library that does the partial application
+const add3 = partial(add, [3])
+add3(2)
+```
+* You can use partial application on curried function or regular functions with helper function. 
+
+* As functional programmer you'll be using currying and partial application all the time. Currying and partial application are those of 20% items that make 80% of your code as a functional programmer. 
+
+* Does parameter order matters?
