@@ -714,3 +714,26 @@ background-color: yellow;
 > State is like radio-active materials. They should be isolated and kept controlled. Most bad bugs are state related. Eliminating and controlling state will lead to better and simpler software. 
 
 * In functional programming data comes last!
+
+```js
+const KtoC = k => k - 273.15
+const KtoF = k => k * 9 / 5 - 459.67
+
+const updateTemperature = (convertFn) => {
+    return city => {
+        const temp = Math.round(convertFn(city.temp))
+        return { ...city, temp }
+    }
+}
+
+
+const updatedCities = cities.map(updateTemperature(KtoF))
+
+const city = cities[0]
+const updatedCity = updateTemperature(KtoF)(city)
+console.log(updatedCity)
+
+// data comes last in functional programming
+const updatedCitiesRamda = R.map(updateTemperature(KtoF), cities)
+console.log(updatedCitiesRamda)
+``` 
