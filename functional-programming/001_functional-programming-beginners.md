@@ -529,6 +529,8 @@ console.log(morningGreeting('James'))
 ``` 
 * **Apps** just present data ins meaningful and consumable way. Apps transform raw data into information. And apps allow interacting with the information. Apps are data and transformations of that data. 
 
+#### Pure Functions
+
 * There are pure functions and **impure functions (procedure)**. 
 
 - **Pure Function** creates and returns value based only on the input parameters and causes no side-effects. Rules: 
@@ -552,3 +554,10 @@ c) Pure functions are easy to test, you just provide input values and you check 
 
 * If you always write pure functions, how do you develop applications that have state? For example when you write a todo app, how do you maintain the list of todo items? You need eliminate state as much as possible and tightly control state when it's needed. 
 
+#### Function Composition
+
+* Function composition is making functions out of other functions by combining the logic of other functions. 
+
+* When the output of one pure function is the same type the expected input to another pure function, you can join them or what's called compose them. 
+
+![Cake](./images/cake.png)
