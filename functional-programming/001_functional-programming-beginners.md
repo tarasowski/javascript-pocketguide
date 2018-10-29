@@ -712,3 +712,5 @@ background-color: yellow;
 * How do you maintain state with pure functions. FP doesn't say you should avoid state, it says you should avoid state as much as possible and the rest that cannot be avoided should be tightly controlled or isolation/controlling of side-effects. 
 
 > State is like radio-active materials. They should be isolated and kept controlled. Most bad bugs are state related. Eliminating and controlling state will lead to better and simpler software. 
+
+* In functional programming data comes last!
