@@ -558,6 +558,66 @@ c) Pure functions are easy to test, you just provide input values and you check 
 
 * Function composition is making functions out of other functions by combining the logic of other functions. 
 
-* When the output of one pure function is the same type the expected input to another pure function, you can join them or what's called compose them. 
+* When the output of one pure function is the same type the expected input to another pure function, you can join them or what's called compose them. Feeding the output of one function as input to another function is what compose can be used for.
 
 ![Cake](./images/cake.png)
+![Composition](./images/cake-composition.png)
+
+* Compose works from right to left!!!
+
+* Pipe works from left to right!!!
+
+```js
+const sentence = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
+
+const wordList = R.split(' ', sentence)
+console.log(wordList)
+// ["Lorem", "Ipsum", "is", "simply", "dummy", "text", "of", "the", "printing", "and", "typesetting", "industry.", "Lorem", "Ipsum", "has", "been", "the", "industry"]
+
+
+const wordCount = R.length(wordList)
+
+console.log(wordCount)
+// 18
+
+const countWords = R.compose(R.length, R.split)
+console.log(countWords(' ', sentence))
+// 18
+
+const countWords2 = R.compose(R.length, R.split(' '))
+console.log(countWords2(sentence))
+// 18
+
+const countWords3 = R.pipe(R.split(' '), R.length)
+console.log(countWords3(sentence))
+// 18
+``` 
+
+* An exercise for function composition
+
+```js
+const sentence = 'PechaKucha is a presentation style in which 20 slides are shown for 20 seconds each (6 minutes and 40 seconds in total).';
+
+const getDigits = (array) => array.map(element => element.match(/\d/g))
+const removeNulls = (array) => array.filter(element => element !== null)
+const flattenArray = (array) => array.flat()
+const numbersInString = R.compose(R.length, flattenArray, removeNulls, getDigits, R.split(' '))
+expect(numbersInString(sentence)).toBe(7); 
+console.log('If you see this printed in the console, the test passed!');
+``` 
+
+```js
+const sentence = 'PechaKucha is a presentation style in which 20 slides are shown for 20 seconds each (6 minutes and 40 seconds in total).';
+
+const numbersInString = R.pipe(
+  R.split(''),
+  R.map(parseInt),
+  R.filter(Number.isInteger),
+  R.length,
+  );
+
+expect(numbersInString(sentence)).toBe(7);
+
+console.log('If you see this printed in the console, the test passed!');
+```
+
