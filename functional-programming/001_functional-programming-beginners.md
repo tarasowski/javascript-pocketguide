@@ -30,7 +30,12 @@
 3) after you finish your inital version, add more features to it
 
 * The idea to learn everything asap is the wrong approach. You should concentrate yourself on the pareto rule. In JavaScript 80% of the code is written using only 20% of the JavaScript features. Concentrate yourself on the 20% of JS that is used 80% of the time. Master it! The rest that you need just learn it to know it enough.
+
+> 1. The idea to learn everything is a wrong approach. 2. Learn 20% of JavaScript that are used 80% of the time. 3. Learn the rest case by case needed!!!
+
+
 * How to find the 20% that you need to learn? Code if free, it's eassy to discover by reading and studying open source code. If you read code of a season develper is the best shortcuts you can take.
+
 * The best way to learn the 20% is the technique called [spaced repetion](https://knowthen.com/spaced-repetition/), build small apps over and over again to repeat the concepts.
 1) The brain considers a memory important, when it uses that memory more than once. And the more you use it, the more important the brain considers that memory
 2) Each of us suffer from what's called the Forgetting Curve. When we're exposed to new information, our brains will gorget the new information over predictable periods of time.
@@ -57,7 +62,7 @@
 1) String
 2) Numbers - Whole number 42, Decimal Number 42.10
 
-* Numbers and Strings are treated differently. Numbers can have different operations performed on them than strings. If you deal with a numeric value you should store it as a Number type. To perform mathematical operations such as `Match()`
+* Numbers and Strings are treated differently. Numbers can have different operations performed on them than strings. If you deal with a numeric value you should store it as a Number type. To perform mathematical operations such as `Match()`. Data type: A particular kind of data item (set of values), as defined by the values it can take, the programming language used, or the operations that can be performed on it.
 
 3) Boolean can be used for dealing with states e.g. true fro show a form and false for not showing the form and instead we rather show the button.
 
@@ -621,3 +626,60 @@ expect(numbersInString(sentence)).toBe(7);
 console.log('If you see this printed in the console, the test passed!');
 ```
 
+### HTML
+
+* What is a DOM: Document Object Model. When the browser loaded the HTML, showed it to the user (rendered) it creates the Document Object Model, which is a data structure you can interact with programmatically using JavaScript. It's helpful to see a DOM as a tree structure with a bunch of children. 
+
+![DOM](./images/dom.png)
+
+* CSS controls how content is displayed on a web page. It controls colors, fonts, margins and borders. 
+
+* You can chain the classes in CSS see example
+
+```html
+<style type="text/css>
+.f5 {
+font-size: 5rem;
+}
+.bg-yello {
+background-color: yellow;
+}
+</style>
+             
+<p class="f5 bg-yellow">Here comes the text</p>
+```
+#### Tachyons
+
+* In Tachyons CSS classes do always one thing and you can compose them all together.
+
+```html
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+</head>
+<body>
+  <button>Save</button>
+  <button class="ph3 pv2 bg-blue white bn br1 dim">Save</button>
+</body>
+</html>
+```
+
+* In functional programming you don't combine the data with functions. You are trying to keep your data and your functions separate as much as absolutely possible. 
+
+1. If you look at the app, think about the underlying structure you can use. Don't think about anything else, just think about the data structure. The most obvious data structure here, would be an array with meal records. 
+
+![App](./images/counter-app.png)
+![Data](./images/data-structure-counter.png)
+
+2. Start thinking about what HTML elements do you need to visualise the data structure. 
+
+#### How do we get from raw data into HTML? How do we transform data?
+
+* As a programmer we use functions to transform data from X -> Y. 
+
+* To transform the raw data e.g. array of records we can apply functions. We are going to use libraries to transform the raw data into HTML data. In this case we are going to use Hyperscript + hyperscript helpers. 
+
+* Accessing DOM with a function makes the function impure because it depends on the state from the DOM which could change from call to call. 
