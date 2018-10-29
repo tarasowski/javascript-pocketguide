@@ -502,4 +502,53 @@ add3(2)
 
 * As functional programmer you'll be using currying and partial application all the time. Currying and partial application are those of 20% items that make 80% of your code as a functional programmer. 
 
-* Does parameter order matters?
+* Does parameter order matters? What sequence your curried function requires the parameters? `greet` requires two parameters the `greeting` and the `name`. We ordered the parameters so that the `greeting` was first and the `name` was second. When we use `map()` we need the `name` to be the last parameter because the `name` is what the map function will be supplying. 
+
+```js
+const friends = ['Nate', 'Jim', 'Dean']
+const greet = greeting => name => `${greeting} ${name}`
+
+const friendGreetings = friends.map(greet('Good morning'))
+
+```
+* Here is the way to think about order of parameters for a curried function. Any parameter that turns a general function into more specialized function should be the first parameter. When we pass the first parameter to `const specializedGreeting = greet('Good Afternoon')` we kind specialized the function, it's `Good Afternoon` function now. 
+
+* Another way of ordering function is, the last piece of data should be the data that your function is acting on. What does it mean the data the function acts on? `['Nate', 'Jim'].map(greet('Good Afternoon'))` In this example `greet('Good Afternoon')` is acting on the individual name that it's passed. So the name is on what's beeing acted on `greet('Good Afternoon')('Nate')`
+
+* JavaScript doesn't support the carrying as other languages. You need to write some sort of verbose code `fn(1)('Nate')(50)('Hello')`. Therefore most of the functional programmers use libraries such as Rambda. 
+
+```js
+const greet = R.curry((greeting, name) => `${greeting} ${name}`) 
+
+console.log(greet('Good Morning', 'James'))
+// "Good Morning James"
+
+const morningGreeting = greet('Top of the morning to ya')
+console.log(morningGreeting('James'))
+// "Top of the morning to ya James"
+``` 
+* **Apps** just present data ins meaningful and consumable way. Apps transform raw data into information. And apps allow interacting with the information. Apps are data and transformations of that data. 
+
+* There are pure functions and **impure functions (procedure)**. 
+
+- **Pure Function** creates and returns value based only on the input parameters and causes no side-effects. Rules: 
+1) Must have input parameters, 
+2) No stateful values e.g. must not depend on any variables outside of themselves that could change over time, 
+3) Must return a value that is determinant only by it input parameters `const add = (x, y) => x + y` 
+4) No side effects. Side effect is when your code causes some change outside of itself. If you run a function and that function has created some permanent change, that change is a side effect `console.log()`, save something in the database, writing to a file or making changes to what's seen in a web app. 
+
+**Impure function**
+
+* If it breaks only 1 rule than it's an impure function.
+
+* Should we call it a function? Must people would call it a function, probably because it's using the function keyword. But a better description for increment it's a **procedure**.
+
+![Impure](./images/impure.png)
+
+* Writing pure functions is hard. So why we should use them?
+a) Pure functions are reusable
+b) Pure functions are composable (you can combine functions to effectively create new functions)
+c) Pure functions are easy to test, you just provide input values and you check to see the result is what you have expected. d) Pure functions always produce the same result for a given input so it's easier to cache expensive function calls
+
+* If you always write pure functions, how do you develop applications that have state? For example when you write a todo app, how do you maintain the list of todo items? You need eliminate state as much as possible and tightly control state when it's needed. 
+
