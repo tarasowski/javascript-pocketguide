@@ -682,4 +682,21 @@ background-color: yellow;
 
 * To transform the raw data e.g. array of records we can apply functions. We are going to use libraries to transform the raw data into HTML data. In this case we are going to use Hyperscript + hyperscript helpers. 
 
-* Accessing DOM with a function makes the function impure because it depends on the state from the DOM which could change from call to call. 
+* Accessing DOM with a function makes the function impure because it depends on the state from the DOM which could change from call to call. Calling `const node = document.getElementbyId('app')` or `node.appendChild(myHeading` is also impure, it does change the node. 
+
+> As functional programmer we want to eliminate the user of side-effects as much as possible. If we can't eliminate the side-effects, we will tightly control it. 
+
+#### Programmatically Create HTML
+
+* We can write a function that transforms data to HTML, or we can use many functions that do the same. The rule I should follow is the single responsibility principle. **Each function should do only one thing.** In the example below each function should do only one thing.
+
+![Decompose](./images/decomposition.png)
+![Decompose](./images/decomposition2.png)
+
+* Data model is simply the list of records as see below.
+
+![Model](./images/data-model.png)
+
+> As a functional programmer you are instered in data model (data) transforming it into something such as HTML can be accomplished by simply calling functions. You use data and use functions to transform that data!
+
+
