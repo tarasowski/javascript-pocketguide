@@ -693,10 +693,22 @@ background-color: yellow;
 ![Decompose](./images/decomposition.png)
 ![Decompose](./images/decomposition2.png)
 
-* Data model is simply the list of records as see below.
+* Data model is simply the list of records as seen below.
 
 ![Model](./images/data-model.png)
 
 > As a functional programmer you are instered in data model (data) transforming it into something such as HTML can be accomplished by simply calling functions. You use data and use functions to transform that data!
 
+### Declarative Programming
 
+* Functional Programmer = Declarative style of programming. In the last exercises we turned an array of MEAL (data model) into HTML/CSS. Here you simply know the end result, such as giving the address and you can find a way to that address how you like.
+
+* Imperative type of programmin = JQuery, you can see it as giving someone directions on how to get to your house. With JQuery you need to provide step by step instructions on how to build e.g. a HTML table. 
+
+![Style](./images/imperative-vs-declarative.png)
+
+* What is functional programming? FP is a style of programming where you use pure functions almost exclusevely. Pure functions always produce the same result for a given input, they are reusalbe, they are composable, and they are easy to test. Pure functions allow for parallel execution, there is no accessing shared state. 
+
+* How do you maintain state with pure functions. FP doesn't say you should avoid state, it says you should avoid state as much as possible and the rest that cannot be avoided should be tightly controlled or isolation/controlling of side-effects. 
+
+> State is like radio-active materials. They should be isolated and kept controlled. Most bad bugs are state related. Eliminating and controlling state will lead to better and simpler software. 
