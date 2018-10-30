@@ -838,3 +838,5 @@ click delete icon
 **Note:** There are around 6 interactions within the app, which means we should have 6 messages that can be passed into `update()` function. Probably we can put the most of the update logic into primary `update()` function with maybe 1 exception. Clicking the `save` button can do 1 of 2 things, either add a new meal or update an existing meal. We might create separate function for adding and updating a meal. 
 
 ![Messages](./images/messages.png)
+
+* We call `e.preventDefault()` because the normal behaviour of a web form (if we add a function to the attribute `onsubmit`), when the submission happens, to send the form data back to the server, using a traditional post or get request. That's not what we want to happen, we don't want to send the data to the server in this way.
