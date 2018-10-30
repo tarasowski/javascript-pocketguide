@@ -728,4 +728,21 @@ const updateTemperature = R.curry((convertFn, city) => {
 
 // data comes last in functional programming
 const updatedCitiesRamda = R.map(updateTemperature(KtoF), cities)
-console.log(updatedCitiesRamda)``` 
+console.log(updatedCitiesRamda)
+``` 
+
+### Counter
+* When we are planning to build an app with the functional programming. The two fundamental building blocks are:
+
+1. Data (lists of data) => Immutable data (What types of data our app need to store?)
+  - We need to define the data model. In a counter app it's a **Number** (count). As that is the only thing that will change.
+
+2. Functions (data transformation) => Pure functions (What types of data we need to transform in our app?)
+  - Transform a data model into HTML/CSS `view()`
+  - By clicking +/- we need one or more functions to update the model `update()`
+
+**Note:** Working defintion for function programming: We use pure functions ALMOST exclusively and we are trying to eliminate side effecs & controlling side effects. 
+
+* Our `view()` and `update()` functions are not allowed to have side-effects. But by clicking +/- buttons we need to change our state = changing a state is a side-effect by definiton. **The question is where and how do we allow for side effects?** Where we will keep this counter that will change? 
+
+![Counter](./images/counter-app.png)
