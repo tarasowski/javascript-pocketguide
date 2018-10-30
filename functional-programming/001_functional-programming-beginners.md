@@ -746,3 +746,11 @@ console.log(updatedCitiesRamda)
 * Our `view()` and `update()` functions are not allowed to have side-effects. But by clicking +/- buttons we need to change our state = changing a state is a side-effect by definiton. **The question is where and how do we allow for side effects?** Where we will keep this counter that will change? 
 
 ![Counter](./images/count-app.png)
+
+* `onclick: () => ...` What exactly is this onclick property? The DOM is a data structure that gets created after the page was renderd by the browser. We can programatically interact with the DOM with JavaScript. Adding an `onclick` property to a child element of the DOM allows us to tell the DOM, what we are interested in knowing when someone clicks on the button. The way we tell the DOM that we would like to know if someone clicked the button, is by passing the `onclick` property a callback function that can be called when it's clicked!
+
+* Updating nodes in DOM is really expensive task, they DOM nodes are expnsive to create and destroy. In order to overcome the performance problem we can use a virual DOM library. What is a virual DOM library? It's a library that sits between the view and the DOM. When we send the new view to the virtual DOM library it will compare the new view to the current view and figure out the minimum amount of changes that need to be made to the browsers DOM and then makes those changes.
+
+![Virtual](./images/virtual-dom)
+
+
