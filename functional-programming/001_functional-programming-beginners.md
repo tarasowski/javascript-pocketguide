@@ -753,4 +753,52 @@ console.log(updatedCitiesRamda)
 
 ![Virtual](./images/virtual-dom)
 
+### Calorie Counting App
+
+#### Planning Steps
+* When you are building an app, it makes sense to create initial plan. In the example author has used wireframe drawings for showing the end result (how the app should look like). It's like a destination when you go to specific place on the map. But in order to get there you need to polotter the course, how to get there. What does it mean?
+
+1. We need to figure out what the major components are that we need to build. As always we need to start with:
+
+a) Data: the pieces of data that should be overall part of the data model of the app. For example the description of the meal and the calories, would be a small part of the data model.
+
+![Model](./images/data-model-calorie-app.png)
+
+b) Function to transform that data: There are couple of categories to transform data we need:
+1) VIEW FUNCTIONS: To transform our raw data model into HTML/CSS
+2) UPDATE FUNCTIONS: Updating or transforming the data model when you interact with the app, such as when you click on `add meal` or `delete button`. The update functions transform old data model into a new updated data model.
+
+##### Planning Data Model
+* We know we have the data model, the view and update functions. The 1st step is to start with the defining the data model.
+
+* In the counter app example our data model was simply a **Number** that was incremented and decremented.
+
+**Note:** The data model you use in your app, can whatever it needed to be!!! It could be a number, it could be a string, or it could be an array, it could be an object. It's up to you/me to decide how data model should look like. 
+
+* For most non-trivial apps you will likely have a plain old object, which has potentially many different properties for all different pieces of data in your app. We can also call it a record with multiple properties or fields.
+
+![Record](./images/record.png)
+
+```md
+# Calorie Counting App Plan / Notes
+
+## Data Model
+Example Model/Shape:
+
+```js
+meal = {
+  id: 1,
+  description: 'Breakfast',
+  calories: 460
+} 
+model = {
+  meals: [],
+  showForm: true,
+  description: 'Dinner',
+  calories: 600,
+  editId: 3,
+  nextId: 1,
+}
+```
+```
 
