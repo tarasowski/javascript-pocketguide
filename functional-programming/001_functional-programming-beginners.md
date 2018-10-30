@@ -785,7 +785,6 @@ b) Function to transform that data: There are couple of categories to transform 
 ## Data Model
 Example Model/Shape:
 
-```js
 meal = {
   id: 1,
   description: 'Breakfast',
@@ -799,6 +798,43 @@ model = {
   editId: 3,
   nextId: 1,
 }
-```
+
 ```
 
+##### Planning Transformation Functions
+
+* View functions will transform raw data into HTML/CSS
+
+```md
+## View Functions
+
+view
+  formView
+      fieldSet
+      buttonSet
+   tableView
+      tableHeader
+      mealsBody
+        mealRow
+          cell
+        totalRow
+````
+![Planning](./images/planning-functions.png)
+
+* Update functions are get called when interactions occur within the app. Such as clicking the `add meal, edit or delete` buttons
+
+```md
+## Update / Interactions
+click add meal 
+meal input
+calorie input
+click save (add / update)
+click edit icon
+click delete icon
+```
+
+![Update](./images/save-update.png)
+
+**Note:** There are around 6 interactions within the app, which means we should have 6 messages that can be passed into `update()` function. Probably we can put the most of the update logic into primary `update()` function with maybe 1 exception. Clicking the `save` button can do 1 of 2 things, either add a new meal or update an existing meal. We might create separate function for adding and updating a meal. 
+
+![Messages](./images/messages.png)
