@@ -745,4 +745,4 @@ console.log(updatedCitiesRamda)
 
 * Our `view()` and `update()` functions are not allowed to have side-effects. But by clicking +/- buttons we need to change our state = changing a state is a side-effect by definiton. **The question is where and how do we allow for side effects?** Where we will keep this counter that will change? 
 
-![Counter](./images/counter-app.png)
+![Counter](./images/count-app.png)
