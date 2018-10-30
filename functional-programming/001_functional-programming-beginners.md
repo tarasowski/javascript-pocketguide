@@ -632,6 +632,8 @@ console.log('If you see this printed in the console, the test passed!');
 
 ![DOM](./images/dom.png)
 
+**Note:** You JavaScript that tries to manipulate the DOM needs to be placed at the bottom of `<body>`, by doing so you make sure the DOM is created and you can programatically access the attributes/properties/children of the DOM.
+
 * CSS controls how content is displayed on a web page. It controls colors, fonts, margins and borders. 
 
 * You can chain the classes in CSS see example
