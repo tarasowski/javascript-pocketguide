@@ -769,6 +769,9 @@ b) Function to transform that data: There are couple of categories to transform 
 2) UPDATE FUNCTIONS: Updating or transforming the data model when you interact with the app, such as when you click on `add meal` or `delete button`. The update functions transform old data model into a new updated data model.
 
 ##### Planning Data Model
+
+> Data model - defines the objects that a user can view, access and manipulate through the user interface. [Source](https://en.wikipedia.org/wiki/User_interface_modeling)
+
 * We know we have the data model, the view and update functions. The 1st step is to start with the defining the data model.
 
 * In the counter app example our data model was simply a **Number** that was incremented and decremented.
@@ -776,6 +779,17 @@ b) Function to transform that data: There are couple of categories to transform 
 **Note:** The data model you use in your app, can whatever it needed to be!!! It could be a number, it could be a string, or it could be an array, it could be an object. It's up to you/me to decide how data model should look like. 
 
 * For most non-trivial apps you will likely have a plain old object, which has potentially many different properties for all different pieces of data in your app. We can also call it a record with multiple properties or fields.
+
+**Example from React Documentation** [Source](https://reactjs.org/docs/thinking-in-react.html)
+---
+* Often the data model is displayed as JSON data model to a user. 
+
+* If your model was correctly built, your UI (and component structure) will map nicely. That's because UI and data models tend to adhere the same information architecture, which means the work of separating your UI into components is often trivial. Just break it up into components that represent exactly one piece of your data model.
+
+![Model](https://reactjs.org/static/thinking-in-react-components-eb8bda25806a89ebdc838813bdfa3601-82965.png)
+
+[Get the full undestanding how to plan and breakdown the components in React Documentation](https://reactjs.org/docs/thinking-in-react.html)
+---
 
 ![Record](./images/record.png)
 
