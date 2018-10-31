@@ -780,15 +780,15 @@ b) Function to transform that data: There are couple of categories to transform 
 
 * For most non-trivial apps you will likely have a plain old object, which has potentially many different properties for all different pieces of data in your app. We can also call it a record with multiple properties or fields.
 
-**Example from React Documentation** [Source](https://reactjs.org/docs/thinking-in-react.html)
+**Example from React Documentation** 
 ---
-* Often the data model is displayed as JSON data model to a user. 
+* Often the data model is displayed as JSON data model to a user. [Source](https://reactjs.org/docs/thinking-in-react.html)
 
 * If your model was correctly built, your UI (and component structure) will map nicely. That's because UI and data models tend to adhere the same information architecture, which means the work of separating your UI into components is often trivial. Just break it up into components that represent exactly one piece of your data model.
 
 ![Model](https://reactjs.org/static/thinking-in-react-components-eb8bda25806a89ebdc838813bdfa3601-82965.png)
 
-[Get the full undestanding how to plan and breakdown the components in React Documentation](https://reactjs.org/docs/thinking-in-react.html)
+* The whole thinkign and planning process is also described in the react documentation [Source](https://reactjs.org/docs/thinking-in-react.html))
 ---
 
 ![Record](./images/record.png)
