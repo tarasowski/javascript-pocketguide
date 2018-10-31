@@ -751,7 +751,7 @@ console.log(updatedCitiesRamda)
 
 * Updating nodes in DOM is really expensive task, they DOM nodes are expnsive to create and destroy. In order to overcome the performance problem we can use a virual DOM library. What is a virual DOM library? It's a library that sits between the view and the DOM. When we send the new view to the virtual DOM library it will compare the new view to the current view and figure out the minimum amount of changes that need to be made to the browsers DOM and then makes those changes.
 
-![Virtual](./images/virtual-dom)
+![Virtual](./images/virtual-dom.png)
 
 ### Calorie Counting App
 
