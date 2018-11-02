@@ -88,6 +88,8 @@ toSlug('Dimitri Tarasowski')
 7. Now the parameters get set (parameterization), basically it means each argument gets assigned to a variable, since we are using rest & destructuring all parameters will be gathered into an array. Important: `split(), map(), join()` function gets executed, means they all open new local execution environments. Each function returns another function, since they all are curried, the returned functions are closures, they can now access variable in the outer scope. After all local execution contexts are closed the variable `toSlug` gets assigned a value as a function that is returned from `pipe()`. In this case `pipe()` returns another function.
 8. We are calling the `toSlug('Dimitri Tarasowski')` function a new local execution context gets created, the `toSlug()` function is called by adding an argument we supply the first parameter to that function. Now all the function inside the `pipe()` are called each after each other, where the argument of `toSlug('Dimitri Tarasowski')` is expected input for the functions inside the `pipe()`. After all function has been run we return a transformed value back to the caller in this case back to the global execution environment and get process gets shutdown.
 
+* This is how the closure of pipe looks like
 
+![Clousure](./images/pipe-closure.png)
 
 
