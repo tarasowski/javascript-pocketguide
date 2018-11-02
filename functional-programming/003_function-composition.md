@@ -92,4 +92,42 @@ toSlug('Dimitri Tarasowski')
 
 ![Clousure](./images/pipe-closure.png)
 
+**Note:** If you want to see what's going on inside the data pipeline, use the trace function to get better visiblity into the pipeline.
 
+```js
+const trace = label => value => {
+    console.log(`${label}: ${value}`)
+    return value
+}
+``` 
+
+* If you run the pipeline with the `trace()` function this is the output:
+
+```js
+const R = require('ramda')
+const trace = label => value => {
+    console.log(`${label}: ${value}`)
+    return value
+}
+
+const split = (splitOn, str) => str.split(splitOn)
+const mapping = (fn, data) => data.map(fn)
+const joining = (str, arr) => arr.join(str)
+const toLowerCase = str => str.toLowerCase()
+
+const toSlug = R.pipe(
+    R.partial(split, [' ']),
+    trace('after split'),
+    R.partial(mapping, [toLowerCase]),
+    trace('after map'),
+    R.partial(joining, ['-']),
+    trace('after join'),
+    encodeURIComponent
+)
+
+console.log(toSlug('Dimitri Tarasowski'))
+//after split: Dimitri,Tarasowski
+//after map: dimitri,tarasowski
+//after join: dimitri-tarasowski
+dimitri-tarasowski
+```
