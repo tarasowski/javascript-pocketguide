@@ -1,7 +1,7 @@
 # Learning FP with Ramda
 
-[Source](https://www.udemy.com/learning-functional-javascript-with-ramda/)
-[Checkout this gist](https://gist.github.com/tarasowski/7daa6c007784933da0de1f3b45bdb37b)
+* [Source](https://www.udemy.com/learning-functional-javascript-with-ramda/)
+* [Checkout this gist](https://gist.github.com/tarasowski/7daa6c007784933da0de1f3b45bdb37b)
 
 * `console.dir(func)` show the function as an object e.g. with closure values etc.. It displays an interactive list of properties of the specified JS object.
 
