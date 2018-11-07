@@ -460,6 +460,7 @@ const composedNamed = compose(
 
 console.log(composedNamed(user))
 ```
+```js
 // ******* Start From Here *******************//
 
 // * Lens
@@ -650,6 +651,4 @@ const isActiveAdmin = allPass([
 ])
 
 console.log(isActiveAdmin(adminUser)) // false
-```js
-
 ```
