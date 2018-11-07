@@ -66,9 +66,9 @@
 
 - Async / STM library
 
-- Registry : helpful if you want start building a real Haskell application ![Link](http://hackage.haskell.org/package/registry)
+- Registry : helpful if you want start building a real Haskell application [Link](http://hackage.haskell.org/package/registry)
 
-# Summary: You have Data -> Functions that transform data -> Consumers
+# Summary: You have Data -> Functions that transform data -> Someone who consumes data (Consumers)
 
 
 
