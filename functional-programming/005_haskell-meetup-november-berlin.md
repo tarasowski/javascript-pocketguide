@@ -73,7 +73,7 @@
 
 ## Q&A
 
-* When to work with OO: if you team has no time to dig deeper into fp, new languages and need to release features they should stick e.g. to their Java approach.
+* When to work with OO: if you team has no time to dig deeper into fp, new languages, and need to release features they should stick to their OO Java approach. 
 
-* When you start with a greenfield project you should use funtional programming. The advantage of Java VJM is gone, since you can deploy containers / kubernetes everywhere and run your haskell code everywhere. 
+* When you start with a greenfield project you should use funtional programming. The advantage of Java VJM is gone, since you can deploy containers / kubernetes everywhere and run your haskell code everywhere. Go for fp!
 
