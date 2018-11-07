@@ -56,3 +56,20 @@
 * OO is the dead end, it looks nice if you have 3 objects, if you have 100 objects, it becomes complex.
 
 **Remember:** the data type object in JS is data type (just data) and not an object (e.g. object from Java) etc. It's just a container for other data types!
+
+* Haskell libraries:
+- Lenses (modify the data that is deeply nested) - if you work with immutable data
+
+- Quckcheck - is a testing library
+
+- Streaming (the library is called Streaming in Haskell) - we have tons of data to process thats why we use streams - manage resources in a better way. It's like a list but with infinite space.
+
+- Async / STM library
+
+- Registry : helpful if you want start building a real Haskell application ![Link](http://hackage.haskell.org/package/registry)
+
+# Summary: You have Data -> Functions that transform data -> Consumers
+
+
+
+
