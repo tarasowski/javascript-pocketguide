@@ -2,6 +2,7 @@
 
 * [Source](https://www.udemy.com/learning-functional-javascript-with-ramda/)
 * [Checkout this gist](https://gist.github.com/tarasowski/7daa6c007784933da0de1f3b45bdb37b)
+* [Checkout Tests from RamdaJS Library](https://github.com/ramda/ramda/tree/master/test)
 
 * `console.dir(func)` show the function as an object e.g. with closure values etc.. It displays an interactive list of properties of the specified JS object.
 
@@ -458,4 +459,197 @@ const composedNamed = compose(
 )
 
 console.log(composedNamed(user))
+```
+// ******* Start From Here *******************//
+
+// * Lens
+
+
+const userX = {
+    name: 'John',
+    surname: 'Flint'
+}
+
+const nameLens2 = lens(prop('name'), assoc('name'))
+
+const resultX = view(nameLens2, user)
+
+console.log('result', resultX)
+
+
+// * Ramda functions never mutate data, so when we console.log user object it will be the same.
+const resultX2 = set(nameLens2, 'Dimitri', user)
+
+console.log('result2:', resultX2)
+console.log(user)
+
+const newName = view(nameLens2, user)
+const upperName = toUpper(newName)
+const resultX3 = set(nameLens2, upperName, user)
+console.log(resultX3)
+
+
+
+const resultX4 = over(nameLens2, toUpper, user)
+console.log(resultX4)
+
+const nameLens3 = lensProp('name')
+const resultX5 = over(nameLens3, toUpper, user)
+console.log(resultX5)
+
+// * UseWith Ramda method - Manipulating with arrays and objects
+
+
+const checkArr = converge(equals, [
+    head,
+    last
+])([1, 2, 3, 4, 1])
+console.log(checkArr)
+
+const maxRes = useWith(max, [inc, dec])(2, 3)
+console.log(maxRes)
+
+function reducer(state, action) {
+    return append(
+        prop('payload', action),
+        init(state)
+    )
+}
+
+const reducerPF = useWith(
+    append,
+    [
+        prop('payload'),
+        init
+    ]
+)
+
+const state = [1, 2, 3]
+const action = {
+    payload: 5
+}
+
+const newState = reducer(state, action)
+console.log('newState', newState)
+console.log(reducerPF(action, state))
+
+// * Cutting array in Ramda
+
+const arrFirst = [1, 2, 3, 4, 5]
+const stringFirst = 'ABCDE'
+
+console.log(head(arrFirst)) // 1
+console.log(head(stringFirst)) // A
+
+console.log(last(arrFirst)) // 5
+console.log(last(stringFirst)) // E
+
+// cuts the last element of an array
+console.log(init(arrFirst)) // [1, 2, 3, 4]
+console.log(init(stringFirst)) // ABCD
+
+// cuts the first element of an array
+console.log(tail(arrFirst)) // [2, 3, 4, 5]
+console.log(tail(stringFirst)) // BCDE
+
+// get first 2 elements from an array
+console.log(take(2, arrFirst)) // [1, 2]
+console.log(take(2, stringFirst)) // AB
+
+// get last 2 elements from an array
+console.log(takeLast(2, arrFirst)) // [4, 5]
+console.log(takeLast(2, stringFirst)) // DE
+
+// remove first 2 elements from an array
+console.log(drop(2, arrFirst)) // [3, 4, 5]
+console.log(drop(2, stringFirst)) // CDE
+
+console.log(dropLast(2, arrFirst)) // [1, 2, 3]
+console.log(dropLast(2, stringFirst)) // ABC
+
+
+// * Grouping Items im Ramda
+
+const students = [
+    { name: 'Alex', score: 84, isActive: true },
+    { name: 'Jack', score: 46, isActive: false },
+    { name: 'John', score: 46, isActive: true }
+]
+
+const byScore = groupBy(
+    student => student.score > 50 ? 'positive' : 'negative'
+)
+
+const byActivity = groupBy(
+    prop('isActive')
+)
+
+console.log(byScore(students))
+console.log(byActivity(students))
+
+// * Sorting in Ramda
+
+function sortingArr(array) {
+    return sort((a, b) => a - b)
+}
+
+const asc = sort((a, b) => a - b)
+const desc = sort((a, b) => b - a)
+
+const ascRamda = sort(ascend(identity))
+const descRamda = sort(descend(identity))
+
+const originArr = [1, 3, 2, 6, 5]
+
+console.log(sortingArr(originArr))
+console.log(originArr)
+
+console.log(asc(originArr)) // [ 1, 2, 3, 5, 6 ]
+console.log(desc(originArr)) // [ 6, 5, 3, 2, 1 ]
+
+const ascObj = sort(ascend(prop('id')))
+const descObj = sort(descend(prop('id')))
+
+const userObject = [
+    { name: 'John', id: 2 },
+    { name: 'Alex', id: 5 },
+    { name: 'James', id: 1 }
+]
+
+console.log(ascObj(userObject))
+
+const userOjbLetters = [
+    { name: 'John' },
+    { name: 'james' },
+    { name: 'alex' }
+]
+
+const sortFn = sortBy(compose(
+    toLower,
+    prop('name')
+))
+console.log(sortFn(userOjbLetters))
+
+// * Predicates in Ramda
+
+const usersActivity = [
+    { name: 'Alex', isActive: true },
+    { name: 'Jack', isActive: true },
+    { name: 'John', isActive: true },
+]
+
+const isActive = all(propEq('isActive', true))
+
+console.log(isActive(usersActivity)) // true
+
+const adminUser = { name: 'Alex', isActive: false, role: 'admin' }
+
+const isActiveAdmin = allPass([
+    propEq('isActive', true),
+    propEq('role', 'admin')
+])
+
+console.log(isActiveAdmin(adminUser)) // false
+```js
+
 ```
