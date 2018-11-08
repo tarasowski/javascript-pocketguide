@@ -854,3 +854,5 @@ click delete icon
 ![Messages](./images/messages.png)
 
 * We call `e.preventDefault()` because the normal behaviour of a web form (if we add a function to the attribute `onsubmit`), when the submission happens, to send the form data back to the server, using a traditional post or get request. That's not what we want to happen, we don't want to send the data to the server in this way.
+
+![Pure](./images/pure-vs-impure.png)
