@@ -104,3 +104,36 @@ initials('hunter stockton thompson')
 > Not all function code is pointfree and that is O.K. We'll shoot for it where we can and stick with normal functions otherwise.
 
 ### Composition connects our functions together like a series of pipes. Data will flow through our application as it must - pure functions are input to output after all. We hold composition as a design principle above all others. This is because it keeps our app simple and reasonable. 
+
+```js
+const { compose, reduce, prop } = require('ramda-x')
+
+const cars = [
+    {
+        name: 'Aston Martin One-77',
+        horsepower: 750,
+        dollar_value: 1850000,
+        in_stock: true,
+    },
+    {
+        name: 'Mercedes Benz C',
+        horsepower: 150,
+        dollar_value: 50000,
+        in_stock: true,
+    },
+]
+
+// not fp way
+const isLastInStock = (cars) => {  
+  const lastCar = last(cars);  
+  return prop('in_stock', lastCar);  
+};  
+
+// fp way
+const head = x => x[0]
+const reverse = reduce((acc, x) => [x].concat(acc), [])
+const last = compose(head, reverse)
+const istLastInStock = compose(prop('in_stock'), last)
+istLastInStock(cars)
+```
+* In the example above we use composition instead of assignments of values inside the function.
