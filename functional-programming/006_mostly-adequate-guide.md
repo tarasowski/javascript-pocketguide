@@ -381,3 +381,51 @@ compose(map(f), filter(compose(p, f))) === compose(filter(p), map(f))
 const then = curry((f, anyPromise) => anyPromise.then(f))
 ```
 * Finally for `then`, the `Promise p =>` tells us that `p` must be a Promise, which means that `p a`and `p b`will be promises holding `a` and `b`respectively. The same goes for other standard built-in objecgs such as Array.
+
+## 08. Tupperware
+
+* When you pipe data through a series of pure functions. They are declarative spcifications of behaviour. But what about control flow, error handling, asynchronous actions, state etc.?
+
+```js
+class Container {
+    constructor(x) {
+        this.$value = x
+    }
+    static of(x) {
+        return new Container(x)
+    }
+}
+
+console.log(Container.of(3)) // Container { '$value': 3 }
+console.log(Container.of('hotdogs')) // Container { '$value': 'hotdogs' }
+console.log(Container.of(Container.of({ name: 'yoda' }))) // Container { '$value': Container { '$value': { name: 'yoda' } } }
+```
+
+* Let's make a few things clear before we move on:
+    - Container is an object with one property. Lots of containers just hold one thing, though they aren't limited to one. We've arbitrarily names its property `${value`.
+    - The `$value`cannot be one specific type or our `Container` would hardly live up to the name.
+    - Once data goes into the container it stay there. We could get it out by using `.$value`, but that would defeat the purpose. 
+    
+#### My First Functor
+
+* Once the value is in the container, we'll need a way to run functions on it.
+
+```js
+// (a -> b) -> Container a -> Container b
+Container.prototype.map = function (f) {
+    return Container.of(f(this.$value))
+}
+
+console.log(Container.of(2).map(two => two + 2)) // Container { '$value': 4 }
+console.log(Container.of('flamethrowers').map(s => s.toUpperCase())) // Container { '$value': 'FLAMETHROWERS' }
+console.log(Container.of('bombs').map(s => s + 'away').map(prop('length'))) // Container { '$value': 9 }
+``` 
+
+* We can work with our values without every having to leave the `Container`. Our value in the `Container`is handed to the `map` function so we can fuss with it and afterward, returned to its Container for safe keeping. As a result of never leaving the Container, we can continue to map away, running functions as we please. We can even change the type as it is demostrated in the last example where we change the type from a string to a number.
+
+> A functor is a type that implements `map` and obeys some laws. 
+
+* Yes, Functor is simply an interface with a contract. What do we gain from asking our container to apply functions for us? Well, abstraction of function application. When we `map` a function, we ask the container type to run it for us. 
+
+**Note:** `Container`is fairly boring. In fact, it is usually called `Identity` and has about the same impact as our `id`function.
+
