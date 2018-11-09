@@ -350,7 +350,7 @@ const reduce = curry((f, x, xs) => xs.reduce(f, x))
 
 **Note:** This narrowing of possibility allows us to use type signature search engine like [Hoogle](https://www.haskell.org/hoogle/) to find a function we're after. 
 
-### Free as in Theorem
+#### Free as in Theorem
 ```js
 // head :: [a] -> a
 compose(f, head) === compose (head, map(f))
