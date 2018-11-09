@@ -234,4 +234,40 @@ const concat = label => data => data + label
 const sortComp = compose(concat(' is the fastest car'), name, head, reverse, sortBy)
 
 console.log(sortComp(cars)) // Aston Martin One-77 is the fastest car
+
+// another possibility for higher abstraction
+
+const getValueOfProperty = prop('horsepower')
+const smaller = val => arr => arr.filter(n => getValueOfProperty(n) <= getValueOfProperty(val))
+const bigger = val => arr => arr.filter(n => getValueOfProperty(n) > getValueOfProperty(val))
+
+const sort = (arr, val) => {
+    return [
+        ...smaller(val)(arr),
+        val,
+        ...bigger(val)(arr)
+    ]
+}
+const sortBy = xs = reduce(sort, [])
+
+const head = x => x[0]
+const reverse = reduce((acc, x) => [x].concat(acc), [])
+const name = x => x.name
+const concat = label => data => data + label
+
+const sortComp = compose(concat(' is the fastest car'), name, head, reverse, sortBy)
+
+console.log(sortComp(cars)) // Aston Martin One-77 is the fastest car
 ```
+
+## 07 - Types
+
+* Types are the meta language that enables people from all different background to communicate. For the most part, they are written with a system called "Hidely-Milner".
+
+* Types can be inferred so there's no need for explicit compile time checks, but also turn out to be the best possible documentation available.
+
+* JavaScript is a dynamic language, but that does not mean we avoid types all together. We're still working with strings, numbers, booleans etc. **It's just that there isn't any language level inegration so we hold this information out our heads.**
+
+* Since we're using signatures for documentation, we can use commments to serve our purpose.
+
+
