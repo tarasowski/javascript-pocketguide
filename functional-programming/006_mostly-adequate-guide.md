@@ -218,7 +218,11 @@ const fastestCar = (cars) => {
 
 // fp way
 const sort = (arr, val) => {
-    return [...arr.filter(n => prop('horsepower', n) <= prop('horsepower', val)), val, ...arr.filter(n => prop('horsepower', n) > prop('horsepower', val))]
+    return [
+        ...arr.filter(n => prop('horsepower', n) <= prop('horsepower', val)),
+        val,
+        ...arr.filter(n => prop('horsepower', n) > prop('horsepower', val))
+    ]
 }
 const sortBy = xs = reduce(sort, [])
 
@@ -230,5 +234,4 @@ const concat = label => data => data + label
 const sortComp = compose(concat(' is the fastest car'), name, head, reverse, sortBy)
 
 console.log(sortComp(cars)) // Aston Martin One-77 is the fastest car
-
 ```
