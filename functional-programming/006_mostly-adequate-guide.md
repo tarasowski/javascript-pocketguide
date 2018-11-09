@@ -229,6 +229,6 @@ const concat = label => data => data + label
 
 const sortComp = compose(concat(' is the fastest car'), name, head, reverse, sortBy)
 
-console.log(sortComp(cars))
+console.log(sortComp(cars)) // Aston Martin One-77 is the fastest car
 
 ```
