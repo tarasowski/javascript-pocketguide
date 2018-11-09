@@ -152,3 +152,34 @@ const istLastInStock = compose(prop('in_stock'), last)
 istLastInStock(cars)
 ```
 * In the example above we use composition instead of assignments of values inside the function.
+
+```js
+const { map, compose, reduce, prop } = require('ramda-x')
+
+const cars = [
+    {
+        name: 'Aston Martin One-77',
+        horsepower: 750,
+        dollar_value: 15000,
+        in_stock: true,
+    },
+    {
+        name: 'Mercedes Benz C',
+        horsepower: 150,
+        dollar_value: 5000,
+        in_stock: true,
+    },
+]
+
+// non fp way
+const averageDollarValue = (cars) => {  
+  const dollarValues = map(c => c.dollar_value, cars);  
+  return average(dollarValues);  
+};  
+
+// fp way
+const add = (acc, val) => acc + val
+const average = xs => reduce(add, 0, xs) / xs.length
+const averageDollarValue = compose(average, map(prop('dollar_value')))
+console.log(averageDollarValue(cars)) // 10000
+```
