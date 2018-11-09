@@ -99,6 +99,21 @@ const snakeCase = compose(replace(/\s+/ig, '_'), toLowerCase)
 const initials = name = > name.split(' ').map(compose(toUpperCase, head).join('. ')
 initials('hunter stockton thompson')
 ```
+1. You create a function that is a curried. The data should always come last!
+```js
+const replace = curry((re, rpl, str) => str.replace(re, rpl));
+
+const toLowerCase = s => s.toLowerCase();
+```
+2. You preload the functions with the arguments to make it specialize and compose them together
+```js
+const snakeCase = compose(replace(/\s+/ig, '_'), toLowerCase);
+```
+3. Now you apply the data to every function in the composition.
+```js
+snakeCase('hunter stockton thompson') // 'H. S. T'
+```
+
 * Pointfree code can again, help us remove needless names and keep us concise and generic. Pointfree is a good litmus test for functional code as it lets us know we've got small functions that take input to output. 
 
 > Not all function code is pointfree and that is O.K. We'll shoot for it where we can and stick with normal functions otherwise.
