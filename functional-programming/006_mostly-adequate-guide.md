@@ -183,3 +183,52 @@ const average = xs => reduce(add, 0, xs) / xs.length
 const averageDollarValue = compose(average, map(prop('dollar_value')))
 console.log(averageDollarValue(cars)) // 10000
 ```
+
+```js
+const { map, compose, reduce, prop, filter } = require('ramda-x')
+
+const cars = [
+    {
+        name: 'Aston Martin One-77',
+        horsepower: 750,
+        dollar_value: 15000,
+        in_stock: true,
+    },
+    {
+        name: 'Mercedes Benz C',
+        horsepower: 150,
+        dollar_value: 5000,
+        in_stock: true,
+    },
+    {
+        name: 'Couper Mini',
+        horsepower: 250,
+        dollar_value: 2500,
+        in_stock: false,
+    },
+]
+
+
+// not fp way - Important here the sortBy(), last() and concat() functions are hidden
+const fastestCar = (cars) => {  
+  const sorted = sortBy(car => car.horsepower);  
+  const fastest = last(sorted);  
+  return concat(fastest.name, ' is the fastest');  
+};  
+
+// fp way
+const sort = (arr, val) => {
+    return [...arr.filter(n => prop('horsepower', n) <= prop('horsepower', val)), val, ...arr.filter(n => prop('horsepower', n) > prop('horsepower', val))]
+}
+const sortBy = xs = reduce(sort, [])
+
+const head = x => x[0]
+const reverse = reduce((acc, x) => [x].concat(acc), [])
+const name = x => x.name
+const concat = label => data => data + label
+
+const sortComp = compose(concat(' is the fastest car'), name, head, reverse, sortBy)
+
+console.log(sortComp(cars))
+
+```
