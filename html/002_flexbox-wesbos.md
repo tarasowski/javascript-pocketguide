@@ -81,10 +81,21 @@
 
 * We can use `align-items: center` to align items in the center of the container. But we can also use `align-itmes: flex-start` to align items of the start of the container, even the space is much more bigger such as the whole screen. 
 
+
 * If you want to center something in the middle of the screen, you can use the comibation `justify-content: center; align-items: center` and it will automatically put the content in the middle of the screen. You need to add `height: 100vh` so you can use the whole available screen.
 
 * `align-items: baseline` aligns the items on the same line e.g. you have items with different sizes, they will be aligned on the baseline exactly in the middle. 
 
 ![Base](https://css-tricks.com/wp-content/uploads/2018/10/align-items.svg)
 
+#### Align Content
 
+* `align-content:` takes the same parameters as `justify-content:` the main difference it works on the cross axis and not on the main axis. If we think about `justify-content: space-between` it takes and distributes it evenly along the `<div>` element. If we use `align-content: space-between` it aligns the content from top to bottom along the cross axis.
+
+* `align-items: center` will align the items in the center of the window. 
+
+#### Align Self
+
+* With align self you can overrride the settings and align individual elements inside the container as you wish.
+
+#### Flexbox sizing
