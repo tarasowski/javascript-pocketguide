@@ -94,8 +94,20 @@
 
 * `align-items: center` will align the items in the center of the window. 
 
+> Align-content determines the spacing between lines, while align-items determines how the items as a whole are aligned within the container. When there is only one line, align-content has no effect.
+
+
 #### Align Self
 
 * With align self you can overrride the settings and align individual elements inside the container as you wish.
 
 #### Flexbox sizing
+
+* `flex:...` property answers the question what do I do with the extra space in the block of the container? Or what do I do if I have actually not enough extra space.
+
+* The whole point of flexbox is that it's not going to break up your layout if you have too much space or not enough space. It will figure out where all the stuff needs to go.
+
+> The width of the items in the container is set by default to auto. It's jus the width of the content it's inside the item. 
+
+* Flex answers the question at what proportion should I scale myself up or down when we have extra space or not enough space.
+
