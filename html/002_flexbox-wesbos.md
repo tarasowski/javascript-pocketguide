@@ -111,3 +111,17 @@
 
 * Flex answers the question at what proportion should I scale myself up or down when we have extra space or not enough space.
 
+#### Flexbox flex-grow, flex-shrink, flex-basis
+
+* `flex-grow` when we have extra space, how should we devide it among everybody on the same line? If you use `flex-grow:` is will take the extra and grow themselves by e.g. `flex-grow: 10` by 10 times more than other elements. 
+
+* `flex-shrink` does the opposite of `flex-grow`. Flex shrink says how much of myself should I give up when the size shrinks. When we have not enough room, I'm going to shrink myself e.g. `flex-shrink: 10` 10 times more than other elements that have not set `flex-shrink:`.
+
+* `flex-basis` before we are starting to divide the space between items, we can set the size of the element on the `flex-basis` property. 
+
+> There if a shorthand for that that we were using before `flex:1` is does `flex-grow:1; flex-shrink:1`
+
+**Note:** These methods are very good if you have a content and the sidebar, you can split up the space as you like with those methods. 
+
+**Important:** You can write everything in one line `flex: 10 5 400` first we have the grow, than the shrink, then the basis.
+
