@@ -1,7 +1,7 @@
 # Flexbox Tutorial 
 
 * [Source](https://flexbox.io/)
-* [The full reference about Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+* [The full reference about Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 ```html
  <div class="container">
@@ -62,4 +62,29 @@
 * `justify-content: flex-start` is the default, because items are aligend from left to right inside the container. This is a default setting of justify-content.
 
 * `justify-content: flex-end` will move all the items to the end of the flex container. The flex container in our case is a `<div>` and the `<div>` element is a block level element, it always starts on a new line and takes up the full width.
+
+* `justify-content: space-between` will evenly distribute all items inside the flexbox container. It will distribute the items alongs the main axis.
+
+* When we switch the `flex-direction:` from `row` to `column` in order to use the `space-between` we need to give a container a height `min-height:` so it can evenly distribute the items. Otherwise it will just fill the current space without the spaces in between.
+
+* When you do `justify-content` always ask where is my `main axis` where is my `cross axis`. 
+
+> `justify-content` aligns the items on the main axis. By default the main axis is left to right and cross axis from top to bottom. 
+
+#### Align Items
+
+> The difference here is that we are not concerned about main axis, we are concerned about the cross axis. Which is by default top to bottom. 
+
+* If you use the `align-items: center` in the block on the main axis nothing will happen. But if we'll give hight to the container and use `align-itmes: center` is will automatically put it in the middle of the screen, in the middle of the `cross-axis`. 
+
+* By default the `align-items: stretch` is set to strech, will will stretch the elements evenly along the `cross-axis`. 
+
+* We can use `align-items: center` to align items in the center of the container. But we can also use `align-itmes: flex-start` to align items of the start of the container, even the space is much more bigger such as the whole screen. 
+
+* If you want to center something in the middle of the screen, you can use the comibation `justify-content: center; align-items: center` and it will automatically put the content in the middle of the screen. You need to add `height: 100vh` so you can use the whole available screen.
+
+* `align-items: baseline` aligns the items on the same line e.g. you have items with different sizes, they will be aligned on the baseline exactly in the middle. 
+
+![Base](https://css-tricks.com/wp-content/uploads/2018/10/align-items.svg)
+
 
