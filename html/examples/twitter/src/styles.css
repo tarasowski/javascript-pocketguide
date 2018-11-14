@@ -1,0 +1,19 @@
+@tailwind preflight;
+
+a {
+    text-decoration: none;
+    @apply text-teal
+}
+
+.top-nav-item {
+    @apply .text-sm .mr-4 .font-semibold .pb-6 .mr-4 .text-grey-darker .border-b .border-transparent 
+}
+
+.top-nav-item:hover {
+    @apply .text-teal .border-teal
+}
+
+
+@tailwind components;
+
+@tailwind utilities;
