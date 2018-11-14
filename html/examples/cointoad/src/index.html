@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Tailwind Starter Template</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body class="font-sans bg-grey-lighter">
+  <!--Navigation Area-->
+  <div class="">
+    <!--Top Navigation-->
+    <div class="bg-blue-dark">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center py-4 sm:justify-between">
+          <div class="w-1/4 sm:hidden">
+            <svg class="fill-current text-white h-8 w-8" version="1.1" id="Menu" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20"
+              xml:space="preserve">
+              <path fill="#FFFFFF" d="M16.4,9H3.6C3.048,9,3,9.447,3,10c0,0.553,0.048,1,0.6,1h12.8c0.552,0,0.6-0.447,0.6-1S16.952,9,16.4,9z
+          M16.4,13H3.6C3.048,13,3,13.447,3,14c0,0.553,0.048,1,0.6,1h12.8c0.552,0,0.6-0.447,0.6-1S16.952,13,16.4,13z M3.6,7h12.8
+         C16.952,7,17,6.553,17,6s-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6S3.048,7,3.6,7z" />
+            </svg>
+          </div>
+          <div class="w-1/2 text-center text-white text-2xl sm:w-auto font-medium">
+            cointoad
+          </div>
+          <div class="w-1/4 text-right sm:w-auto sm:flex">
+            <div>
+              <img class="inline-block h-8 w-8 rounded-full" src="data:image/jpeg;base64,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"
+                alt="">
+            </div>
+            <div class="hidden sm:block sm:flex sm:items-center ml-2">
+              <span class="text-white text-sm mr-1">Dimitri Tarasowski</span>
+              <div>
+                <svg class="fill-current text-white h-4 w-4 block opacity-50" version="1.1" id="Chevron_small_down"
+                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20"
+                  enable-background="new 0 0 20 20" xml:space="preserve">
+                  <path fill="#FFFFFF" d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83
+        c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z
+        " />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Secondary Navigation-->
+
+    <div class="hidden sm:block bg-blue-dark sm:bg-grey-lightest sm:border-b">
+      <div class="container mx-auto px-4">
+        <div class="sm:flex">
+          <div class="flex -mb-px mr-6">
+            <a href="#" class="sm:text-blue-dark text-white flex items-center py-4 border-b border-blue-dark no-underline">
+              <svg class="fill-current w-6 h-6 mr-2" version="1.1" id="Grid" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20"
+                xml:space="preserve">
+                <path d="M8,4H5C4.447,4,4,4.447,4,5v3c0,0.552,0.447,1,1,1h3c0.553,0,1-0.448,1-1V5C9,4.448,8.553,4,8,4z M15,4h-3
+             c-0.553,0-1,0.447-1,1v3c0,0.552,0.447,1,1,1h3c0.553,0,1-0.448,1-1V5C16,4.448,15.553,4,15,4z M8,11H5c-0.553,0-1,0.447-1,1v3
+             c0,0.552,0.447,1,1,1h3c0.553,0,1-0.448,1-1v-3C9,11.448,8.553,11,8,11z M15,11h-3c-0.553,0-1,0.447-1,1v3c0,0.552,0.447,1,1,1h3
+             c0.553,0,1-0.448,1-1v-3C16,11.448,15.553,11,15,11z" />
+              </svg>
+              Dashboard
+            </a>
+          </div>
+          <div class="flex -mb-px mr-6">
+            <a href="#" class="sm:text-grey-dark text-white opacity-50 sm:opacity-100 flex items-center border-b border-transparent hover:opacity-100 sm:hover:border-grey-dark py-4 no-underline">
+              <svg class="fill-current w-6 h-6 mr-2" version="1.1" id="Swap" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20"
+                xml:space="preserve">
+                <path d="M14,5H4V3L0,6.5L4,10V8h10V5z M20,13.5L16,10v2H6v3h10v2L20,13.5z" />
+              </svg> Buy/Sell
+            </a>
+          </div>
+          <div class="flex -mb-px mr-6">
+            <a href="#" class="sm:text-grey-dark flex text-white opacity-50 sm:opacity-100  items-center border-b border-transparent hover:border-grey-dark py-4 no-underline">
+              <svg class="fill-current w-6 h-6 mr-2" version="1.1" id="Wallet" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20"
+                xml:space="preserve">
+                <path d="M16,6H3.5V5.5l11-0.88V5.5H16V4c0-1.1-0.891-1.872-1.979-1.717L3.98,3.717C2.891,3.873,2,4.9,2,6v10
+               c0,1.104,0.895,2,2,2h12c1.104,0,2-0.896,2-2V8C18,6.896,17.104,6,16,6z M14.5,13.006c-0.828,0-1.5-0.672-1.5-1.5s0.672-1.5,1.5-1.5
+               s1.5,0.672,1.5,1.5S15.328,13.006,14.5,13.006z" />
+              </svg> Accounts
+            </a>
+          </div>
+          <div class="flex -mb-px mr-6">
+            <a href="#" class="sm:text-grey-dark flex text-white opacity-50 sm:opacity-100  items-center border-b border-transparent hover:border-grey-dark py-4 no-underline">
+              <svg class="fill-current w-6 h-6 mr-2" version="1.1" id="Swap" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20"
+                xml:space="preserve">
+                <path d="M9,10h2v2h9c0,0-0.149-4.459-0.2-5.854C19.75,4.82,19.275,4,17.8,4h-3.208
+                c-0.497-0.938-1.032-1.945-1.197-2.256C13.064,1.121,12.951,1,12.216,1H7.783C7.048,1,6.936,1.121,6.604,1.744
+                C6.439,2.055,5.904,3.062,5.408,4H2.199c-1.476,0-1.945,0.82-2,2.146C0.145,7.473,0,12,0,12h9V10z M7.649,2.916
+                C7.879,2.484,7.957,2.4,8.466,2.4h3.067c0.509,0,0.588,0.084,0.816,0.516c0.086,0.16,0.318,0.6,0.575,1.084h-5.85
+                C7.331,3.516,7.563,3.076,7.649,2.916z M11,15H9v-2H0.5c0,0,0.124,1.797,0.199,3.322C0.73,16.955,0.917,18,2.499,18H17.5
+                c1.582,0,1.765-1.047,1.8-1.678C19.387,14.754,19.5,13,19.5,13H11V15z" />
+              </svg> Tools
+            </a>
+          </div>
+          <div class="flex -mb-px">
+            <a href="#" class="sm:text-grey-dark flex text-white opacity-50 sm:opacity-100  items-center border-b border-transparent hover:border-grey-dark py-4 no-underline">
+              <svg class="fill-current w-6 h-6 mr-2" version="1.1" id="Swap" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20"
+                xml:space="preserve">
+                <path d="M16.783,10c0-1.049,0.646-1.875,1.617-2.443c-0.176-0.584-0.407-1.145-0.692-1.672
+                c-1.089,0.285-1.97-0.141-2.711-0.883c-0.741-0.74-0.968-1.621-0.683-2.711c-0.527-0.285-1.088-0.518-1.672-0.691
+                C12.074,2.57,11.047,3.215,10,3.215c-1.048,0-2.074-0.645-2.643-1.615C6.772,1.773,6.213,2.006,5.686,2.291
+                c0.285,1.09,0.059,1.971-0.684,2.711C4.262,5.744,3.381,6.17,2.291,5.885C2.006,6.412,1.774,6.973,1.6,7.557
+                C2.57,8.125,3.215,8.951,3.215,10c0,1.047-0.645,2.074-1.615,2.643c0.175,0.584,0.406,1.144,0.691,1.672
+                c1.09-0.285,1.971-0.059,2.711,0.682c0.741,0.742,0.969,1.623,0.684,2.711c0.527,0.285,1.087,0.518,1.672,0.693
+                c0.568-0.973,1.595-1.617,2.643-1.617c1.047,0,2.074,0.645,2.643,1.617c0.584-0.176,1.144-0.408,1.672-0.693
+                c-0.285-1.088-0.059-1.969,0.683-2.711c0.741-0.74,1.622-1.166,2.711-0.883c0.285-0.527,0.517-1.086,0.692-1.672
+                C17.429,11.873,16.783,11.047,16.783,10z M10,13.652c-2.018,0-3.653-1.635-3.653-3.652c0-2.018,1.636-3.654,3.653-3.654
+                c2.018,0,3.652,1.637,3.652,3.654C13.652,12.018,12.018,13.652,10,13.652z" />
+              </svg> Settings
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="container mx-auto sm:px-4 pt-6 pb-8">
+      <div class="bg-white border-t border-b sm:border-l-0 sm:border-r-0 sm:rounded shadow">
+        <div class="border-b px-6 ">
+          <div class="flex -mb-px justify-between">
+            <div class="md:hidden text-blue-dark py-4 text-lg">
+              Price Charts
+            </div>
+            <div class="hidden md:flex text-sm">
+              <button type="button" class="appearance-none py-4 text-blue-dark border-b border-blue-dark mr-4">
+                Bitcoin &middot; CA$21,380.01
+              </button>
+              <button type="button" class="appearance-none py-4 text-grey-dark border-b hover:border-grey-dark mr-4 border-b border-transparent">
+                Ethereum &middot; CA$884.80
+              </button>
+              <button type="button" class="appearance-none py-4 text-grey-dark border-b hover:border-grey-dark border-b border-transparent">
+                Litecoin &middot; CA$358.24
+              </button>
+            </div>
+            <div>
+
+            </div>
+            <div class="flex text-sm">
+              <button type="button" class="appearance-none py-4 text-grey-dark border-b hover:border-grey-dark mr-4 border-b border-transparent">
+                1H
+              </button>
+              <button type="button" class="appearance-none py-4 text-grey-dark border-b hover:border-grey-dark mr-4 border-b border-transparent">
+                1D
+              </button>
+              <button type="button" class="appearance-none py-4 text-grey-dark border-b hover:border-grey-dark mr-4 border-b border-transparent">
+                1W
+              </button>
+              <button type="button" class="appearance-none py-4 text-blue-dark border-b border-blue-dark mr-4">
+                1M
+              </button>
+              <button type="button" class="appearance-none py-4 text-grey-dark border-b hover:border-grey-dark mr-4 border-b border-transparent">
+                1Y
+              </button>
+              <button type="button" class="appearance-none py-4 text-grey-dark border-b hover:border-grey-dark border-b border-transparent">
+                ALL
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="flex px-6 md:hidden items-center">
+          <div class="flex-grow flex-no-shrink py-6">
+            <div class=" text-grey-darker mb-2">
+              <span class="text-3xl align-top ">CA$</span>
+              <span class="text-5xl">21,404</span>
+              <span class="text-2xl align-top">.74</span>
+            </div>
+            <div class="text-green text-sm">
+              <span>&uarr; CA$12,955.35 (154.16%)</span>
+            </div>
+          </div>
+          <div class="flex-shrink w-32 inline-block relative">
+            <select class="block appearance-none w-full bg-white border border-grey-light px-4 py-2 pr-6 rounded">
+              <option>BTC</option>
+              <option>ETC</option>
+              <option>LTC</option>
+            </select>
+            <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white hidden md:flex">
+        <div class="w-1/3 text-center py-6">
+          <div class="border-r">
+            <div class=" text-grey-darker mb-2">
+              <span class="text-3xl align-top ">CA$</span>
+              <span class="text-5xl">21,404</span>
+              <span class="text-2xl align-top">.74</span>
+            </div>
+            <div class="uppercase text-grey tracking-wide">Bitcoin Price</div>
+          </div>
+        </div>
+        <div class="w-1/3 text-center py-6">
+          <div class="border-r">
+            <div class=" text-grey-darker mb-2">
+              <span class="text-3xl align-top"><span class="text-green align-top">+</span>CA$</span>
+              <span class="text-5xl">12,998</span>
+              <span class="text-2xl align-top">.48</span>
+            </div>
+            <div class="uppercase text-grey tracking-wide">Since last month (CAD)</div>
+          </div>
+        </div>
+        <div class="w-1/3 text-center py-6">
+          <div class="">
+            <div class=" text-grey-darker mb-2">
+              <span class="text-3xl align-top text-green">+</span>
+              <span class="text-5xl">157.47</span>
+              <span class="text-2xl align-top">%</span>
+            </div>
+            <div class="uppercase text-grey tracking-wide">Since Last Month (%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Main Content Area-->
+  <div class="container mx-auto -my-2">
+    <div class="flex flex-wrap">
+      <div class="w-full mb-6 md:mb-0 md:w-1/2 px-4 flex flex-col">
+        <div class="flex-grow flex flex-col bg-white rounded border shadow">
+          <div class="border-b">
+            <div class="flex justify-between px-6 -mb-px">
+              <h3 class="text-blue-dark font-normal text-lg py-4">Your Portfolio</h3>
+              <div>
+                <button type="button" class="appearance-none py-4 text-blue-dark border-b border-blue-dark mr-4">
+                  List
+                </button>
+                <button type="button" class="appearance-none py-4 text-blue-dark border-b hover:border-blue-dark border-b border-transparent">
+                  Chart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex px-6 py-6 text-grey-darker items-center border-b">
+            <div class="w-1/4 flex items-center">
+              <div class="mr-3">
+                <svg class="fill-current text-orange w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M11.5 11.5v-2.5c1.75 0 2.789.25 2.789 1.25 0 1.172-1.684 1.25-2.789 1.25zm0 .997v2.503c1.984 0 3.344-.188 3.344-1.258 0-1.148-1.469-1.245-3.344-1.245zm12.5-.497c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-7 1.592c0-1.279-1.039-1.834-1.789-2.025.617-.223 1.336-1.138 1.046-2.228-.245-.922-1.099-1.74-3.257-1.813v-1.526h-1v1.5h-.5v-1.5h-1v1.5h-2.5v1.5h.817c.441 0 .683.286.683.702v4.444c0 .429-.253.854-.695.854h-.539l-.25 1.489h2.484v1.511h1v-1.511h.5v1.511h1v-1.5c2.656 0 4-1.167 4-2.908z" /></svg>
+              </div>
+              <span class="text-lg">Bitcoin</span>
+            </div>
+            <div class="w-1/4 flex items-center">
+              <div class="bg-orange h-2 rounded-full flex-grow mr-2"></div>
+              100%
+            </div>
+            <div class="w-1/4">
+              <div class="text-right">0.0010 BTC</div>
+            </div>
+            <div class="w-1/4">
+              <div class="text-right text-grey">
+                CA$21.28
+              </div>
+            </div>
+          </div>
+          <div class="flex px-6 py-6 text-grey-darker items-center border-b">
+            <div class="w-1/4 flex items-center">
+              <div class="mr-3">
+                <svg class="w-8 h-8 fill-current text-grey-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 226.777 226.777">
+                  <path d="M113.441 0C50.789 0 0 50.79 0 113.443c0 62.654 50.789 113.441 113.441 113.441 62.654 0 113.443-50.787 113.443-113.441C226.885 50.79 176.096 0 113.441 0zm44.036 168.762H68.839l7.45-35.566-14.486 9.933 3.519-19.463 15.151-10.43 14.862-70.939h27.671l-10.232 48.71L148.8 66.213l-4.222 20.167-36.02 24.693-7.126 33.93H162.4l-4.923 23.759z" /></svg>
+              </div>
+              <span class="text-lg">Litecoin
+              </span>
+            </div>
+            <div class="w-1/4 flex items-center">
+              <div class="bg-grey-light rounded-full w-2 h-2 mr-2"></div>
+              100%
+            </div>
+            <div class="w-1/4">
+              <div class="text-right">0.0000 LTC</div>
+            </div>
+            <div class="w-1/4">
+              <div class="text-right text-grey">
+                CA$00.00
+              </div>
+            </div>
+          </div>
+          <div class="flex px-6 py-6 text-grey-darker items-center border-b">
+            <div class="w-1/4 flex items-center">
+              <div class="mr-3">
+                <svg class=" w-8 h-8 text-indigo fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 226.777 226.777">
+                  <path d="M113.313 0C50.732 0 0 50.732 0 113.313s50.732 113.313 113.313 113.313 113.313-50.732 113.313-113.313S175.894 0 113.313 0zm-1.469 188.386l-44.78-63.344 44.78 26.218v37.126zm0-46.41l-45.083-26.408 45.083-19.748v46.156zm0-49.329l-43.631 19.11 43.631-73.306v54.196zm2.906-54.218l44.244 73.6-44.244-19.382V38.429zm0 149.957V151.26l44.78-26.218-44.78 63.344zm0-46.409V95.821l45.116 19.762-45.116 26.394z" /></svg>
+              </div>
+              <span class="text-lg">Ethereum</span>
+            </div>
+            <div class="w-1/4 flex items-center">
+              <div class="bg-indigo h-2 rounded-full w-2 h-2 mr-2"></div>
+              0%
+            </div>
+            <div class="w-1/4">
+              <div class="text-right">0.0000 ETH</div>
+            </div>
+            <div class="w-1/4">
+              <div class="text-right text-grey">
+                CA$00.00
+              </div>
+            </div>
+          </div>
+          <div class="px-6 py-4">
+            <div class="text-center text-grey">
+              Total Balance &asymp; CA$21.28
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2 px-4">
+        <div class="bg-white rounded border shadow">
+          <div class="border-b">
+            <div class="flex justify-between px-6 -mb-px">
+              <h3 class="text-blue-dark font-normal text-lg py-4">Recent Activity</h3>
+            </div>
+          </div>
+          <div class="">
+            <div class="text-center px-6 py-8">
+              <div class="mb-4">
+                <svg class="w-16 h-16 fill-current text-grey inline-block" version="1.1" id="Rocket" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20"
+                  xml:space="preserve">
+                  <path d="M11.933,13.069c0,0,7.059-5.094,6.276-10.924c-0.017-0.127-0.059-0.213-0.112-0.268
+             c-0.054-0.055-0.137-0.098-0.263-0.115C12.137,0.961,7.16,8.184,7.16,8.184C2.842,7.667,3.156,8.528,1.186,13.26
+             c-0.377,0.902,0.234,1.213,0.904,0.959c0.67-0.252,2.148-0.811,2.148-0.811l2.59,2.648c0,0-0.546,1.514-0.793,2.199
+             c-0.248,0.686,0.055,1.311,0.938,0.926C11.597,17.165,12.439,17.487,11.933,13.069z M12.942,7.153c-0.598-0.613-0.598-1.604,0-2.217
+             c0.598-0.611,1.567-0.611,2.166,0c0.598,0.611,0.598,1.603,0,2.217C14.509,7.764,13.539,7.764,12.942,7.153z" />
+
+                </svg>
+              </div>
+              <p class="text-2xl text-grey-darker font-medium mb-4">No buys or sells yet</p>
+              <p class="text-grey-dark max-w-xs mx-auto mb-6">You've successfully linked a payment method and can start
+                buying
+                digital
+                currency.</p>
+              <div>
+                <button class="bg-blue text-white px-6 py-4 border border-blue-dark rounded" type="button">Buy now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</body>
+
+</html>
