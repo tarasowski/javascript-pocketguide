@@ -70,6 +70,12 @@
 
 # Summary: You have Data -> Functions that transform data -> Someone who consumes data (Consumers)
 
+## Cons of Haskell OR What's missing?
+
+* Modules: first-class modules for haskell (are not there)
+* Garbage collection: needs improvements?
+* Records: what's wrong with them?
+
 
 ## Q&A
 
