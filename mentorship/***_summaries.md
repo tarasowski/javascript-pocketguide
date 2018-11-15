@@ -1,6 +1,6 @@
 # Abstraction & Composition
 
-[Source](https://medium.com/javascript-scene/abstraction-composition-cb2849d5bdd6)
+* [Source](https://medium.com/javascript-scene/abstraction-composition-cb2849d5bdd6)
 
 * Abstraction is about removing things. Abstration in Yiddish means `absentminded`a person is running on autopilot, not actively thinking about what they are doing.
 
@@ -54,4 +54,64 @@ const doubled = doubleAll([1, 2, 3])
 5. Decomposable
 6. Recomposable
 
+# JavaScript Factory Functions vs Constructor Functions vs Classes
+
+* [Source](https://medium.com/javascript-scene/javascript-factory-functions-vs-constructor-functions-vs-classes-2f22ceddf33e)
+
+* In JavaScript, any function can return a new object. When it's not a constructur function or class, it's called a factory function.
+
+
+**Factory function**
+```js
+const proto = {
+drive() {
+  console.log('Vroom!')
+}
+}
+
+function factoryCar() {
+  return Object.create(proto)
+}
+const car3 = factoryCar()
+```
+
+**Constructor (new Keyword)**
+```js
+function ConstructorCar() {
+  ConstructorCar.prototype.drive = function () { console.log('Vroom!')}
+}
+
+const car2 = new ConstructorCar()
+```
+
+**Class (new Keyword)**
+```js
+class ClassCar {
+  drive() {
+  console.log('Vroom!')
+  }
+}
+
+const car1 = new ClassCar()
+```
+
+* In Constructors & Class the `this` keyword refers to the new object. You need to use `new` to instantiate a class & constructor.
+
+> The cool thing about factories is that they’re not just more powerful and more flexible, they’re also the easiest way to encourage entire teams, and entire API user bases to use patterns that are simple, flexible, and safe.
+
+```js
+const person = {
+  isHuman: false,
+  printIntroduction: function () {
+    console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+  }
+};
+
+const me = Object.create(person);
+
+me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
+me.isHuman = true; // inherited properties can be overwritten
+
+me.printIntroduction();
+```
 
