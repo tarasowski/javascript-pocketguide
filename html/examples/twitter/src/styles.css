@@ -2,7 +2,11 @@
 
 a {
     text-decoration: none;
-    @apply text-teal
+    @apply .text-teal
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .top-nav-item {
@@ -10,6 +14,7 @@ a {
 }
 
 .top-nav-item:hover {
+    text-decoration: none;
     @apply .text-teal .border-teal
 }
 

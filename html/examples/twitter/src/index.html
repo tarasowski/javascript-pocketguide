@@ -11,18 +11,19 @@
 
 <body class="bg-grey-light font-sans">
   <div class="bg-white">
-    <div class="container mx-auto flex items-center py-4">
-      <nav class="w-2/5">
-        <a href="#" class="top-nav-item"><i class="fa fa-home fa-lg"></i> Home</a>
-        <a href="#" class="top-nav-item"><i class="fa fa-bolt fa-lg"></i>
-          Moments</a>
-        <a href="#" class="top-nav-item"><i class="fa fa-bell fa-lg"></i>
-          Notifications</a>
-        <a href="#" class="top-nav-item"><i class="fa fa-envelope fa-lg"></i>
-          Messages</a>
+    <!--container start: navigation-->
+    <div class="container mx-auto flex flex-col lg:flex-row lg:items-center py-4">
+      <nav class="hidden w-full lg:w-2/5 lg:block">
+        <div><a href="#" class="top-nav-item"><i class="fa fa-home fa-lg"></i> Home</a>
+          <a href="#" class="top-nav-item"><i class="fa fa-bolt fa-lg"></i>
+            Moments</a>
+          <a href="#" class="top-nav-item"><i class="fa fa-bell fa-lg"></i>
+            Notifications</a>
+          <a href="#" class="top-nav-item"><i class="fa fa-envelope fa-lg"></i>
+            Messages</a>
       </nav>
-      <div class=" w-1/5 text-center"><a href="#"><i class="fab fa-twitter fa-lg text-blue"></i></a></div>
-      <div class="w-2/5 flex justify-end items-center">
+      <div class="w-full lg:w-1/5 text-center pb-4 lg:pb-0"><a href="#"><i class="fab fa-twitter fa-lg text-blue"></i></a></div>
+      <div class="w-full lg:w-2/5 flex lg:justify-end justify-center items-center">
         <div class="relative mr-4">
           <input type="text" class="bg-grey-lighter h-8 px-4 py-2 text-sx w-48 rounded-full" placeholder="Search Twitter">
           <span class="flex items-center absolute pin-r pin-y mr-3"><i class="fa fa-search text-grey"></i></span>
@@ -31,18 +32,20 @@
             alt=""></a>
         <button class="bg-teal hover:bg-teal-dark text-white font-medium py-2 px-4 rounded-full">Tweet</button>
       </div>
-    </div> <!-- container end: navigation-->
-    <div class="h-112 bg-blue"></div>
+    </div>
+    <!-- container end: navigation-->
+    <!-- container start: hero-->
+    <div class="lg:h-112 h-64 bg-blue"></div>
     <!--container end: hero-->
     <div class="bg-white">
-      <div class="container mx-auto flex items-center relative">
-        <div class="w-1/4">
-          <img class="w-48 h-48 absolute pin-l pin-t -mt-24 rounded-full" src="https://avatars2.githubusercontent.com/u/30317862?s=400&v=4"
-            alt="">
+      <div class="container mx-auto flex flex-col lg:flex-row items-center relative">
+        <div class="w-full lg:w-1/4 mt-4 text-center">
+          <img class="w-16 h-16 lg:w-48 lg:h-48 lg:absolute lg:pin-l lg:pin-t lg:-mt-24 rounded-full border border-solid border-teal lg:border-none"
+            src="https://avatars2.githubusercontent.com/u/30317862?s=400&v=4" alt="">
         </div>
-        <div class="w-1/2">
-          <ul class="list-reset flex">
-            <li class="text-center py-3 px-4 border-b-2 border-solid border-teal "><a class="text-grey-darker hover:no-underline"
+        <div class="w-full lg:w-1/2">
+          <ul class="list-reset flex flex-col lg:flex-row">
+            <li class="text-center py-3 px-4 lg:border-b-2 lg:border-solid lg:border-teal "><a class="text-grey-darker hover:no-underline"
                 href="#">
                 <div class="text-sm front-bold tracking-tight mb-1">Tweets</div>
                 <div class="text-lg font-bold text-teal tracking-tight">60</div>
@@ -69,7 +72,7 @@
               </a></li>
           </ul>
         </div>
-        <div class="w-1/4 flex justify-end items-center">
+        <div class="hidden lg:w-1/4 lg:flex justify-end items-center">
           <div class="mr-6">
             <button class="bg-teal hover:bg-teal-dark text-white font-medium rounded-full py-2 px-4">Following</button>
           </div>
@@ -80,6 +83,282 @@
       </div>
     </div>
   </div>
+  <!--container end: bottom navigation-->
+  <!--container start: content-->
+  <div class="container mx-auto flex flex-col lg:flex-row mt-3 text-sm leading-normal">
+    <div class="w-full lg:w-1/4 pr-4 mt-8 mb-4">
+      <div>
+        <h1><a href="#" class="text-black">Tailwind CSS</a></h1>
+      </div>
+      <div><a href="#" class="text-grey-darker">@tailwindcss</a></div>
+      <div class="mb-4 mt-4">
+        A utility-first CSS framework for rapid UI development. By <a href="#">@adamwathan</a>, <a href="#">@reinink</a>,
+        <a href="#">@davidhemphill</a>, and <a href="#">@steveschoger</a>.
+      </div>
+      <div class="mb-2"><i class="fa fa-link fa-lg text-grey-darker mr-1 text-sm"></i><a href="#">tailwindcss.com</a></div>
+      <div class="mb-4"><i class="fa fa-calendar fa-lg text-grey-darker mr-1 text-sm"></i><a href="#">Joined August
+          2017</a></div>
+      <div class="mb-4">
+        <button class="bg-teal hover:bg-teal-dark text-white font-medium py-2 px-4 rounded-full w-full h-10">Tweet to
+          Tailwind CSS
+        </button>
+        <div class="mb-4 mt-4">
+          <i class="fa fa-user fa-lg text-grey-dark mr-1"></i><a href="#">27 Followers you know</a>
+        </div>
+        <div class="mb-4">
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+          <a href="#"><img src="https://miro.medium.com/max/2400/0*WgY9B-Lm4DnCEHlO.jpeg" alt="" class="rounded-full h-12 w-12 mr-1"></a>
+        </div>
+        <div class="mb-4">
+          <i class="fa fa-images fa-lg text-grey-dark mr-1"></i>
+          <a href="#">Photos and videos</a>
+        </div>
+        <div class="mb-4">
+          <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_photo1.jpg" alt="" class="h-20 w-20 mr-1 mb-1"></a>
+          <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_photo1.jpg" alt="" class="h-20 w-20 mr-1 mb-1"></a>
+          <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_photo1.jpg" alt="" class="h-20 w-20 mr-1 mb-1"></a>
+          <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_photo1.jpg" alt="" class="h-20 w-20 mr-1 mb-1"></a>
+          <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_photo1.jpg" alt="" class="h-20 w-20 mr-1 mb-1"></a>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/2 bg-white mb-4">
+      <div class="p-3 font-lg font-bold border-b border-solid border-grey-light">
+        <a href="#" class="text-black mr-6">Tweets</a>
+        <a href="#" class="mr-6">Tweets &amp; Replies</a>
+        <a href="#" class="text-black mr-6">Media</a>
+      </div>
+      <div class="flex border-b border-solid border-grey-light">
+        <div class="w-1/8 text-right pl-3 pt-3">
+          <div><i class="fa fa-thumbtack text-teal mr-2"></i></div>
+          <div><img class="w-12 h-12 rounded-full" src="https://avatars2.githubusercontent.com/u/30317862?s=400&v=4"
+              alt=""></div>
+        </div>
+        <div class="w-7/8 p-3">
+          <div>
+            <p>Pinned Tweet</p>
+            <div class="flex justify-between">
+              <div>
+                <span class="font-bold"><a href="#" class="text-black">Tailwind CSS</a></span>
+                <span class="text-grey-dark">@tailwindcss</span>
+                <span class="text-grey-dark">&middot;</span>
+                <span class="text-grey-dark">15 Dec 2017</span>
+              </div>
+              <div>
+                <a href="#" class="text-grey-dark hover:text-teal"><i class="fa fa-chevron-down"></i></a>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="mb-6">Tailwind CSS v.4.0 is out!</p>
+              <p class="mb-6">Makes `apply`more useful when using !important utitlies, and includes an improved default
+                coloer palette:</p>
+              <p class="mb-4"><a href="#">github.com/tailwindcss/ta...</a></p>
+              <p><a href="#"><img src="https://pbs.twimg.com/media/DrjtnCyU4AErDTO.jpg" alt="" class="rounded-lg border border-solid border-grey-light"></a></p>
+            </div>
+            <div class="pb-2">
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-blue-light"><i class="fa fa-comment fa-lg mr-2"></i>9</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-green-light"><i class="fa fa-retweet fa-lg mr-2"></i>29</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-red-light"><i class="fa fa-heart fa-lg mr-2"></i>135</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-teal-light"><i class="fa fa-envelope fa-lg mr-2"></i></a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex border-b border-solid border-grey-light">
+        <div class="w-1/8 text-right pl-3 pt-3">
+          <div><i class="fa fa-retweet text-grey-dark mr-2"></i></div>
+          <div><img class="w-12 h-12 rounded-full" src="https://www.linkresearchtools.de/wp-content/uploads/2011/04/Dimitri-Tarasowski.png"
+              alt=""></div>
+        </div>
+        <div class="w-7/8 p-3">
+          <div>
+            <p class="text-grey-dark text-xs">Tailwind CSS Retweeted</p>
+            <div class="flex justify-between">
+              <div>
+                <span class="font-bold"><a href="#" class="text-black">Dimitri Tarasowski</a></span>
+                <span class="text-grey-dark">@tarasowski</span>
+                <span class="text-grey-dark">&middot;</span>
+                <span class="text-grey-dark">16 Dec 2017</span>
+              </div>
+              <div>
+                <a href="#" class="text-grey-dark hover:text-teal"><i class="fa fa-chevron-down"></i></a>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="mb-6">💥 Check out this Slack clone built with <a href="#">@tailwindcss</a> using no custom CSS
+                and just the default configuration:</p>
+              <p class="mb-4"><a href="#">http://codepen.io/dimitri/pen/JQWES...</a></p>
+              <p class="mb-4">(based on some work <a href="#">@Kligt</a> started for <a href="#">tailwindcomponents.com</a>!)</p>
+              <p><a href="#"><img src="https://pbs.twimg.com/media/Dql6twtX0AIfwfx.jpg:large" alt="" class="rounded-lg border border-solid border-grey-light"></a></p>
+            </div>
+            <div class="pb-2">
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-blue-light"><i class="fa fa-comment fa-lg mr-2"></i>9</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-green-light"><i class="fa fa-retweet fa-lg mr-2"></i>29</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-red-light"><i class="fa fa-heart fa-lg mr-2"></i>135</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-teal-light"><i class="fa fa-envelope fa-lg mr-2"></i></a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex border-b border-solid border-grey-light">
+        <div class="w-1/8 text-right pl-3 pt-3">
+          <div><img class="w-12 h-12 rounded-full" src="https://avatars2.githubusercontent.com/u/30317862?s=400&v=4"
+              alt=""></div>
+        </div>
+        <div class="w-7/8 p-3">
+          <div>
+            <div class="flex justify-between">
+              <div>
+                <span class="font-bold"><a href="#" class="text-black">Tailwind CSS</a></span>
+                <span class="text-grey-dark">@tailwindcss</span>
+                <span class="text-grey-dark">&middot;</span>
+                <span class="text-grey-dark">16 Dec 2017</span>
+              </div>
+              <div>
+                <a href="#" class="text-grey-dark hover:text-teal"><i class="fa fa-chevron-down"></i></a>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p class="mb-6">🎅 Tailwind CSS v1.0.0 is here!</p>
+              <p class="mb-4">Enable/disable modules, focus and group-hover variants, new utilities, and more</p>
+              <p class="mb-4">Learn more in our upgrade guide</p>
+              <p class="mb-4"><a href="#">github.com/tailwind/ta...</a></p>
+              <p><a href="#"><img src="https://pbs.twimg.com/media/DgPCMSJU8AA43dD.jpg:large" alt="" class="rounded-lg border border-solid border-grey-light"></a></p>
+            </div>
+            <div class="pb-2">
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-blue-light"><i class="fa fa-comment fa-lg mr-2"></i>9</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-green-light"><i class="fa fa-retweet fa-lg mr-2"></i>29</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-red-light"><i class="fa fa-heart fa-lg mr-2"></i>135</a></span>
+              <span class="mr-8"><a href="#" class="text-grey-dark hover:no-underline hover:text-teal-light"><i class="fa fa-envelope fa-lg mr-2"></i></a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- container end: content-->
+    <!-- container end: sidebar-left-->
+    <div class="w-full lg:w-1/4 lg:pl-4">
+      <div class="bg-white p-3 mb-3">
+        <div>
+          <span class="text-lg font-bold">Who to follow</span>
+          <span>&middot;</span>
+          <span><a href="#" class="text-xs">Refresh</a></span>
+          <span>&middot;</span>
+          <span><a href="#" class="text-xs">View All</a></span>
+        </div>
+        <div class="pl-2 py-2 w-full">
+          <div class="flex justify-between mb-1 border-b border-grey-light">
+            <div class="py-2">
+              <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_follow1.jpg" class="w-12 h-12 rounded-full"
+                  alt=""></a>
+            </div>
+            <div class="pl-2 py-2 w-full">
+              <a href="#" class="text-grey-darkest text-lg font-bold w-">Nuxt.js</a>
+              <a href="#" class="text-grey-dark">@nuxt_js</a>
+              <div><button class="bg-transparent text-xs hover:bg-teal text-teal font-semibold hover:text-white py-2
+                px-6 border border-teal hover:border-transparent rounded-full">
+                  Follow</button></div>
+            </div>
+            <div class="pt-3"><a href="#" class="text-grey hover:text-grey-dark"><i class="fa fa-times"></i></a></div>
+          </div>
+        </div>
+        <div class="pl-2 py-2 w-full">
+          <div class="flex justify-between mb-1 border-b border-grey-light">
+            <div class="py-2">
+              <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_follow3.jpg" class="w-12 h-12 rounded-full"
+                  alt=""></a>
+            </div>
+            <div class="pl-2 py-2 w-full">
+              <div class="flex items-center flex-wrap">
+                <a href="#" class="text-grey-darkest text-lg font-bold pr-1">Laracon US</a>
+                <a href="#" class="text-grey-dark">@LaraconUS</a>
+              </div>
+              <div><button class="bg-transparent text-xs hover:bg-teal text-teal font-semibold hover:text-white py-2
+                  px-6 border border-teal hover:border-transparent rounded-full">
+                  Follow</button></div>
+            </div>
+            <div class="pt-3"><a href="#" class="text-grey hover:text-grey-dark"><i class="fa fa-times"></i></a></div>
+          </div>
+        </div>
+        <div class="pl-2 py-2 w-full">
+          <div class="flex justify-between mb-1 border-b border-grey-light">
+            <div class="py-2">
+              <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_follow2.jpg" class="w-12 h-12 rounded-full"
+                  alt=""></a>
+            </div>
+            <div class="pl-2 py-2 w-full">
+              <a href="#" class="text-grey-darkest text-lg font-bold w-">Laracon EU</a>
+              <a href="#" class="text-grey-dark">@LaraconEU</a>
+              <div><button class="bg-transparent text-xs hover:bg-teal text-teal font-semibold hover:text-white py-2
+                  px-6 border border-teal hover:border-transparent rounded-full">
+                  Follow</button></div>
+            </div>
+            <div class="pt-3"><a href="#" class="text-grey hover:text-grey-dark"><i class="fa fa-times"></i></a></div>
+          </div>
+        </div>
+        <div class="pl-2 py-2 w-full">
+          <div class="flex justify-between mb-1 border-b border-grey-light">
+            <div class="py-2">
+              <a href="#"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/tt_outlook.png" class="w-8 h-8 rounded-full"
+                  alt=""></a>
+            </div>
+            <div class="pl-2 py-2 w-full">
+              <a href="#" class="text-grey-darkest text-sm font-bold w-">Find people you know</a>
+              <a href="#" class="text-grey-darkest">Import your contacts from Outlook</a>
+            </div>
+          </div>
+          <div class="pt-2">
+            <a href="#">Connect other address book</a>
+          </div>
+        </div>
+      </div>
+      <!--container end: sidebar-left-->
+      <div class="bg-white p-3 mb-3">
+        <div class="mb-4">
+          <span class="font-bold text-lg">Trends for you</span>
+          <span>&middot;</span>
+          <span><a href="#">Change</a></span>
+        </div>
+        <div class="mb-2">
+          <div><a href="#" class="font-bold">Happy New Year</a></div>
+          <div>645K Tweets</div>
+        </div>
+        <div class="mb-2">
+          <div><a href="#" class="font-bold">#ByeBye2017</a></div>
+          <div>45K Tweets</div>
+        </div>
+        <div class="mb-2">
+          <div><a href="#" class="font-bold">#SomeHashTag</a></div>
+          <div>45K Tweets</div>
+        </div>
+        <div class="mb-2">
+          <div><a href="#" class="font-bold">Something Trending</a></div>
+          <div>36K Tweets</div>
+        </div>
+        <div class="mb-2">
+          <div><a href="#" class="font-bold">#ColdAF</a></div>
+          <div>100K Tweets</div>
+        </div>
+      </div>
+      <div class="text-grey-darker text-xs mb-3 flex flex-wrap">
+        <span>&copy;</span>
+        <span><a href="#" class="text-grey-darker flex-1 mr-2">Twitter</a></span>
+        <span><a href="#" class="text-grey-darker flex-1 mr-2">About</a></span>
+        <span><a href="#" class="text-grey-darker flex-1 mr-2">Help Center</a></span>
+        <span><a href="#" class="text-grey-darker flex-1 mr-2">Terms</a></span>
+        <span><a href="#" class="text-grey-darker flex-1 mr-2">Privacy policy</a></span>
+        <span><a href="#" class="text-grey-darker flex-1 mr-2">Cookies</a></span>
+        <span><a href="#" class="text-grey-darker flex-1 mr-2">Ads</a></span>
+      </div>
+    </div>
 </body>
 
 </html>
