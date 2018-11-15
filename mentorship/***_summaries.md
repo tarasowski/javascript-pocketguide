@@ -266,6 +266,45 @@ console.log(`
 
 >  ‘this’, always references the owner of the function it is in! When it is inside of an object’s method — the function’s owner is the object. Thus the ‘this’ keyword is bound to the object. Yet when it is inside of a function, either stand alone or within another method, it will always refer to the window/global object.
 
+```js
+const standAloneFunc = function(){
+  alert(this);
+}
 
+standAloneFunc(); // [object Window]
+```
 
+> Unlike a regular function, an arrow function does not bind this. Instead, this is bound lexically (i.e. this keeps its meaning from its original context). Basically from where the function was called.
 
+```js
+function Counter() {
+  this.num = 0;
+  this.timer = setInterval(function add() {
+    this.num++;
+    console.log(this.num);
+  }, 1000);
+}
+var b = new Counter();
+// NaN
+// NaN
+// NaN
+// ...
+```
+* In the example above the console.log was called from the `setInterval()` function which is part of the global context, it means it's owned by the global context. It doesn't matter where it will be called inside an object etc.
+
+```js
+function Counter() {
+  this.num = 0;
+  this.timer = setInterval(() => {
+    this.num++;
+    console.log(this.num);
+  }, 1000);
+}
+var b = new Counter();
+// 1
+// 2
+// 3
+// ...
+```
+
+* In the example above the `this` is bound to the object and it's called on the object, which means `this` is bound to the current object where it was called.
