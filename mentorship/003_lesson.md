@@ -1,3 +1,4 @@
+```js
 console.clear()
 
 const g = n => n + 1;
@@ -49,3 +50,4 @@ Good abstractions are _easy_ to specialize for our particular context.
 Abstraction goes two ways, -- abstracting to lower level, more generic primitives, AND specializing those abstractions to form easier to use higher-level composites.
 */
 
+```
