@@ -114,4 +114,147 @@ me.isHuman = true; // inherited properties can be overwritten
 
 me.printIntroduction();
 ```
+# JavaScript Factory Functions with ES6+
 
+[Source](https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1)
+
+* A factory function is any function which is not a c lass or constructor that returns a object. In JavaScript, any function can return an object. When it does so without the new keyword, it's a factory function.
+
+```js
+const user = {
+userName: 'echo',
+avatar: 'echo.png'
+}
+
+const key = 'avatar'
+console.log(user[key]) // echo.png
+```
+* You can access computed property names using square bracket notation.
+
+```js
+const userName = 'echo'
+const avatar = 'echo.png'
+
+cost user = {
+  userName,
+  avatar,
+  setUserName (userName {
+  this.userName = userName
+  return this
+  }
+}
+
+console.log(user.setUserName('Foo').userName) // 'Foo'
+```
+
+> `this` refers to the object which the method is called on.
+
+* If you need to create many objects, you'll want to combine the power of object literals and factory functions. With a factory function, you can create as many user objects as you want.
+
+```js
+const createUser ({userName, avatar}) => ({}
+  userName,
+  avatar,
+  setUserName (UserName) {
+  this.userName = userName
+  return this
+  }
+)
+
+console.log(createuser({userName: 'echo', avatar: 'echo.png'})
+
+/*
+{
+  "avatar": "echo.png",
+  "userName": "echo",
+  "setUserName": [Function setUserName]
+}
+*/
+```
+
+**Note:** Arrow functions `=>` have an implicit return feature, if the function body consists of a single expression, you can omit the return keyword: `() => 'foo'`. If you want to return object literals you need to use `() => ({name: 'Dimitri'})`. The parentheses force the braces to be interpreted as an expression to be evaluated, rather than a function body block.
+
+* We can use computed property keys. In this example `arrToObj` takes an array consisting of a key7value pair (aka a tuple) and converts it into an object.
+
+```js
+const arrToObj = ([key, value]) => ({[key]: value})
+console.log(arrToObj(['name', 'Dimitri']) // {'name': 'Dimitri'}
+```
+* Using default parameters, for documentation of expected interface for `createUser` factory.
+
+```js
+const createUser = ({
+  userName = 'Anonymous',
+  avatar = 'anon.png'
+} = {}) => ({
+userName,
+avatar
+})
+```
+
+> Factories are great at cranking out objects using a nice calling API.
+
+**Note:** A mixin is a class that contains methods for use by other classes without having to be the parent class of those other classes.
+
+```js
+const withConstructor = constructor => o => ({
+  __proto__: {},
+  ...o
+})
+
+const withFlying = o => {
+  let isFlying = false
+  return {
+  ...o,
+  fly() {
+    isFlying = true
+    return this
+  },
+  land() {
+    isFlying = false
+    return this
+  },
+  isFyling: () => isFlying
+  }
+}
+
+const withBattery = ({capacity}) => o => {
+  let percentCharged = 100
+  return {
+    ...o,
+    draw (percent) {
+      const remaining = percentCharged - percent
+      percentCharged = remaining > 0 ? remaining : 0
+      return this
+    },
+    getCharge: () => percentCharged,
+    getCapacity () {
+      return capacity
+    }
+  }
+}
+
+const createDrone = ({capacity = '3000mAh'}) => pipe(
+  withFyling,
+  withBaterry({capacity}),
+  withConstructor(createDrone)
+)({})
+
+const myDrone = createDrone({capacity: '5500mAh'})
+
+console.log(`
+  can fly:  ${ myDrone.fly().isFlying() === true }
+  can land: ${ myDrone.land().isFlying() === false }
+  battery capacity: ${ myDrone.getCapacity() }
+  battery status: ${ myDrone.draw(50).getCharge() }%
+  battery drained: ${ myDrone.draw(75).getCharge() }%
+`);
+console.log(`
+  constructor linked: ${ myDrone.constructor === createDrone }
+`);
+
+```
+
+* Composition is more of a way of thinking than a particular technique in code. You can accomplish it in many ways. Function composition is the easiest way to build it up from scratch, and factory functions are a simple way to wrap a friendly API around the implementation details.
+
+> Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework. Just a function. Start with the simplest implementation, and move to more complex implementations only as required.
