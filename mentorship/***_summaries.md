@@ -258,3 +258,14 @@ console.log(`
 * Composition is more of a way of thinking than a particular technique in code. You can accomplish it in many ways. Function composition is the easiest way to build it up from scratch, and factory functions are a simple way to wrap a friendly API around the implementation details.
 
 > Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework. Just a function. Start with the simplest implementation, and move to more complex implementations only as required.
+
+---
+### `this` keyword
+
+[Source](https://medium.freecodecamp.org/learn-es6-the-dope-way-part-ii-arrow-functions-and-the-this-keyword-381ac7a32881)
+
+>  ‘this’, always references the owner of the function it is in! When it is inside of an object’s method — the function’s owner is the object. Thus the ‘this’ keyword is bound to the object. Yet when it is inside of a function, either stand alone or within another method, it will always refer to the window/global object.
+
+
+
+
