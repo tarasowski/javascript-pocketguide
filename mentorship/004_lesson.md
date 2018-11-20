@@ -439,6 +439,15 @@ class Bar extends Foo {
 
 > When an object is formed from an enumerable collection of subobjects. In other wordds, **an object which contains other objects**. Each subobject retains its own reference identity, such that it could be destructured from the aggreation, if needed. Is a collection of objects.
 
+* An example for enumberable collection of subobjects.
+```js
+const objs = [
+  {a: 'a', b: 'ab'},
+  {b: 'b'},
+  {c: 'c', b: 'cb'}
+]
+```
+
 * We can add an object, we can also remove an object, or extract an object out. Aggregates don't have to expose methods, but those objects have self-contained methods.
 
 ##### Examples
@@ -492,6 +501,96 @@ const l = objs.reduceRight(pair, [])
 
 ```
 
+#### Object Composition: Concatentation
+
+* We can treat our objects just as bags of data key/value pairs and we can treat those during the runtime and modify the shape of the data during the runtime. 
+
+> When an object is formed by adding new properties to an existing object. 
+
+* In a lot of cases we mutate the original object, we mutate in order to stay immutable. 
+
+##### Examples
+
+* jQuery plugins extend jQuery by cancatenating new methods to jQuery.fn. They add new features by concatenating to the object jQuery.fn (is a delegate)
+
+* State reducers (Redux) anything that takes some state and stacks that property on that state an object.
+
+* Functional mixins
+
+##### When to use?
+
+* The most common form of object composition and inheritance
+
+> Any time it would be useful to progressively assemble data structures at runtime, e.g., merging JSON objects, hydrating application state from multiple sources, creating updates to immutable state (by merging previous state with new data, ) etc...
+
+##### Considerations
+
+* Think about concatenating data more than concatenating behaviors. 
+
+* We have some data that represents our application, we need to update the data. That's the best use case for concatentation. The application state is like a database a separate thing of operation, and operations is more like transactions to the state. Compiling data together.
+
+* Better for data than behaviors. 
+
+```js
+// concatenate recuder
+const concatenate = (a, o) => ({...a, ...o})
+
+const objs = [
+  {a: 'a'},
+    {b: 'b'},
+    {c: 'c'}
+]
 
 
+console.log(objs.reduce(concatenate, {}))
+```
 
+* The key difference between aggregation and concatination. With aggregation we can still get the whole `{a: 'a'}` backout, in concatenation it gets mixed together like a soup, we can not extract the original object. 
+
+
+#### Object Composition: Delegation
+
+* What is delegation?
+
+> Is when an object forwards or delegates to another object.
+
+* In JavaScript we have prototype based object, it means in JS, each object has a prototype. When a prop is not found on the object, it look on the prototype. The prototype chain. Delegation is built on top of object delegation in JavaScript. 
+
+##### Examples
+
+* All of JS built-in types have a prototype that can be delegated to `[].map()` delegates to `Array.prototype.map()` `obj.hasOwnProperty()` delegates to `Object.prototype.hasOwnProperty()`
+
+* jQuery plugins have a jQuery.fn has a prototype is a delegate prototype. 
+
+##### When should we use?
+
+* To conserve memory, every time there are a lot of instances of objects. 
+* Dynamically update many instances. Anytime there are many instances of an object and you want update them all.
+
+##### Considerations?
+
+* Is commonly used to imitate the class inheritance in JavaScript. 
+
+* Be careful not to model "Is-A" relationships.
+
+* Props from delegates are non-enumarable (Object.keys() won't see them). If you want to be props enumerable, then delegation is not the right solution. 
+
+* Delegation saves memory at the cost of lookup performance. 
+
+* Differentiate between instance state and shared (delegate) state - shared mutable state is **usually** a bug. 
+
+* ES6 classes can't create dynamic delegates (Babel seems to work, but don't rely on that)
+
+```js
+const delegate = (a, b) => Object.assign(Object.create(a), b)
+
+const objs = [
+  {a: 'a', b: 'ab'},
+  {b: 'b'},
+  {c: 'c', b: 'cb'}
+]
+
+const d = objs.reduceRight(delegate, {})
+
+console.log(d)
+```
