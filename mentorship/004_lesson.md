@@ -313,15 +313,185 @@ var b = new Counter();
 
 #### What is OOP - why does it exists?
 
+> OOP is programming using objects/classes as an atomic unit of composition. All programming is composition.
+
+* OOP exists to avoid problems with shared mutable state.
+
 * Imperative programming
 * Structured programming - functions (callable procedures that you pass data to and return some data)
 
 **The OOP tries to solve the following problems:**
-* The biggest problem is shared mutable state (Global variables, DOM, console.log()) - if data can be changes its mutable state. Shared mutable state leads to raced conditions
+* The biggest problem is shared mutable state (Global variables, DOM, console.log()) - if data can be changes its mutable state. Shared mutable state leads to raced conditions.
+
+* Avoid shared state. The whole reason why objects exists it's pretty much the same what functional programming tries to solve. Those are two approaches to identical problem.
 
 * Memory was expensive, they wanted to reuse existing code and existing memory. They used e.g. delegation to resuse the memory as well.
 
 * The way the OOP accomplishes this goals is called 
 1) Encapsulation and 
 2) Message passing. Only the object can mutate its own state and if someone else wants to do that, it have to pass in a message and asking the object to change it's state. A method dispatching an action method in redux or triggering an event passing.
+
+> We co-locate the data and the methods. And only methods can change it's data.
+
+* If you are not doing Encapsulation and Message passing, you are not doing OOP.
+
+3) Polymorphism - a single interface for many potential implementations. It makes it possible to have a composite object, which represents the access to that composite objects component objects, those components can be objects of different types and they share a single interface (usbstitution, LSP)
+
+### What is an object?
+
+* In JavaScript is object something that has key and values. It's association between a name and some values. In JavaScript we get the encapsulation from closure.
+
+### What is object composition?
+
+* As assembling or composing objects to get more complex behavior! ~ Gang of Four.
+
+* There are lots of ways to compose objects, the way you choose will impact reusability of that code. 
+
+### What is a composite object?
+
+* In computer science a composite data type or compound data type is any data type which can be constructed in a program using the language primitive data types or other composite types. The act of creating those composite types in knows as composition ~ Wikipedia
+
+* Primitive type e.g. String in JS in other languages String is a composite because it's a list of characters. In JavaScript String is a primitive
+
+```js
+// Primitive
+const name = 'Echo'
+const avatar = 'echo.png'
+
+// composite
+const user = {
+name,
+avatar,
+}
+
+console.log(user) // {name: 'Echo', avatar: 'echo.png'}
+```
+### Why favor object composition over class inheritance?
+
+* Any object made of other objects is composite. And creation of those composite's is composition. 
+
+* Class inheritance is different mindset in thinking, creates is-A relationship. Meaning if we have an existing class and we want to create a new class is one of these base-classt things. E.g. you have an animal as a base class - now we want to create a dog. It's natural way of thinking, because we classify things all the time. What our animals bood streams, eat food, grow and now you have to model a Robot dog?
+
+* Given anough time and evolution, all single-ancestors taxonomies are eventually wrong for new use-cases. 
+
+* You start with an employee and everyone is an ancesotor, but what if a contractor comes in. A constractor is not an employee, so the whole structure breaks down. 
+
+* **Fragile base class problem** - class inheritance is the tightest form of coupling available in object oriented design. Imagine the constructor does some side-effect, in a new class we don't want to perform that side-effect. If we change the base class all other classes that inherit will all break.
+
+* **Gorilla/Banana problem** - the problem with OOP is that they all have this emplicit environment that they carry with them. You wanted a bananna, but you have got a Gorilla holding a bananna and the whole jungle with it. Often we want to inherit a small piece of a class, feature of that class and not everything goes with it.
+
+* **Duplication by necessity problem** - it says that we have a new use case and we want to change our base class, we cannot change the base class instead of change the base class we copy and paste it and make new class hierarchy. 
+
+> Instead of creating this Is-A relationships there are other types of composition that don't create these class taxonomies/hierarchies of structure instead you can think of your behaviors as separate things and thing of them as features and we can bring them together as compositon, rather then inheriting the class. 
+
+* If you think of this behaviors as features than your application gets a lot easier to reason about. A lot of flexible, less code, less error-prone. It's not about avoiding extends/Class keyword, the techniques don#t matter it's the way you think about relations between your objects. You can extend from a composite. 
+
+* Instead of a class:
+
+```
+class Foo{
+A,
+B,
+C
+}
+
+// instead of
+
+class Bar extends Foo{}
+```
+
+* You can have independent features A, B, C. We take those individual features instead of inheriting from the base class `Foo`
+
+```js
+// compsite
+const bar = {
+  A,
+  B,
+  C
+}
+
+```
+
+* If we want to change `A` we can create a new `AltA` and change it. Nothing has to change and other things that depend on A, we just made a new version of A (AltA) and used in our composition instead of inheriting from something and going back to modify the base class.
+
+```
+const bar = {
+  AltA,
+  B,
+  C
+}
+```
+
+* Class inheritance is a form of composition. In the example below we see that we are composing the class `Bar` with `Foo`. But we are doing it in different way and it creates another relationship. 
+
+```
+class Bar extends Foo {
+  D
+}
+```
+### Three differnt kinds of Composition
+
+* Aggregation
+* Concatenation
+* Delegation
+
+#### Object Composition: Aggregation
+
+> When an object is formed from an enumerable collection of subobjects. In other wordds, **an object which contains other objects**. Each subobject retains its own reference identity, such that it could be destructured from the aggreation, if needed. Is a collection of objects.
+
+* We can add an object, we can also remove an object, or extract an object out. Aggregates don't have to expose methods, but those objects have self-contained methods.
+
+##### Examples
+
+* Array in JS is an Object. Arrays in all languages are composed objects, or objects formed from other primitives.
+* Maps
+* Sets
+* Graphs
+* Trees
+  - DOM nodes is aggregation, is an object that might contain child DOM nodes / children)
+  - UI components (React component might contain other components - nested trees, etc...)
+  
+* All of the things are aggregations. Trees are aggregations of aggregations.
+
+##### When to use
+
+* Whenever there are collections of objects which need to share common operations. Any kind of iterable, stack, queue, state machine.
+
+* Composite pattern: is when you want a single item and multiple items to be treated with the same interface. A single or multiple items shares the same interface. Can be used for any kind of nested UI, DOM component tree etc.
+
+##### Considerations
+
+* Aggregations make great unversal abstractions. Aggregations are basically collections and lot of operations you can use `map(), filter(), reduce()` etc. Makes it easier to operate on things. (Functors, Monads, etc...) 
+
+* Some types of things that don't fit into a memory of a single aggregate. If all the subobjects can't fit in memory at the same time, consider streaming data. Consider straming the children instead of aggreting them into single object. 
+
+> A stream is array spread out over time. A list/array spread out over time. You can start using it right away instead waiting till everything has completed.
+
+* What is a reducer? An accumulator that takes some current value  in set or collection or whatever a transport mechanism is. It iterates over each item in the collection or stream and combines it with the accumulator. -> Universal transformation that can work with anything, all object composition can be expressed with reducers.
+
+```js
+const objs = [
+  {a: 'a', b: 'ab'},
+  {b: 'b'},
+  {c: 'c', b: 'cb'}
+]
+
+const collection = (a, c) => a.concat([c])
+
+objs.reduce(collection, [])
+```
+* Aggregation is useful if you want to apply an operation to everything in an aggregation. Everything in a collection. 
+
+> A linked list is just a tree made of a list of values. The current value of the current node and then a link to the rest of the values. It's basically a tree structure where is has [value, next] -> [value, next] -> [value, next]
+
+```js
+// value [value, link] -> [value, link]
+const pair = (a, b) => [b, a]
+
+const l = objs.reduceRight(pair, [])
+
+```
+
+
+
 
