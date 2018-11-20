@@ -639,114 +639,80 @@ const ChannelStrip = (options) => {
 ---
 ### `this` keyword
 
-[Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+#### 1 Default Binding
 
-* The value of `this` is determined by how a function is called. It can't be set by assignment during execution, and it may be different each time the function is called. 
-
-* ES5 introduced the `bind` method to set the value of a function's `this`regardless of how it's called, and ES2015 introduced arrow functions which don't provide their own `this` binding (it retains the `this` value of the enclosing lexical context)
-
-##### Global Context
-
-* In the global execution context (outside of any function), `this`refers to the global object.
+* When calling a function in a standard way shown above, `this` will refer to the Global Object
 
 ```js
-console.log(this === window) // true
-a = 37
-console.log(window.a) // 37
+function foo() {
+this.a = 'foo'
+console.log(this)
+}
+foo() // global object
 ```
 
-##### Function Context
+##### 2 Implicit Binding
 
-* Inside a function, the value of this depends ono how the function is called.
-
-###### Simple call
-
-* Since the following code is not in strict mode, and because the value of `this` is not set by the call, this will default to the global object, which is window in a browser. 
+* Id the function is contained within an object then that object will be referenced by `this`
 
 ```js
-function f1() {
-  return this;
+function bar() {
+  console.log(this)
 }
 
-// In a browser:
-f1() === window; // true 
+const foo = {
+  a: 'foo',
+  b: bar
+}
 
-// In Node:
-f1() === global; // true
+foo.b() // {a: 'foo', b: [Function: bar]}
 ```
 
-* In strict mode, however, the value of this remains at whatever it was set to when entering the execution context, so, in the following case, this will default to undefined:
+##### 3 Explicit Binding
+
+* `bind, apply, call`are all functions that can be used to explicitly set the value of `this`. `this` inside the function is the object that is passed in as the argument
 
 ```js
-function f2() {
-  'use strict'; // see strict mode
-  return this;
+function bar() {
+  console.log(this)
 }
 
-f2() === undefined; // true
+const foo = {
+  a: 'foo'
+}
+
+bar.bind(foo)() // {a: 'foo'}
+bar.call(foo) // {a: 'foo'}
+bar.apply(foo) // {a: 'foo'}
 ```
 
-* To pass the value of this from one context to another, use `call`, or `apply`:
+##### 4 New Binding
+
+* When an instance of an object is created using the new keyword, `this`is always set to that same instance.
 
 ```js
-// An object can be passed as the first argument to call or apply and this will be bound to it.
-var obj = {a: 'Custom'};
-
-// This property is set on the global object
-var a = 'Global';
-
-function whatsThis() {
-  return this.a;  // The value of this is dependent on how the function is called
+function bar() {
+  this.a = 'a'
+  this.log = function () { console.log(this) }
 }
 
-whatsThis();          // 'Global'
-whatsThis.call(obj);  // 'Custom'
-whatsThis.apply(obj); // 'Custom'
-```
-
-```js
-function add(c, d) {
-  return this.a + this.b + c + d;
-}
-
-var o = {a: 1, b: 3};
-
-// The first parameter is the object to use as
-// 'this', subsequent parameters are passed as 
-// arguments in the function call
-add.call(o, 5, 7); // 16
-
-// The first parameter is the object to use as
-// 'this', the second is an array whose
-// members are used as the arguments in the function call
-add.apply(o, [10, 20]); // 34
-```
-
-##### The bind method
-
-* ECMAScript 5 introduced Function.prototype.bind. Calling f.bind(someObject) creates a new function with the same body and scope as f, but where this occurs in the original function, in the new function it is permanently bound to the first argument of bind, regardless of how the function is being used.
-
-```js
-function f() {
-  return this.a;
-}
-
-var g = f.bind({a: 'azerty'});
-console.log(g()); // azerty
-
-var h = g.bind({a: 'yoo'}); // bind only works once!
-console.log(h()); // azerty
-
-var o = {a: 37, f: f, g: g, h: h};
-console.log(o.a, o.f(), o.g(), o.h()); // 37,37, azerty, azerty
+const bar = new foo()
+bar.log() // {a: 'a', log: [Function]}
 ```
 
 ##### Arrow Functions
 
-* In arrow functions, this retains the value of the enclosing lexical context's this. In global code, it will be set to the global object:
+* If the function is an arrow function, it ignores all the rules above and receives the `this` value of its surrounding scope at the time it's created. 
 
 ```js
-var globalObject = this;
-var foo = (() => this);
-console.log(foo() === globalObject); // true
+const obj = {
+    value: 'abc',
+    createArrowFn: function() {
+        return () => console.log(this);
+    }
+};
+const arrowFn = obj.createArrowFn();
+arrowFn(); // -> { value: 'abc', createArrowFn: ƒ }
 ```
+
+* Going back to the 3rd rule, when we call `obj.createArrowFn()`, this inside createArrowFn will be obj, as we’re calling it with dot notation. `obj` therefore gets bound to `this` in `arrowFn`. If we were to create an arrow function in the global scope, this would be window.
