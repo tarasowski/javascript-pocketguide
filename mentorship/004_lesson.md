@@ -594,3 +594,39 @@ const d = objs.reduceRight(delegate, {})
 
 console.log(d)
 ```
+---
+[Source](https://medium.com/javascript-scene/master-the-javascript-interview-what-s-the-difference-between-class-prototypal-inheritance-e4cd0a7562e9)
+
+* **Class inheritance:** a class is alike a blueprint - a description of the object to be created. Classes inherit from classes and create subclass relationships: hierarchical class taxonomies. Instances are typically instantiated via constructor functions with the `new`keyword. Classes as you may know them from languages like Java don#t technically exist in JavaScript. Constructor function are used, instead.
+
+* **Prototypical Inheritance:** A prototype is a working object instance. Objects inherit directly for other objects. Instances are typically instantiated via factory functions, object literals, or `Object.create()`
+
+```js
+// Composition Example
+const distortion = { distortion: 1 };
+const volume = { volume: 1 };
+const cabinet = { cabinet: 'maple' };
+const lowCut = { lowCut: 1 };
+const inputLevel = { inputLevel: 1 };
+
+const GuitarAmp = (options) => {
+  return Object.assign({}, distortion, volume, cabinet, options);
+};
+
+const BassAmp = (options) => {
+  return Object.assign({}, lowCut, volume, cabinet, options);
+};
+
+const ChannelStrip = (options) => {
+  return Object.assign({}, inputLevel, lowCut, volume, options);
+};
+```
+* There are three different kinds of prototypal OO.
+
+1) **Concatenative inheritance:** The process of inheriting features directly from one object to another by copying the source properties. `Object.assign(target, ...sources)`. In JavaScript, source prototypes are commonly referred to as mixins.
+
+2) **Prototype delegation:** In JavaScript, an object may have a link to a prototype for delegation. If a property is not found on the object, the lookup is delegated to the delegate prototype, which may have a link to its own delegate prototype, and so on up the chain until you arrive at `Object.prototype`, which is the root delegate. 
+
+3) **Functional inheritance:** In JavaScript, any function can create an object. When that function is not a constructor ( or `class`), it's called a factory function. Functional inheritance works by producing an object from a factory, and extending the produced object by assigning properties to it directly (using concatenative inheritance). 
+
+
