@@ -634,7 +634,7 @@ const ChannelStrip = (options) => {
 
 * **Don't inherit more than once:** Inhertiance can be handy as a shortcut, and inheriting once is um-kay, but don't go deeper. When the requirements change, refactoring a clas hierarchy is so hard that it turns into a WTF sandwich with traces of outdated requirements. Instead of creating a class hierarchy, consider creating several factory functions. They may call each other in chain, tweaking the behavior of each other. 
 
-> **Learn functional programming.** It will help you not think in classes, so you won’t be compelled to use them even though you know their pitfalls.
+* **Learn functional programming.** It will help you not think in classes, so you won’t be compelled to use them even though you know their pitfalls.
 
 ---
 ### `this` keyword
