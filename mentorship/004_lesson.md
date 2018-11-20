@@ -636,3 +636,31 @@ const ChannelStrip = (options) => {
 
 > **Learn functional programming.** It will help you not think in classes, so you won’t be compelled to use them even though you know their pitfalls.
 
+---
+### `this` keyword
+
+[Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+
+* The value of `this` is determined by how a function is called. It can't be set by assignment during execution, and it may be different each time the function is called. 
+
+* ES5 introduced the `bind` method to set the value of a function's `this`regardless of how it's called, and ES2015 introduced arrow functions which don't provide their own `this` binding (it retains the `this` value of the enclosing lexical context)
+
+##### Global Context
+
+* In the global execution context (outside of any function), `this`refers to the global object.
+
+```js
+console.log(this === window) // true
+a = 37
+console.log(window.a) // 37
+```
+
+##### Function Context
+
+* Inside a function, the value of this depends ono how the function is called.
+
+###### Simple call
+
+* Since the following code is not in strict mode, and because the value of `this` is not set by the call, this will default to the global object, which is window in a browser. 
+
+
