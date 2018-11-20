@@ -629,4 +629,10 @@ const ChannelStrip = (options) => {
 
 3) **Functional inheritance:** In JavaScript, any function can create an object. When that function is not a constructor ( or `class`), it's called a factory function. Functional inheritance works by producing an object from a factory, and extending the produced object by assigning properties to it directly (using concatenative inheritance). 
 
+---
+[Source](https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4)
+
+* **Don't inherit more than once:** Inhertiance can be handy as a shortcut, and inheriting once is um-kay, but don't go deeper. When the requirements change, refactoring a clas hierarchy is so hard that it turns into a WTF sandwich with traces of outdated requirements. Instead of creating a class hierarchy, consider creating several factory functions. They may call each other in chain, tweaking the behavior of each other. 
+
+> **Learn functional programming.** It will help you not think in classes, so you won’t be compelled to use them even though you know their pitfalls.
 
