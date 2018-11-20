@@ -308,3 +308,20 @@ var b = new Counter();
 ```
 
 * In the example above the `this` is bound to the object and it's called on the object, which means `this` is bound to the current object where it was called.
+
+### Object Composition
+
+#### What is OOP - why does it exists?
+
+* Imperative programming
+* Structured programming - functions (callable procedures that you pass data to and return some data)
+
+**The OOP tries to solve the following problems:**
+* The biggest problem is shared mutable state (Global variables, DOM, console.log()) - if data can be changes its mutable state. Shared mutable state leads to raced conditions
+
+* Memory was expensive, they wanted to reuse existing code and existing memory. They used e.g. delegation to resuse the memory as well.
+
+* The way the OOP accomplishes this goals is called 
+1) Encapsulation and 
+2) Message passing. Only the object can mutate its own state and if someone else wants to do that, it have to pass in a message and asking the object to change it's state. A method dispatching an action method in redux or triggering an event passing.
+
