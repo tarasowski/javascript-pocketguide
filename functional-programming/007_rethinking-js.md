@@ -108,3 +108,27 @@ const getCurrentDay = () =>
 
 getCurrentDay() 
 ```
+
+### Refactoring `try/catch`
+
+[Source](https://hackernoon.com/challenge-program-without-variables-javascript-bee89a41455e)
+
+```js
+const iThrowExceptions = () => {
+    throw new Error('oh snap!')
+}
+
+const tryCatch = (tryF, catchF) => {
+    try {
+        tryF()
+    } catch (err) {
+        catchF(err)
+    }
+}
+
+tryCatch(
+    () => iThrowExceptions(),
+    (err) => console.log('ERROR', err)
+)
+```
+**PS:** Use Monads!
