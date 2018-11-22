@@ -26,7 +26,28 @@
 
 > Every responsive design begins with a flexible foundation.
 
-1) He started to makring up the text. He created blocks such as `<main>`, `<section>`, `<header>`, `<article>` and so on. 
+1) He analyses the structure of the content and translates it into markup. He created blocks such as `<main>`, `<section>`, `<header>`, `<article>` and so on. 
+
+```html
+<section>
+  <div class="recent articles">
+    <header>
+      <h2></h2>
+      <a href="#">Link to more content</a>
+    </header>
+  </div>
+  <article>
+    <h2></h2>
+    <p><a href="#"></a></p>
+    <p></p>
+  </article>
+  <article>
+    <h2></h2>
+    <p><a href="#"></a></p>
+    <p></p>
+  </article>
+</section>
+``` 
 
 2) Then he applyed some simple styling to HTML elements such as colors, font-sizes. There are no images.
   - He tries to focus on the content and the layout for the first section
@@ -35,7 +56,15 @@
 
 ![Grid](./images/grid-example.png)
 
-**Important:** You need to focus on one section that you want to implement. In this case he focuses on the recent articles section.
+**Important:** You need to focus on one section that you want to implement. In this case he focuses on the recent articles section. 
+
+* Inventory of the recent articles section
+1) Header `<header>`
+2) Link to more content `<a>`
+3) Main stories `<article>`
+4) List of related articles `<aside>`
+
+* Don't focus on the layout, focus on those different content types. The underlying structure. What you do is translate the content into straight markup.
 
 ![Section](./images/recent-section.png)
 
