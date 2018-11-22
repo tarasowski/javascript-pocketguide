@@ -243,3 +243,49 @@ body {
 
 > We should also optimize our typogrophy, that we are not serving wide-screen typography to small screen users.
 
+```css
+Letter from the editors
+
+*/
+.hed-letter {
+    font-size: 1.75em;        /* 28 / 16 */
+}
+@media ( min-width: 35em ) {
+    .hed-letter {
+        font-size: 2.75em;    /* 44 / 16 */
+    }
+}
+/*
+
+Cover story
+
+*/
+.blurb {
+    padding: 1.5em;
+}
+.blurb .hed {
+    font-size: 1.5em;    /* 40/16 */
+}
+.blurb p {
+    font-size: 1.25em;    /* 20/16 */
+}
+@media ( min-width: 30em ) {
+    .blurb {
+        padding: 2em;
+    }
+    .blurb .hed {
+        font-size: 2em;    /* 40/16 */
+    }
+}
+@media ( min-width: 40em ) {
+    .blurb {
+        padding: 3em;
+    }
+    .blurb .hed {
+        font-size: 2.5em;    /* 40/16 */
+    }
+    .blurb p {
+        font-size: 1.5em;    /* 24/16 */
+    }
+}
+```
