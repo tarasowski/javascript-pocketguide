@@ -379,4 +379,3 @@ body {
 
 ```
 ---
-## Responsive Design Process
