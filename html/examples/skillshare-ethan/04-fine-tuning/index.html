@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8" />
+
+<title>Section 4: Fine-Tuning Our Layouts</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../dist/css/shared.css" />
+<link rel="stylesheet" href="../03-mediaqueries/answer.css" />
+
+<style>
+/*
+
+Letter from the editors
+
+*/
+.hed-letter {
+    font-size: 1.75em;        /* 28 / 16 */
+}
+@media ( min-width: 35em ) {
+    .hed-letter {
+        font-size: 2.75em;    /* 44 / 16 */
+    }
+}
+/*
+
+Cover story
+
+*/
+.blurb {
+    padding: 1.5em;
+}
+.blurb .hed {
+    font-size: 1.5em;    /* 40/16 */
+}
+.blurb p {
+    font-size: 1.25em;    /* 20/16 */
+}
+@media ( min-width: 30em ) {
+    .blurb {
+        padding: 2em;
+    }
+    .blurb .hed {
+        font-size: 2em;    /* 40/16 */
+    }
+}
+@media ( min-width: 40em ) {
+    .blurb {
+        padding: 3em;
+    }
+    .blurb .hed {
+        font-size: 2.5em;    /* 40/16 */
+    }
+    .blurb p {
+        font-size: 1.5em;    /* 24/16 */
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<main class="site-content" role="main">
+    <section>
+        <div class="articles-recent">
+            <header>
+                <h2 class="hed hed-section">The Latest Rawr-ticles</h2>
+
+                <a class="more" href="#">More Articles</a>
+            </header>
+
+            <article class="story story-lead">
+                <img class="art" src="../img/sunset.jpg" alt="" />
+
+                <h2 class="hed"><a href="#">The Deccan Traps: This Year’s Hot New Summer Getaway</a></h2>
+                <p class="meta"><a href="#"><cite>Terry Don</cite></a></p>
+                <p>Learn more about this steamy getaway, and plan your next vacation. You won’t beat the heat, but this locale will have your cares melting away in no time.</p>
+            </article>
+
+            <article class="story story-alt">
+                <img class="art" src="../img/meteors.jpg" alt="" />
+
+                <h2 class="hed"><a href="#">Why’s Everyone Talking About Meteors?</a></h2>
+                <p class="meta"><a href="#"><cite>Mike Ceratops</cite></a></p>
+                <p>Extinction-level event, or just a big nothingburger? How to separate fact from fiction when talking about sky rocks.</p>
+            </article>
+
+            <aside>
+                <ol class="teaser-list">
+                    <li>
+                        <article class="teaser-item">
+                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                            <p class="meta"><span class="a11y">by</span> Author Name</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="teaser-item">
+                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                            <p class="meta"><span class="a11y">by</span> Author Name</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="teaser-item">
+                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                            <p class="meta"><span class="a11y">by</span> Author Name</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="teaser-item">
+                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                            <p class="meta"><span class="a11y">by</span> Author Name</p>
+                        </article>
+                    </li>
+                </ol>
+            </aside>
+        </div><!-- /end .articles-recent -->
+    </section>
+
+    <section>
+        <div class="editor-letter">
+            <h2 class="hed hed-section">A Letter From Our Editors</h2>
+
+            <h3 class="hed hed-letter">Carnivores? Herbivores? Why Can’t We All Just Get Along</h3>
+
+            <p class="letter-author">
+                <img class="photo" src="../img/dinos.jpg" alt="" />
+                <cite>The Editorial Board</cite>
+            </p>
+
+            <div class="letter-content">
+                <p>In these polarizing times, it can be easy to focus on what separates us: one species’ love for leafy greens might not appeal to a herd of meat-eaters. But we should remember our common ground, too. For example, lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div><!-- /end .letter-content -->
+
+            <aside>
+                <ol class="teaser-list">
+                    <li>
+                        <article class="teaser-item">
+                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                            <p class="meta"><span class="a11y">by</span> Author Name</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="teaser-item">
+                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                            <p class="meta"><span class="a11y">by</span> Author Name</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="teaser-item">
+                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                            <p class="meta"><span class="a11y">by</span> Author Name</p>
+                        </article>
+                    </li>
+                </ol>
+
+                <a class="more" href="#">All Letters</a>
+            </aside>
+        </div><!-- /end .editor-letter -->
+    </section>
+
+    <section>
+        <div class="cover-story">
+            <header>
+                <h2 class="hed hed-section">Our Cover Story</h2>
+
+                <a class="more" href="#">The Rawrchives</a>
+            </header>
+
+            <div class="cover-splash">
+                <img class="intro-art" src="../img/origami.jpg" alt="A dinosaur made out of origami" />
+                <div class="intro-blur" role="presentation">
+                    <img src="../img/origami.jpg" alt="" />
+                </div>
+
+                <div class="blurb">
+                    <h2 class="hed hed-blurb"><a href="#"><q>It’s not terrible, but it can be lonely to be the king.</q></a></h2>
+                    <p>In a new interview, Chadley Tyrannosaurus opens up about life, laughter, and love as an apex predator.</p>
+                </div>
+            </div>
+        </div><!-- /end .cover-story -->
+    </section>
+</main>
+
+</body>
+</html>

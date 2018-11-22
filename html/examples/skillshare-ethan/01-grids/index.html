@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <title>Section 1: Grids</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../dist/css/shared.css" />
+
+    <style>
+        .articles-recent {
+            display: grid;
+            /*  grid-template-columns: 18% 18% 18% 18% 18%; */
+            grid-template-columns: repeat(5, 18%);
+            grid-column-gap: 2.5%;
+        }
+
+        /* header setting that is stretched across the full grid layout*/
+        .articles-recent header {
+            /*  grid-column-start: 1;
+            grid-column-end: 6; */
+            grid-column: 1 / 6;
+        }
+
+        /* story setting that stretches the story across 2 columns*/
+        .story-lead {
+            /*  grid-column-start: 1;
+            grid-column-end: 3; */
+            grid-column: 1 / 3;
+        }
+
+        .story-alt {
+            /*  grid-column-start: 3;
+            grid-column-end: 5; */
+            grid-column: 3 / 5;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="site-content" role="main">
+        <section>
+            <div class="articles-recent">
+                <header>
+                    <h2 class="hed hed-section">The Latest Rawr-ticles</h2>
+
+                    <a class="more" href="#">More Articles</a>
+                </header>
+
+                <article class="story story-lead">
+                    <h2 class="hed"><a href="#">The Deccan Traps: This Year’s Hot New Summer Getaway</a></h2>
+                    <p class="meta"><a href="#"><cite>Terry Don</cite></a></p>
+                    <p>Learn more about this steamy getaway, and plan your next vacation. You won’t beat the heat, but
+                        this locale will have your cares melting away in no time.</p>
+                </article>
+
+                <article class="story story-alt">
+                    <h2 class="hed"><a href="#">Why’s Everyone Talking About Meteors?</a></h2>
+                    <p class="meta"><a href="#"><cite>Mike Ceratops</cite></a></p>
+                    <p>Extinction-level event, or just a big nothingburger? How to separate fact from fiction when
+                        talking about sky rocks.</p>
+                </article>
+
+                <aside>
+                    <ol class="teaser-list">
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                    </ol>
+                </aside>
+            </div><!-- /end .articles-recent -->
+        </section>
+
+        <section>
+            <div class="editor-letter">
+                <h2 class="hed hed-section">A Letter From Our Editors</h2>
+
+                <h3 class="hed hed-letter">Carnivores? Herbivores? Why Can’t We All Just Get Along</h3>
+
+                <p class="letter-author">
+                    <cite>The Editorial Board</cite>
+                </p>
+
+                <div class="letter-content">
+                    <p>In these polarizing times, it can be easy to focus on what separates us: one species’ love for
+                        leafy greens might not appeal to a herd of meat-eaters. But we should remember our common
+                        ground, too. For example, lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                        mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div><!-- /end .letter-content -->
+
+                <aside>
+                    <ol class="teaser-list">
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                    </ol>
+
+                    <a class="more" href="#">All Letters</a>
+                </aside>
+            </div><!-- /end .editor-letter -->
+        </section>
+    </main>
+
+</body>
+
+</html>

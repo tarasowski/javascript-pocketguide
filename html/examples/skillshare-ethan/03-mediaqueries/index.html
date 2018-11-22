@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <title>Section 3: Media Queries</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../dist/css/shared.css" />
+
+    <style>
+        img {
+            max-width: 100%;
+        }
+
+        main {
+            background: url("../img/footprint.svg") no-repeat;
+            background-size: 30% auto;
+            background-position: 95% 1em;
+            background-attachment: fixed;
+        }
+
+        .story .art {
+            width: 100%;
+        }
+
+        /*
+
+Recent articles
+
+*/
+        @media (min-width: 35em) {
+            .articles-recent {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-column-gap: 2%;
+            }
+
+            .articles-recent header {
+                grid-column: 1 / -1;
+                /* start at 1 and end at negative -1 to span it across the whole row */
+            }
+
+            .articles-recent .story {
+                grid-column-end: span 2;
+            }
+        }
+
+        @media (min-width: 35em) and (max-width: 60em) {
+
+            .articles-recent aside,
+            .articles-recent .teaser-list {
+                display: contents;
+                /* turns the list into a grid */
+            }
+        }
+
+        @media (min-width: 60em) {
+            .articles-recent {
+                /* display: grid; ::: we can remove it here because it's already declared in the media query above*/
+                grid-template-columns: repeat(5, 1fr);
+                grid-column-gap: 2.5%;
+            }
+
+            .articles-recent header {
+                grid-column: 1 / -1;
+            }
+
+            .story-lead {
+                grid-column: 1 / 3;
+            }
+
+            .story-alt {
+                grid-column-start: 3;
+                grid-column-end: 5;
+            }
+
+            .story .art {
+                width: 100%;
+            }
+
+            .articles-recent aside {
+                grid-column-start: 5;
+            }
+        }
+
+
+        /*
+
+Letter to the editor
+
+*/
+        .editor-letter {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-column-gap: 2.5%;
+        }
+
+        .editor-letter .hed {
+            grid-column: 1 / -1;
+        }
+
+        .letter-author {
+            grid-column: 1;
+        }
+
+        .letter-content {
+            grid-column: 2 / span 3;
+        }
+
+        .editor-letter aside {
+            grid-column: 5;
+        }
+
+        /*
+
+Cover Story
+
+*/
+        .cover-story header,
+        .cover-splash {
+            display: grid;
+            grid-column-gap: 2.5%;
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .cover-story .hed-section {
+            grid-column: 1 / span 3;
+        }
+
+        .cover-story .more {
+            grid-column: 5;
+        }
+
+        .cover-splash>* {
+            grid-row: 1;
+        }
+
+        .intro-art {
+            grid-column: 1 / 5;
+            height: 100%;
+            object-fit: cover;
+            z-index: 10;
+        }
+
+        .intro-blur {
+            display: block;
+            grid-column: 1 / -1;
+        }
+
+        .intro-blur img {
+            filter: blur(17px);
+            transform: scale(2);
+        }
+
+        .blurb {
+            align-self: center;
+            grid-column: 3 / -1;
+            justify-self: end;
+            max-width: 24em;
+            position: relative;
+            z-index: 100;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="site-content" role="main">
+        <section>
+            <div class="articles-recent">
+                <header>
+                    <h2 class="hed hed-section">The Latest Rawr-ticles</h2>
+
+                    <a class="more" href="#">More Articles</a>
+                </header>
+
+                <article class="story story-lead">
+                    <img class="art" src="../img/sunset.jpg" alt="" />
+
+                    <h2 class="hed"><a href="#">The Deccan Traps: This Year’s Hot New Summer Getaway</a></h2>
+                    <p class="meta"><a href="#"><cite>Terry Don</cite></a></p>
+                    <p>Learn more about this steamy getaway, and plan your next vacation. You won’t beat the heat, but
+                        this locale will have your cares melting away in no time.</p>
+                </article>
+
+                <article class="story story-alt">
+                    <img class="art" src="../img/meteors.jpg" alt="" />
+
+                    <h2 class="hed"><a href="#">Why’s Everyone Talking About Meteors?</a></h2>
+                    <p class="meta"><a href="#"><cite>Mike Ceratops</cite></a></p>
+                    <p>Extinction-level event, or just a big nothingburger? How to separate fact from fiction when
+                        talking about sky rocks.</p>
+                </article>
+
+                <aside>
+                    <ol class="teaser-list">
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                    </ol>
+                </aside>
+            </div><!-- /end .articles-recent -->
+        </section>
+
+        <section>
+            <div class="editor-letter">
+                <h2 class="hed hed-section">A Letter From Our Editors</h2>
+
+                <h3 class="hed hed-letter">Carnivores? Herbivores? Why Can’t We All Just Get Along</h3>
+
+                <p class="letter-author">
+                    <img class="photo" src="../img/dinos.jpg" alt="" />
+                    <cite>The Editorial Board</cite>
+                </p>
+
+                <div class="letter-content">
+                    <p>In these polarizing times, it can be easy to focus on what separates us: one species’ love for
+                        leafy greens might not appeal to a herd of meat-eaters. But we should remember our common
+                        ground, too. For example, lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                        mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div><!-- /end .letter-content -->
+
+                <aside>
+                    <ol class="teaser-list">
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                        <li>
+                            <article class="teaser-item">
+                                <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                <p class="meta"><span class="a11y">by</span> Author Name</p>
+                            </article>
+                        </li>
+                    </ol>
+
+                    <a class="more" href="#">All Letters</a>
+                </aside>
+            </div><!-- /end .editor-letter -->
+        </section>
+
+        <section>
+            <div class="cover-story">
+                <header>
+                    <h2 class="hed hed-section">Our Cover Story</h2>
+
+                    <a class="more" href="#">The Rawrchives</a>
+                </header>
+
+                <div class="cover-splash">
+                    <img class="intro-art" src="../img/origami.jpg" alt="A dinosaur made out of origami" />
+                    <div class="intro-blur" role="presentation">
+                        <img src="../img/origami.jpg" alt="" />
+                    </div>
+
+                    <div class="blurb">
+                        <h2 class="hed hed-blurb"><a href="#"><q>It’s not terrible, but it can be lonely to be
+                                    the king.</q></a></h2>
+                        <p>In a new interview, Chadley Tyrannosaurus opens up about life, laughter, and love as an
+                            apex predator.</p>
+                    </div>
+                </div>
+            </div><!-- /end .cover-story -->
+        </section>
+    </main>
+
+</body>
+
+</html>

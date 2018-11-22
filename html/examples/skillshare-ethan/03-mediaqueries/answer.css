@@ -1,0 +1,139 @@
+img {
+    max-width: 100%;
+}
+main {
+    background: url( "../img/footprint.svg" ) no-repeat;
+    background-size: 30% auto;
+    background-position: 95% 1em;
+    background-attachment: fixed;
+}
+
+/*
+
+Recent articles
+
+*/
+.story .art {
+    width: 100%;
+}
+@media ( min-width: 35em ) {
+    .articles-recent {
+        display: grid;
+        grid-template-columns: repeat( 4, 1fr );
+        grid-column-gap: 2%;
+    }
+    .articles-recent header {
+        grid-column: 1 / -1;
+    }
+    .story {
+        grid-column-end: span 2;
+    }
+}
+@media ( min-width: 35em ) and ( max-width: 60em ) {
+    .articles-recent aside,
+    .articles-recent .teaser-list {
+        display: contents;
+    }
+}
+@media ( min-width: 60em ) {
+    .articles-recent {
+        grid-template-columns: repeat( 5, 1fr );
+        grid-column-gap: 2.5%;
+    }
+    .story-lead {
+        grid-column: 1 / 3;
+    }
+    .story-alt {
+        grid-column-start: 3;
+        grid-column-end: 5;
+    }
+    .articles-recent aside {
+        grid-column-start: 5;
+    }
+}
+
+/*
+
+Letter to the editor
+
+*/
+@media ( min-width: 35em ) {
+    .editor-letter {
+        display: grid;
+        grid-template-columns: repeat( 4, 1fr );
+        grid-column-gap: 2%;
+    }
+    .editor-letter .hed {
+        grid-column: 1 / -1;
+    }
+    .letter-author {
+        grid-column: 1;
+    }
+    .letter-content {
+        grid-column: 2 / span 3;
+    }
+}
+@media ( min-width: 35em ) and ( max-width: 60em ) {
+    .editor-letter aside,
+    .editor-letter .teaser-list {
+        display: contents;
+    }
+}
+@media ( min-width: 60em ) {
+    .editor-letter {
+        display: grid;
+        grid-template-columns: repeat( 5, 1fr );
+        grid-column-gap: 2.5%;
+    }
+    .editor-letter aside {
+        grid-column: 5;
+    }
+}
+
+/*
+
+Cover Story
+
+*/
+.intro-blur {
+    display: none;
+}
+.intro-blur img {
+    filter: blur( 17px );
+    transform: scale( 2 );
+}
+@media ( min-width: 60em ) {
+    .cover-story header,
+    .cover-splash {
+        display: grid;
+        grid-column-gap: 2.5%;
+        grid-template-columns: repeat( 5, 1fr );
+    }
+    .cover-story .hed-section {
+        grid-column: 1 / span 3;
+    }
+    .cover-story .more {
+        grid-column: 5;
+    }
+    .cover-splash > * {
+        grid-row: 1;
+    }
+    .intro-art {
+        grid-column: 1 / 5;
+        height: 100%;
+        object-fit: cover;
+        z-index: 10;
+    }
+    .intro-blur {
+        display: block;
+        grid-column: 1 / -1;
+    }
+    .blurb {
+        align-self: center;
+        grid-column: 3 / -1;
+        justify-self: end;
+        max-width: 24em;
+        position: relative;
+        z-index: 100;
+    }
+}
