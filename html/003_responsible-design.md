@@ -150,8 +150,99 @@ img {
 }
 ```
 
+## 3. Media Queries
+
+> Media query is like a question we are asking a browser. If it passes that that test, yes I meet all of this conditions that you spelled out in the media query then you can conditionally apply some extra style rules just for those specific circumstances.
+
+* In media query `min-width: 576px` means **at least** `576px` and above
+
+![Max](https://cdn-images-1.medium.com/max/1200/1*7YeOvzoYgUEDJdfQy2ERXg.png)
+![Width](http://blog.ryanwu.me/images/20120322_responsive-reference.png)
+
+* Every media query begins with the class of the media `screen, print, speech, all` and media feature `{min-width: 500px}`
+
+```css
+body {
+   color: #000;
+}
+@media screen and ( min-width: 500px ) {
+    body {
+        font-size: 1.4em;
+        font-weight: bold;
+        color: #F00;
+   }
+}
+``` 
+
+* When you start to apply media queries to a flexible layout. It's very helpful to look at the areas where the design starts to breakdown and where it's starting to breakdown as the screen gets narrower. 
+
+* In the example here we are dealing with a 5 column layout, but we want to apply this layout only if the screen-size is above a ceratin width `min-width: 960px /* or 60em */`. Now we have a media query that says above this `width: 60em` apply this grid layout. So now if we are going to size to screen to a lower than `960px` width, the design gets arranged into simple blocks, the `grid` is not applied anymore. 
+
+```css
+@media (min-width: 60em) {
+    .articles-recent {
+    display: grid;
+    grid-template-columns: repeat( 5, 1fr );
+    grid-column-gap: 2.5%;
+}
+.articles-recent header {
+    grid-column: 1 / -1;
+}
+.story-lead {
+    grid-column: 1 / 3;
+}
+.story-alt {
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+.story .art {
+    width: 100%;
+}
+.articles-recent aside {
+    grid-column-start: 5;
+}
+}
+```
+
+![No](./images/no-grid.png)
+
 ### Example for a layout
 
-1) We have a section
+1) We have a `section` 
+
 2) That secion contains a `div class=cover-story`
-3) Inside this `div` there is a `header` that contains a link `a
+
+3) Inside this `div` there is a `header` that contains a link `a` and `h2` a headline
+
+4) Inside this main `div` there is also a `div class=cover-splash` that acts as a container for another `div` with an image and `div` with a text.
+
+5) Now the grid is applied to the `header` with 5 columns where `a` takes the 5th column `grid-column: 5` and `h2` spans over `grid-column: 1 / 3` 
+
+6) Another grid is applied to `div class=cover-splash` to with `grid-template-columns: repeat (5, 1fr)`, where the image takes `grid-column: 1 / 5` etc.
+
+```html
+<section>
+            <div class="cover-story">
+                <header>
+                    <h2 class="hed hed-section">Our Cover Story</h2>
+
+                    <a class="more" href="#">The Rawrchives</a>
+                </header>
+
+                <div class="cover-splash">
+                    <img class="intro-art" src="../img/origami.jpg" alt="A dinosaur made out of origami" />
+                    <div class="intro-blur" role="presentation">
+                        <img src="../img/origami.jpg" alt="" />
+                    </div>
+
+                    <div class="blurb">
+                        <h2 class="hed hed-blurb"><a href="#"><q>It’s not terrible, but it can be lonely to be
+                                    the king.</q></a></h2>
+                        <p>In a new interview, Chadley Tyrannosaurus opens up about life, laughter, and love as an
+                            apex predator.</p>
+                    </div>
+                </div>
+            </div><!-- /end .cover-story -->
+        </section>
+```
+
