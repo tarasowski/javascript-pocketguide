@@ -5,6 +5,8 @@
 
 * [Code Examples](https://github.com/tarasowski/javascript-pocketguide/tree/master/html/examples/skillshare-ethan)
 
+* [HTML Structure Blueprint](https://github.com/tarasowski/javascript-pocketguide/blob/master/html/examples/skillshare-ethan/00-full.html)
+
 ## What is responsive design?
 
 * When we designing for the web, the web is everywhere. Web is completely flexible design medium.
