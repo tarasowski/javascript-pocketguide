@@ -131,6 +131,7 @@ img {
   width: 100%
 }
 ```
+---
 
 ## 3. Media Queries
 
@@ -221,6 +222,8 @@ body {
 
 > As the screen gets wider and wider we adding more layers of complexity. 
 
+---
+
 ## 4. Fine-Tuning Your Design
 
 > We should also optimize our typogrophy, that we are not serving wide-screen typography to small screen users.
@@ -306,6 +309,7 @@ body {
                     <img class="site-logo" src="img/logo.png" alt="Rawr." /> <!-- fallback for browsers that don't support svg -->
                 </picture>
 ```
+---
 
 ## Final Markup / Structure 
 
@@ -371,3 +375,5 @@ body {
 </body>
 
 ```
+---
+## Responsive Design Process
