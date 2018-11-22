@@ -37,98 +37,40 @@
         <h2>The Latest Rawr-ticles</h2>
         <a href="#">More Articles</a>
     </header>
-    <article>
+    <article class="story story-lead">
       <h2></h2>
       <p><a href="#"></a></p>
       <p></p>
     </article>
-    <article>
+    <article class="story story-alt">
       <h2></h2>
       <p><a href="#"></a></p>
       <p></p>
     </article>
     <aside>
       <ol>
-        <li></li>
+        <li><a href="#"></a></li>
       </ol>
     </aside> 
   </div>
 </section>
 ``` 
+---
 
-2) Then he applyed some simple styling to HTML elements such as colors, font-sizes. There are still no images.
+2) Then he applyed some simple styling to HTML elements such as colors, font-sizes. There are still no images. We don't have a layout but have some simple styles uplied to the markup from the step 1.
 
 ![Simple](./images/simple-css.png)
 
+---
 
-3) Now you need to x-ray the layout for the grid e.g. a 5 column grid in the example below. It's needed so you know how translate it into HTML and CSS by using CSS Grid.
+3) Now you need to x-ray the layout for the grid e.g. a 5 column grid in the example below. Now you are starting to translate your markup into a layout with CSS grids.
 
 ![Grid](./images/grid-example.png)
 
-**Important:** You need to focus on one section that you want to implement. In this case he focuses on the recent articles section. 
+**Important:** Don't use pixels to translate the layout into code. But the problem with pixels is that they don't really change their shape. If you resize the browser to see how it looks on mobile, it's not going to be adapted to the screen. You can use a formula to translate something from a fixed layout into something more proportional. You can use the formula `taget / context = result` 
 
-* Inventory of the recent articles section
-1) Header `<header>`
-2) Link to more content `<a>`
-3) Main stories `<article>`
-4) List of related articles `<aside>`
+![Target](./images/context-target.png)
 
-* Don't focus on the layout, focus on those different content types. The underlying structure. What you do is translate the content into straight markup.
-
-![Section](./images/recent-section.png)
-
-```html
-<section>
-        <div class="articles-recent">
-            <header>
-                <h2 class="hed hed-section">The Latest Rawr-ticles</h2>
-
-                <a class="more" href="#">More Articles</a>
-            </header>
-
-            <article class="story story-lead">
-                <h2 class="hed"><a href="#">The Deccan Traps: This Year’s Hot New Summer Getaway</a></h2>
-                <p class="meta"><a href="#"><cite>Terry Don</cite></a></p>
-                <p>Learn more about this steamy getaway, and plan your next vacation. You won’t beat the heat, but this locale will have your cares melting away in no time.</p>
-            </article>
-
-            <article class="story story-alt">
-                <h2 class="hed"><a href="#">Why’s Everyone Talking About Meteors?</a></h2>
-                <p class="meta"><a href="#"><cite>Mike Ceratops</cite></a></p>
-                <p>Extinction-level event, or just a big nothingburger? How to separate fact from fiction when talking about sky rocks.</p>
-            </article>
-
-            <aside>
-                <ol class="teaser-list">
-                    <li>
-                        <article class="teaser-item">
-                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
-                            <p class="meta"><span class="a11y">by</span> Author Name</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="teaser-item">
-                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
-                            <p class="meta"><span class="a11y">by</span> Author Name</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="teaser-item">
-                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
-                            <p class="meta"><span class="a11y">by</span> Author Name</p>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="teaser-item">
-                            <h3 class="hed"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
-                            <p class="meta"><span class="a11y">by</span> Author Name</p>
-                        </article>
-                    </li>
-                </ol>
-            </aside>
-        </div><!-- /end .articles-recent -->
-    </section>
-``` 
-
+---
 
 
