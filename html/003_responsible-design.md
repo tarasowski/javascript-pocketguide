@@ -31,39 +31,21 @@
 ![Section](./images/section.png)
 
 ```html
-<body>
-  <main class="site-content">
+  <main class="site-content" role="main">
     <section>
-      <div class="recent articles">
-        <header>
-            <h2>The Latest Rawr-ticles</h2>
-            <a href="#">More Articles</a>
-        </header>
-        <article class="story story-lead">
-          <h2></h2>
-          <p><a href="#"></a></p>
-          <p></p>
-        </article>
-        <article class="story story-alt">
-          <h2></h2>
-          <p><a href="#"></a></p>
-          <p></p>
-        </article>
-        <aside>
-          <ol>
-            <li><a href="#"></a></li>
-          </ol>
-        </aside> 
-      </div> <!-- /end .articles-recent -->
+        <div class="home-intro">
+        </div><!-- /end .home-intro -->
     </section>
+
     <section>
-    <!-- .......... some content here-->
+        <div class="articles-recent">
+            <header></header>
+            <article class="story story-lead"></article>
+            <article class="story story-alt"></article>
+            <aside></aside>
+        </div><!-- /end .articles-recent -->
     </section>
-    <section>
-    <!-- .......... some content here -->
-    </section>
-  </main>
-</body>
+</main>
 ``` 
 ---
 
