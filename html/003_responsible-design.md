@@ -289,3 +289,103 @@ Cover story
     }
 }
 ```
+
+* Feature query allows us to ask a browser if it supports specific features. By asking the browser we can supply a fallback layout that is written with floats, flexbox etc. **For browsers that don't understand `grid` we should serve a single column layout and for browsers that do support `grid` w should serve the full `grid` layout**
+
+1) We set a standard body size to 30em = 480px and margin in order to center the content
+2) We add check if the browser supports `@support (display:grid) {}` 
+3) If so, we reset the setting of the body `max-width: inherit;`
+
+```css
+body {
+    background: #FFF;
+    color: #333;
+    font: normal 1em/1.5, serif;
+    margin: 0 auto;
+    max-width: 30em;
+}
+
+@supports (display: grid) {
+    body {
+        margin: 0;
+        max-width: inherit;
+    }
+}
+```
+**Note:** Particularly we force browsers that don't support `css grid` to use the mobile mode, which is a no grid layout.
+
+![IE](./images/ie-no-grid.png)
+
+* You can server different images to different devices, other formats, higher definition images on higher quality display etc. For that reason you can use the `<picture>` element. 
+
+```html
+<picture>
+                    <source srcset="img/logo.svg" type="image/svg+xml" />
+                    <img class="site-logo" src="img/logo.png" alt="Rawr." /> <!-- fallback for browsers that don't support svg -->
+                </picture>
+```
+
+## Final Markup / Structure 
+
+```html
+<body class="pg-full has-bg">
+
+<header class="site-mast" role="banner">
+    <div class="site-header">
+        <h1 class="hed-site-logo"></h1>
+        <nav class="nav-site" role="navigation"></nav>
+    </div><!-- /end .site-header -->
+</header>
+
+<main class="site-content" role="main">
+    <section>
+        <div class="home-intro">
+        </div><!-- /end .home-intro -->
+    </section>
+
+    <section>
+        <div class="articles-recent">
+            <header></header>
+            <article class="story story-lead"></article>
+            <article class="story story-alt"></article>
+            <aside></aside>
+        </div><!-- /end .articles-recent -->
+    </section>
+
+    <section>
+        <div class="cover-story">
+            <header></header>
+            <div class="cover-splash">
+                <div class="intro-blur" role="presentation"></div>
+                <div class="blurb"></div>
+            </div>
+        </div><!-- /end .cover-story -->
+    </section>
+
+    <section>
+        <div class="reviews-recent">
+            <header></header>
+            <div class="review-intro">
+            </div><!-- /end .reviews-intro -->
+            <a class="review" href="#"></a>
+        </div>
+    </section>
+
+    <section>
+        <div class="editor-letter">
+            <div class="letter-content">
+            </div><!-- /end .letter-content -->
+            <aside></aside>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="site-footer">
+        <div class="info"></div>
+    </div><!-- /end .site-footer -->
+</footer>
+
+</body>
+
+```
