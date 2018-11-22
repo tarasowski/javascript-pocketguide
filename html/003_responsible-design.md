@@ -54,6 +54,8 @@
 </section>
 ``` 
 
+![Section](./images/section.png)
+
 2) Then he applyed some simple styling to HTML elements such as colors, font-sizes. There are no images.
   - He tries to focus on the content and the layout for the first section
 
