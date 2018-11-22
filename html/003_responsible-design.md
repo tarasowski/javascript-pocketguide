@@ -36,11 +36,6 @@
 ```html
   <main class="site-content" role="main">
     <section>
-        <div class="home-intro">
-        </div><!-- /end .home-intro -->
-    </section>
-
-    <section>
         <div class="articles-recent">
             <header></header>
             <article class="story story-lead"></article>
