@@ -32,20 +32,25 @@
 <section>
   <div class="recent articles">
     <header>
-      <h2></h2>
-      <a href="#">Link to more content</a>
+        <h2></h2>
+        <a href="#">Link to more content</a>
     </header>
+    <article>
+      <h2></h2>
+      <p><a href="#"></a></p>
+      <p></p>
+    </article>
+    <article>
+      <h2></h2>
+      <p><a href="#"></a></p>
+      <p></p>
+    </article>
+    <aside>
+      <ol>
+        <li></li>
+      </ol>
+    </aside> 
   </div>
-  <article>
-    <h2></h2>
-    <p><a href="#"></a></p>
-    <p></p>
-  </article>
-  <article>
-    <h2></h2>
-    <p><a href="#"></a></p>
-    <p></p>
-  </article>
 </section>
 ``` 
 
