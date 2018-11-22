@@ -1,8 +1,9 @@
 
 # Responsive Web Design: Creating Flexible Websites That Last
 
-[Source](https://www.skillshare.com/classes/Responsive-Web-Design-Creating-Flexible-Websites-That-Last/440884573/reviews)
+* [Video Course on Skillshare](https://www.skillshare.com/classes/Responsive-Web-Design-Creating-Flexible-Websites-That-Last/440884573/reviews)
 
+* [Code Examples](https://github.com/tarasowski/javascript-pocketguide/tree/master/html/examples/skillshare-ethan)
 
 ## What is responsive design?
 
