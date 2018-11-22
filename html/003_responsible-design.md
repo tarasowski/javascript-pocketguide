@@ -58,7 +58,7 @@
 
 2) Then he applyed some simple styling to HTML elements such as colors, font-sizes. There are still no images.
 
-![Simple](./images/simple-css.png
+![Simple](./images/simple-css.png)
 
 
 3) Now you need to x-ray the layout for the grid e.g. a 5 column grid in the example below. It's needed so you know how translate it into HTML and CSS by using CSS Grid.
