@@ -5,7 +5,7 @@
 
 * [Code Examples](https://github.com/tarasowski/javascript-pocketguide/tree/master/html/examples/skillshare-ethan)
 
-* [HTML Structure Blueprint](https://github.com/tarasowski/javascript-pocketguide/blob/master/html/examples/skillshare-ethan/00-full.html) OR in [Preview in Browser](https://skillshare.ethanmarcotte.com/)
+* [HTML Structure Blueprint](https://github.com/tarasowski/javascript-pocketguide/blob/master/html/examples/skillshare-ethan/00-full.html) OR [Preview in Browser](https://skillshare.ethanmarcotte.com/)
 
 ## What is responsive design?
 
