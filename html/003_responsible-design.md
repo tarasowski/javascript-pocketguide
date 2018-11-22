@@ -26,14 +26,16 @@
 
 > Every responsive design begins with a flexible foundation.
 
-1) He analyses the structure of the content and translates it into markup. He created blocks such as `<main>`, `<section>`, `<header>`, `<article>` and so on. 
+1) He analyses the structure of the content and translates it into markup. He created blocks such as `<main>`, `<section>`, `<header>`, `<article>` and so on. **Important:** No images focus on the content. 
+
+![Section](./images/section.png)
 
 ```html
 <section>
   <div class="recent articles">
     <header>
-        <h2></h2>
-        <a href="#">Link to more content</a>
+        <h2>The Latest Rawr-ticles</h2>
+        <a href="#">More Articles</a>
     </header>
     <article>
       <h2></h2>
@@ -53,8 +55,6 @@
   </div>
 </section>
 ``` 
-
-![Section](./images/section.png)
 
 2) Then he applyed some simple styling to HTML elements such as colors, font-sizes. There are no images.
   - He tries to focus on the content and the layout for the first section
