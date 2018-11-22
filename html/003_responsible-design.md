@@ -232,7 +232,8 @@ body {
             .articles-recent aside {
                 grid-column-start: 5;
             }
-        }```
+        }
+```
 
 ![No](./images/no-grid.png)
 
