@@ -22,7 +22,7 @@
 
 > A responsive layout is flexible in nature, but changes and adapts at certain breakpoints. 
 
-## Creating Fluid Grids (The foundation of responsive design)
+## 1. Creating Fluid Grids (The foundation of responsive design)
 
 > Every responsive design begins with a flexible foundation.
 
@@ -31,29 +31,39 @@
 ![Section](./images/section.png)
 
 ```html
-<section>
-  <div class="recent articles">
-    <header>
-        <h2>The Latest Rawr-ticles</h2>
-        <a href="#">More Articles</a>
-    </header>
-    <article class="story story-lead">
-      <h2></h2>
-      <p><a href="#"></a></p>
-      <p></p>
-    </article>
-    <article class="story story-alt">
-      <h2></h2>
-      <p><a href="#"></a></p>
-      <p></p>
-    </article>
-    <aside>
-      <ol>
-        <li><a href="#"></a></li>
-      </ol>
-    </aside> 
-  </div>
-</section>
+<body>
+  <main class="site-content">
+    <section>
+      <div class="recent articles">
+        <header>
+            <h2>The Latest Rawr-ticles</h2>
+            <a href="#">More Articles</a>
+        </header>
+        <article class="story story-lead">
+          <h2></h2>
+          <p><a href="#"></a></p>
+          <p></p>
+        </article>
+        <article class="story story-alt">
+          <h2></h2>
+          <p><a href="#"></a></p>
+          <p></p>
+        </article>
+        <aside>
+          <ol>
+            <li><a href="#"></a></li>
+          </ol>
+        </aside> 
+      </div> <!-- /end .articles-recent -->
+    </section>
+    <section>
+    <!-- .......... some content here-->
+    </section>
+    <section>
+    <!-- .......... some content here -->
+    </section>
+  </main>
+</body>
 ``` 
 ---
 
@@ -106,4 +116,42 @@
 
 ---
 
+## 2. Flexible Images
 
+1) The author starts by adding images to the blocks `<article>`
+
+**Note:** When images are displayed to the end user they have native dimensions. They have a `width` and a `height`. If you drop them into code without doing anything with CSS, they will be rendered at their native dimensions. They will break the layout, they are escaping the columns they are sit in. 
+
+**Important:** If you want to make your images flexible to your desing. You should use: `img { max-width: 100% }` 
+
+```html
+<article class="story story-lead">
+                <img class="art" src="../img/sunset.jpg" alt="" />
+
+                <h2 class="hed"><a href="#">The Deccan Traps: This Year’s Hot New Summer Getaway</a></h2>
+                <p class="meta"><a href="#"><cite>Terry Don</cite></a></p>
+                <p>Learn more about this steamy getaway, and plan your next vacation. You won’t beat the heat, but this locale will have your cares melting away in no time.</p>
+            </article>
+```
+
+2) Now you need to add one important detail to your CSS code. This says the image can render to any size whatever it wants to as long as it never wider than the element that it sits in. **The image can render at whatever size it wants to, but if that column is smaller as the image, that image is going to resize proportionally and shrink up to fit inside of that column.**
+
+```css
+img {
+  max-width: 100%; /* one of the most critical tools in the responsive design toolkit */
+}
+```
+
+3) If you resize the screen sometimes the images are smaller than their container, especially on bigger screens. In order to have the images everywhere equally visible you can add `width: 100%` that says that it should always match the 100% of the width of it's container. The same applies to `height: 100%`. If you want that the image convers the whole container just use `height: 100%`
+
+```css
+.story .art {
+  width: 100%
+}
+```
+
+### Example for a layout
+
+1) We have a section
+2) That secion contains a `div class=cover-story`
+3) Inside this `div` there is a `header` that contains a link `a
