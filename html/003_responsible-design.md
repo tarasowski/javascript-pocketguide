@@ -239,43 +239,7 @@ body {
 
 > As the screen gets wider and wider we adding more layers of complexity. 
 
-### Example for a layout
+## 4. Fine-Tuning Your Design
 
-1) We have a `section` 
-
-2) That secion contains a `div class=cover-story`
-
-3) Inside this `div` there is a `header` that contains a link `a` and `h2` a headline
-
-4) Inside this main `div` there is also a `div class=cover-splash` that acts as a container for another `div` with an image and `div` with a text.
-
-5) Now the grid is applied to the `header` with 5 columns where `a` takes the 5th column `grid-column: 5` and `h2` spans over `grid-column: 1 / 3` 
-
-6) Another grid is applied to `div class=cover-splash` to with `grid-template-columns: repeat (5, 1fr)`, where the image takes `grid-column: 1 / 5` etc.
-
-```html
-<section>
-            <div class="cover-story">
-                <header>
-                    <h2 class="hed hed-section">Our Cover Story</h2>
-
-                    <a class="more" href="#">The Rawrchives</a>
-                </header>
-
-                <div class="cover-splash">
-                    <img class="intro-art" src="../img/origami.jpg" alt="A dinosaur made out of origami" />
-                    <div class="intro-blur" role="presentation">
-                        <img src="../img/origami.jpg" alt="" />
-                    </div>
-
-                    <div class="blurb">
-                        <h2 class="hed hed-blurb"><a href="#"><q>It’s not terrible, but it can be lonely to be
-                                    the king.</q></a></h2>
-                        <p>In a new interview, Chadley Tyrannosaurus opens up about life, laughter, and love as an
-                            apex predator.</p>
-                    </div>
-                </div>
-            </div><!-- /end .cover-story -->
-        </section>
-```
+> We should also optimize our typogrophy, that we are not serving wide-screen typography to small screen users.
 
