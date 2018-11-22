@@ -74,7 +74,7 @@
 ![Target](./images/context-target.png)
 
 ```css
- <style>
+
         .articles-recent {
             display: grid;
             /*  grid-template-columns: 18% 18% 18% 18% 18%; */
@@ -101,7 +101,7 @@
             grid-column-end: 5; */
             grid-column: 3 / 5;
         }
-    </style>
+
 ```
 
 ---
