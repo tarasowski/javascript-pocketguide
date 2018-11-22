@@ -67,9 +67,42 @@
 
 ![Grid](./images/grid-example.png)
 
-**Important:** Don't use pixels to translate the layout into code. But the problem with pixels is that they don't really change their shape. If you resize the browser to see how it looks on mobile, it's not going to be adapted to the screen. You can use a formula to translate something from a fixed layout into something more proportional. You can use the formula `taget / context = result` 
+**Important:** Don't use pixels to translate the layout into code. But the problem with pixels is that they don't really change their shape. If you resize the browser to see how it looks on mobile, it's not going to be adapted to the screen. You can use a formula to translate something from a fixed layout into something more proportional. You can use the formula `taget / context = result`. The target is the `white box` and the `context` is the whole element. If we divide `target / context` we'll get a percentage based result `%`. So we can translate it back to get a flexible layout. In this example the entire width of the design `context` is `1000px` and the entire width of the one news element `target` is `180px`. If you divide those numbes you'll get `18%`. The `context` is the parent element where the child `target` sits in. When you change the size of the screen the relationship between the elements stays the same, means the proportions are the same as designed in px.
+
+**Note:** You can use [Design Grid Overlay - Chrome Extention](https://chrome.google.com/webstore/detail/design-grid-overlay/kmaadknbpdklpcommafmcboghdlopmbi/related?hl=en-GB) to show grids on any website. Good for copying content.
 
 ![Target](./images/context-target.png)
+
+```css
+ <style>
+        .articles-recent {
+            display: grid;
+            /*  grid-template-columns: 18% 18% 18% 18% 18%; */
+            grid-template-columns: repeat(5, 18%); /* 1fr would divide the grid into 5 flexible units */
+            grid-column-gap: 2.5%;
+        }
+
+        /* header setting that is stretched across the full grid layout*/
+        .articles-recent header {
+            /*  grid-column-start: 1;
+            grid-column-end: 6; */
+            grid-column: 1 / 6;
+        }
+
+        /* story setting that stretches the story across 2 columns*/
+        .story-lead {
+            /*  grid-column-start: 1;
+            grid-column-end: 3; */
+            grid-column: 1 / 3;
+        }
+
+        .story-alt {
+            /*  grid-column-start: 3;
+            grid-column-end: 5; */
+            grid-column: 3 / 5;
+        }
+    </style>
+```
 
 ---
 
