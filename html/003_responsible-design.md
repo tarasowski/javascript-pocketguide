@@ -179,32 +179,64 @@ body {
 * In the example here we are dealing with a 5 column layout, but we want to apply this layout only if the screen-size is above a ceratin width `min-width: 960px /* or 60em */`. Now we have a media query that says above this `width: 60em` apply this grid layout. So now if we are going to size to screen to a lower than `960px` width, the design gets arranged into simple blocks, the `grid` is not applied anymore. 
 
 ```css
-@media (min-width: 60em) {
-    .articles-recent {
-    display: grid;
-    grid-template-columns: repeat( 5, 1fr );
-    grid-column-gap: 2.5%;
-}
-.articles-recent header {
-    grid-column: 1 / -1;
-}
-.story-lead {
-    grid-column: 1 / 3;
-}
-.story-alt {
-    grid-column-start: 3;
-    grid-column-end: 5;
-}
-.story .art {
-    width: 100%;
-}
-.articles-recent aside {
-    grid-column-start: 5;
-}
-}
-```
+ @media (min-width: 35em) {
+            .articles-recent {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-column-gap: 2%;
+            }
+
+            .articles-recent header {
+                grid-column: 1 / -1;
+                /* start at 1 and end at negative -1 to span it across the whole row */
+            }
+
+            .articles-recent .story {
+                grid-column-end: span 2;
+            }
+        }
+
+        @media (min-width: 35em) and (max-width: 60em) {
+
+            .articles-recent aside,
+            .articles-recent .teaser-list {
+                display: contents;
+                /* turns the list into a grid */
+            }
+        }
+
+        @media (min-width: 60em) {
+            .articles-recent {
+                /* display: grid; ::: we can remove it here because it's already declared in the media query above*/
+                grid-template-columns: repeat(5, 1fr);
+                grid-column-gap: 2.5%;
+            }
+
+            .articles-recent header {
+                grid-column: 1 / -1;
+            }
+
+            .story-lead {
+                grid-column: 1 / 3;
+            }
+
+            .story-alt {
+                grid-column-start: 3;
+                grid-column-end: 5;
+            }
+
+            .story .art {
+                width: 100%;
+            }
+
+            .articles-recent aside {
+                grid-column-start: 5;
+            }
+        }```
 
 ![No](./images/no-grid.png)
+
+> As the screen gets wider and wider we adding more layers of complexity. 
 
 ### Example for a layout
 
