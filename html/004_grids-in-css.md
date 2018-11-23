@@ -77,7 +77,22 @@ grid-template: repeat(2, 50px) / repeat(3, 1fr) /* think of it like drawing an L
 }
 ```
 
-## A way that is much easier to remember
+## Template Areas with CSS Grids
+
+```html
+<!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Box_Alignment_in_CSS_Grid_Layout -->
+
+<div class="wrapper">
+  <div class="item1">Item 1</div>
+  <div class="item2">Item 2</div>
+  <div class="item3">Item 3</div>
+  <div class="item4">Item 4</div>
+  <div class="item5">Item 5</div>
+  <div class="item6">Item 6</div>
+</div>
+
+```
+
 
 ```css
 * {box-sizing: border-box;}
@@ -147,16 +162,5 @@ grid-template: repeat(2, 50px) / repeat(3, 1fr) /* think of it like drawing an L
   }
 
 ```
-```html
-<!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Box_Alignment_in_CSS_Grid_Layout -->
 
-<div class="wrapper">
-  <div class="item1">Item 1</div>
-  <div class="item2">Item 2</div>
-  <div class="item3">Item 3</div>
-  <div class="item4">Item 4</div>
-  <div class="item5">Item 5</div>
-  <div class="item6">Item 6</div>
-</div>
-
-```
+![Area](./images/grid-view.png)
