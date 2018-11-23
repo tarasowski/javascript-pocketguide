@@ -76,3 +76,87 @@ grid-template: repeat(2, 50px) / repeat(3, 1fr) /* think of it like drawing an L
     grid-template-rows: 40px 200px 40px;
 }
 ```
+
+## A way that is much easier to remember
+
+```css
+* {box-sizing: border-box;}
+
+
+.wrapper {
+  display: block;
+  border: 5px solid #f76707;
+  border-radius: 5px;
+  
+}
+
+.wrapper div {
+  border: 2px solid #ffa8a8;
+    color: #d9480f
+}
+
+@media (min-width: 35em) {
+
+
+.wrapper {
+    border: 5px solid #f76707;
+    border-radius: 5px;
+}
+
+.wrapper > div {
+    border: 2px solid #ffa94d;
+    border-radius: 5px;
+    background-color: #ffd8a8;
+    padding: 1em;
+    color: #d9480f;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 1rem;
+  grid-template-areas: 
+    "a a b b b b c c"
+    "menu menu content content content content content content "
+    "footer footer footer footer footer footer footer footer"
+    
+}
+.item1 {
+  grid-area: a;
+}
+.item2 {
+  grid-area: b;
+
+}
+.item3 {
+  grid-area: c;
+}
+
+  .item4 {
+    grid-area: content;
+    height: 70vh;
+  }
+  .item5 {
+    grid-area: menu;
+    height: 70vh;
+  }
+  .item6 {
+    grid-area: footer;
+    height: 10vh
+  }
+  
+  }
+
+```
+```html
+<!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Box_Alignment_in_CSS_Grid_Layout -->
+
+<div class="wrapper">
+  <div class="item1">Item 1</div>
+  <div class="item2">Item 2</div>
+  <div class="item3">Item 3</div>
+  <div class="item4">Item 4</div>
+  <div class="item5">Item 5</div>
+  <div class="item6">Item 6</div>
+</div>
+
+```
