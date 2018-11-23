@@ -205,5 +205,74 @@ grid-template: repeat(2, 50px) / repeat(3, 1fr) /* think of it like drawing an L
 }
 ```
 
+## Combining Flex and Grids
 
+```html
+<html>
+    <head>
+        <link rel="stylesheet" href="basic.css">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <p>FLEXBOX HEADER</p>
+        <div class="flexbox-header">
+            <div>HOME</div>
+            <div>SEARCH</div>
+            <div>LOGOUT</div>
+        </div>
+        <br>
+        <p>GRID PAGE</p>
+        <div class="grid-page">
+            <div class="header">
+                <div>HOME</div>
+                <div>SEARCH</div>
+                <div>LOGOUT</div>
+            </div>
+            <div class="menu">MENU</div>
+            <div class="content">CONTENT</div>
+            <div class="footer">FOOTER</div>
+        </div>
+    </body>
+</html>
+```
+
+
+```css
+.flexbox-header {
+    display: flex;
+}
+
+.flexbox-header > div:nth-child(3) {
+    margin-left: auto;
+}
+
+.grid-page {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 40px 200px 40px;
+}
+
+.header {
+    grid-column: 1 / -1;
+    display: flex;
+}
+
+.header > div:nth-child(3) {
+    margin-left: auto;
+}
+
+.menu {
+    grid-column: 1 / 2;
+}
+
+.content {
+    grid-column: 2 / -1;
+}
+
+.footer {
+    grid-column: 1 / -1;
+}
+```
+
+![FlexGrid](./images/flex-grid.pgn)
 
