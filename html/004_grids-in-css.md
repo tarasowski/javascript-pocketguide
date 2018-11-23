@@ -164,3 +164,46 @@ grid-template: repeat(2, 50px) / repeat(3, 1fr) /* think of it like drawing an L
 ```
 
 ![Area](./images/grid-view.png)
+
+**Note:** You can make the grid repsonsive by setting the `height: 100%` of the container / wrapper itself. Alternatively you can use `height: 100vh`. Combined if you set the `grid-template-rows: 40px auto 40px`the middle block will take the available height.
+
+```css
+.container {
+    height: 100%;
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 40px auto 40px;
+}
+```
+
+* You can use `.` dots which will result in blank cells. 
+
+```css
+.container {
+    height: 100%;
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 40px auto 40px;
+    grid-template-areas: 
+        ". h h h h h h h h h h ."
+        "m c c c c c c c c c c c"
+        ". f f f f f f f f f f .";
+}
+```
+
+**Note:** Use `margin-left: auto` to push an element to an end of the flex-box
+
+```css
+.flexbox-header {
+    display: flex;
+}
+
+.flexbox-header > div:nth-child(3) {
+    margin-left: auto;
+}
+```
+
+
+
