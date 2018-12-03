@@ -501,3 +501,24 @@ console.log(
     lazyRes
 )
 ```
+[Source](https://egghead.io/lessons/javascript-capturing-side-effects-in-a-task)
+
+```js
+const Task = require('data.task')
+
+const launchMissiles = () =>
+    new Task((rej, res) => {
+        console.log('launched missiles')
+        res("missle")
+    })
+
+// If we don't fork it, it will just not run and that is very good because if our application would be only this then we need to fork it 
+const app = launchMissiles().map(x => x + '!')
+
+
+// This is how we keep our application pure e.g. by isolating side effectcs and calling them somewhere else.
+// this code will be in charge of the side effects and the problems with it. 
+app.map(x => x + '!').fork(e => console.log('error', e),
+    x => console.log('success', x))
+
+```
