@@ -462,3 +462,42 @@ const first = xs =>
 
 // A semi group that does not have an element to return it's not a safe operation. Whereas with the Monoids we can as many as we possibly want, even NaN and still return back something. It's perfectly safe operation that we can reduce as many of them as we like.
 ```
+[Source](https://egghead.io/lessons/javascript-delaying-evaluation-with-lazybox)
+```js
+const Box = x =>
+    ({
+        fold: f => f(x),
+        map: f => Box(f(x)),
+        inspect: () => `Box(${x})`
+    })
+
+// it works like a function composition here
+
+const res = Box(' 64 ')
+    .map(abb => abb.trim())
+    .map(trimmed => new Number(trimmed))
+    .map(number => number + 1)
+    .map(x => String.fromCharCode(x))
+    .fold(x => x.toLowerCase())
+
+// g = means function; x = means a value
+const LazyBox = g =>
+    ({
+        fold: f => f(g()),
+        map: f => LazyBox(() => f(g()))
+    })
+
+// it gives us purity by lazyness, nothing happens, so we don't have impure side effects
+const lazyRes = LazyBox(() => ' 64 ')
+    .map(abb => abb.trim())
+    .map(trimmed => new Number(trimmed))
+    .map(number => number + 1)
+    .map(x => String.fromCharCode(x))
+    .fold(x => x.toLowerCase())
+
+
+console.log(
+    res,
+    lazyRes
+)
+```
