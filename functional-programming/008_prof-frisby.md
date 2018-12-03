@@ -87,3 +87,44 @@ console.log(
 
 // 4
 ```
+**Note:** Box captures something in a context, you can keep mapping and folding and composing it in different ways. 
+
+´´´js
+// const Either = Right || Left
+
+const Right = x =>
+    ({
+        map: f => Right(f(x)),
+        fold: (f, g) => g(x), // removes the value from the type Right
+        inspect: () => `Right(${x})`
+    })
+
+const Left = x =>
+    ({
+        map: f => Left(x),
+        fold: (f, g) => f(x), // removes the value from the type Left
+        inspect: () => `Left(${x})`
+    })
+
+const resultRight = Right(3).map(x => x + 1).map(x => x / 2).fold(x => 'error', x => x)
+const resultLeft = Left(3).map(x => x + 1).map(x => x * 5).fold(x => 'error', x => x)
+
+const fromNullable = x =>
+    x !== null ? Right(x) : Left(x)
+
+const findColor = name =>
+    fromNullable({ red: '#ff4444', blue: '#3b5998', yellow: '#fffG8F' }[name])
+
+
+const result = findColor('yellow').map(c => c.slice(1)).fold(err => 'nothing found', c => c.toUpperCase())
+
+console.log(
+    //resultRight,
+    //resultLeft,
+    result
+)
+
+// Right(20)
+// Left(3)
+// FFFG8F
+``´
