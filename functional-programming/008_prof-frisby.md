@@ -173,5 +173,122 @@ console.log(
     result
 )
 
-
 ``` 
+
+## Some examples how to use chain, map, fromNullable
+
+```js
+const fromNullable = x =>
+    x !== null ? Right(x) : Left(x)
+
+const tryCatch = f => {
+    try {
+        return Right(f())
+    } catch (e) {
+        return Left(e)
+    }
+}
+
+
+// imperative code
+const openSite = () => {
+    if (current_user) {
+        return renderPage(current_user)
+    } else {
+        return showLogin()
+    }
+}
+
+
+// declarative code
+const openSite = () => {
+    fromNullable(current_user)
+        .fold(showLogin, renderPage)
+}
+
+// imperative code
+const getPrefs = user => {
+    if (user.premium) {
+        return loadPrefs(user.preferences)
+    } else {
+        return defaultPrefs
+    }
+}
+
+// declarative code
+const getPrefs = user =>
+    (user.premium ? Right(user) : Left('not premium'))
+        .map(u => u.preferences)
+        .fold(() => defaultPrefs, prefs => loadPrefs(prefs))
+
+// imperative code
+const streetName = user => {
+    const address = user.address
+    if (address) {
+        const street = address.street
+        if (street) {
+            return street.name
+        }
+    }
+    return 'no street!'
+}
+
+// declarative code
+const streetName = user =>
+    fromNullable(user.address)
+        .chain(a => fromNullable(a.street))
+        .map(s => s.name)
+        .fold(e => 'no street', n => n)
+
+// imperative code
+const concatUniq = (x, ys) => {
+    const found = ys.filter(y => y === x)[0]
+    return found ? ys : ys.concat(x)
+}
+
+// declarative code
+const concatUniq = (x, ys) =>
+    fromNullable(ys.filter(y => y === x)[0])
+        .fold(() => ys.concat(x), y => ys)
+
+// imperative code
+const wrapExamples = example => {
+    if (example.previewPath) {
+        try {
+            example.preview = fs.readFileSync(example.previewPath)
+        } catch (e) { }
+    }
+    return example
+}
+
+const readFile = x => tryCatch(() => fs.readFileSync(x))
+
+// declarative code
+const wrapExamples = example => {
+    fromNullable(example.previewPath)
+        .chain(readFile)
+        .fold(() => example, ex => Object.assign({ preview: p }, ex))
+}
+
+// imperative code
+const parseDbUrl = cfg => {
+    try {
+        const c = JSON.parse(cfg)
+        if(c.url) {
+            return c.url.match(/*....*/)
+        }
+    } catch(e) {
+        return null
+    }
+}
+
+// declarative code
+const parseDbUrl = cfg => {
+    tryCatch(() => JSON.parse(cfg))
+    .chain(c => fromNullable(c.url))
+    .fold(e => null,
+        u => u.match(/*...*/))
+}
+
+
+```
