@@ -91,7 +91,7 @@ console.log(
 
 [Source](https://egghead.io/lessons/javascript-composable-code-branching-with-either)
 
-´´´js
+```js
 // const Either = Right || Left
 
 const Right = x =>
