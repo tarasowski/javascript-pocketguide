@@ -398,3 +398,67 @@ console.log(
     res
 )
 ``` 
+
+[Source](https://egghead.io/lessons/javascript-failsafe-combination-using-monoids)
+
+```js
+// A semi group is a type with a concat method. And if `+` is our concatination we have a neutral element here `0` that accesses the identity of so its, it gives us back the element we are trying to concat with. 
+// If we have a special element like the `0` here in addition we have what's called a monoid. A semi group with a special element that acts like a neutral identity
+// `0` is the neutral element
+const x = 5
+1 + 0 // 1
+2 + 0 // 2
+x + 0 // x
+
+
+const Sum = x =>
+    ({
+        x,
+        concat: ({ x: y }) => // in destructuring we assign x to y
+            Sum(x + y),
+        inspect: () => `Sum(${x})`
+    })
+
+// this is called an interface. We are programming the interace Sum.empty() and not Sum() with pluses and zeroes...
+Sum.empty = () => Sum(0)
+const res = Sum.empty().concat(Sum(1).concat(Sum(2))) // 3
+
+const All = x =>
+    ({
+        x,
+        concat: ({ x: y }) => // in destructuring we assign x to y
+            All(x && y),
+        inspect: () => `All(${x})`
+    })
+
+// Our neutral element is true here
+true && true // true
+false && true // false
+
+All.empty = () => All(true)
+
+const resA = All(true).concat(All(true).concat(All.empty()))
+
+
+// First cannot be promoted to a Monoid, because we have no way to define the neutral element here
+
+const First = x =>
+    ({
+        x,
+        concat: _ => // in destructuring we assign x to y
+            First(x),
+        inspect: () => `First(${x})`
+    })
+
+const sum = xs =>
+    xs.reduce((acc, x) => acc + x, 0)
+
+const all = xs =>
+    xs.reduce((acc, x) => acc && x, true)
+
+// not going to work here!   
+const first = xs =>
+    xs.reduce((acc, x) => acc)
+
+// A semi group that does not have an element to return it's not a safe operation. Whereas with the Monoids we can as many as we possibly want, even NaN and still return back something. It's perfectly safe operation that we can reduce as many of them as we like.
+```
