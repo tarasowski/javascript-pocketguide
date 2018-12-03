@@ -89,6 +89,8 @@ console.log(
 ```
 **Note:** Box captures something in a context, you can keep mapping and folding and composing it in different ways. 
 
+[Source](https://egghead.io/lessons/javascript-composable-code-branching-with-either)
+
 ´´´js
 // const Either = Right || Left
 
