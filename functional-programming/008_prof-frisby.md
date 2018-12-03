@@ -290,5 +290,67 @@ const parseDbUrl = cfg => {
         u => u.match(/*...*/))
 }
 
+```
 
+[Source](https://egghead.io/lessons/javascript-combining-things-with-semigroups)
+
+```js
+// Semigroup is a type with concat method. String "a" is a semigroup here because it has a concat method. Each concat returns a new string
+const res = "a".concat("b").concat("c")
+
+// Here the array is the semi-group because we have a concat method on the array. 
+const res2 = [1, 2].concat([3, 4]).concat([5])
+
+// Why is it called semigroup and not a concatgroup or something else? 
+// Because semi group come from abstract algebra and so we are encoding this in our code so we can keep the name the same and understand the law and properties that come with this math structure rather than making something up on our own. 
+// append / preped with semigroup doesn't really matter.
+// It's called associativity (1 + 1) +1  === 1 + (1 + 1), it does not matter how we group the operations, it always yield the same result. 
+
+
+const Sum = x =>
+    ({
+        x,
+        concat: ({ x: y }) => // in destructuring we assign x to y
+            Sum(x + y),
+        inspect: () => `Sum(${x})`
+    })
+
+
+const resS = Sum(1).concat(Sum(2))
+
+// What are other semi-groups? It's like concatination, it combines two things into one thing.
+true && false // false
+true && true // true
+
+const All = x =>
+    ({
+        x,
+        concat: ({ x: y }) => // in destructuring we assign x to y
+            All(x && y),
+        inspect: () => `All(${x})`
+    })
+
+const resA = All(true).concat(All(false)) // All(false)
+
+
+const First = x =>
+    ({
+        x,
+        concat: _ => // in destructuring we assign x to y
+            First(x),
+        inspect: () => `First(${x})`
+    })
+
+
+const resF = First('blah').concat(First('ice cream'))
+
+// Semi groups is a type with a concat method that is associative
+
+console.log(
+    res, // abs
+    res2, // [1, 2, 3, 4, 5]
+    resS, // Sum(3)
+    resA, // All(false)
+    resF // First(blah)
+)
 ```
