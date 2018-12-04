@@ -729,3 +729,36 @@ console.log(
 )
 
 ```
+## Applicatives for Concurrent Actions
+
+```js
+const { Task, Either } = require('./ramda-x')
+
+const Db = ({
+    find: id =>
+        Task((reject, resolve) =>
+            setTimeout(() =>
+                resolve({ id: id, title: `Project ${id}` }), 100))
+})
+
+const reportHeader = (p1, p2) =>
+    `Report: ${p1.title} compared to ${p2.title}`
+
+// this is sequntial approach where you first get the first data, then the next data and so on
+const res = Db.find(20).chain(p1 =>
+    Db.find(8).map(p2 =>
+        reportHeader(p1, p2)))
+
+res.fork(_ => _, d => console.log('runs sequential', d))
+
+// In order to run concurrently you can use applicatives
+// Those both tasks are kicked of at the same time Db.find(20) and Db.find(8), they don't wait to be resolved
+
+const res2 = Task.of(p1 => p2 => reportHeader(p1, p2)).ap(Db.find(20)).ap(Db.find(8))
+
+res2.fork(console.error, d => console.log('runs concurrent', d))
+
+
+// runs concurrent Report: Project 20 compared to Project 8
+// runs sequential Report: Project 20 compared to Project 8
+```
