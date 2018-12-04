@@ -841,3 +841,52 @@ Db.find(3)
 // { id: 4, name: 'user1', best_friend_id: 5 }
 
 ```
+## Isomorphism
+
+```js
+const { Task, Either } = require('./ramda-x')
+const { Right, Left, fromNullable } = Either
+
+
+// What is isomorphism? Is a pair of functions to and from
+// from(to(x)) == x
+// to(from(y)) == y
+// These functions prove that this data type holds the same information as that data type
+// String ~ [Char] = String is isomorphic to an array of characters. These data types should hold the same information being able to convert froth and back without loosing anything
+
+// we are packing into a type to and from here by creating a factory function
+const Iso = (to, from) =>
+    ({
+        to,
+        from
+    })
+
+
+const chars = Iso(s => s.split(''), c => c.join(''))
+
+const res = chars.from(chars.to('hello world'))
+const truncate = str =>
+    chars.from(chars.to(str).slice(0, 3)).concat('...')
+
+const res2 = truncate('hello world')
+
+// Singleton array that holds only 1 value of a is isomorphic to 
+//['a'] ~ Either null a
+
+const singleton = Iso(e => e.fold(() => [], x => [x]),
+    ([x]) => x ? Right(x) : Left()
+)
+
+const filterEither = (e, pred) =>
+    singleton.from(singleton.to(e).filter(pred))
+
+const res3 = filterEither(Right('hello'), x => x.match(/h/ig))
+    .map(x => x.toUpperCase()).fold(console.error, x => x)
+
+console.log(
+    res, // hello world
+    res2, // hel...
+    res3 // HELLO
+)
+
+```
