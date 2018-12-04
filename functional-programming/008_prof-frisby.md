@@ -695,4 +695,37 @@ console.log(
     res
 )
 
+const { Task, Either } = require('./ramda-x')
+
+// Applicative Functors for multiple arguments. If a type has an F.ap() method it calls applicative functors 
+
+const Box = x =>
+    ({
+        ap: b2 => b2.map(x),
+        chain: f => f(x),
+        map: f => Box(f(x)),
+        fold: f => f(x),
+        inspect: () => `Box(${x})`
+
+    })
+
+
+const $ = selector =>
+    Either.of({ selector, height: 10 })
+
+const getScreenSize = screen => head => foot =>
+    screen - (head.height + foot.height)
+
+// $('header').chain(head =>
+//     $('footer').map(footer =>
+//         getScreenSize(800, head, footer)))
+
+const res = Either.of(getScreenSize(800))
+    .ap($('header'))
+    .ap($('footer'))
+
+console.log(
+    res // 780
+)
+
 ```
