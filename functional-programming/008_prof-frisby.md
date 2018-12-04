@@ -776,3 +776,68 @@ const files = ['config.json', 'config2.json']
 const res = files.map(fn => readFile(fn)('utf-8'))
 res.map(e => e.fork(console.error, console.log))
 ```
+## Natural Transformations
+
+```js
+const { Task, Either } = require('./ramda-x')
+const { Right, Left, fromNullable } = Either
+const fs = require('fs')
+
+// Natural transformation is a type conversion. It's taking one functor to another.
+
+const Box = x =>
+    ({
+        map: f => Box(f(x)),
+        fold: f => f(x),
+        inspect: () => `Box(${x})`
+    })
+
+
+const boxToEither = b =>
+    b.fold(Right)
+
+boxToEither(Box(100)).map(x => x * 2).fold(_ => _, console.log) // 200
+
+const eitherToTask = e =>
+    e.fold(Task.rejected, Task.of)
+
+eitherToTask(Right('works')).fork(_ => _, console.log) // works
+
+// Here we transforming a list into an Either
+
+const first = xs =>
+    fromNullable(xs[0])
+
+first([1, 2, 3, 4]).map(x => x * 2).fold(console.error, console.log)
+
+const largeNumbers = xs =>
+    xs.filter(x => x > 100)
+
+const larger = x =>
+    x * 2
+
+const app = xs =>
+    first(largeNumbers(xs).map(larger))
+
+console.log(app([2, 400, 5, 1000])) // 800
+
+
+const fake = id =>
+    ({ id: id, name: 'user1', best_friend_id: id + 1 })
+
+const Db = {
+    find: id =>
+        Task((rej, res) =>
+            res(id > 2 ? Right(fake(id)) : Left('not found')))
+}
+
+Db.find(3)
+    .chain(eitherToTask)
+    .chain(user =>
+        Db.find(user.best_friend_id))
+    .chain(eitherToTask)
+    .fork(console.error, console.log)
+
+// { id: 4, name: 'user1', best_friend_id: 5 }
+
+```
