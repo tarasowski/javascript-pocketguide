@@ -628,3 +628,71 @@ res.fork(e => 'error', d => console.log(d)) // hello!!!
 
 Either.of('hello').map(f).fold(_ => _, d => console.log(d)) // hello!!!
 ```
+## Monad
+
+```js
+// Modands Either, Task all these types are modands
+// Because we have an F.of() that lifts a value into a type and a F.chain (also flatMap, bind, >>=) method. These two together create a monadic interface
+
+
+// httpGet('user')
+//     .map(user =>
+//         hettpGet(`/comments/${user.id}`)) // Task(Task([Comment]))
+
+// // The key point of chain it's going to flatten into one Task([Comment]). That's why it's called faltMap()
+
+// httpGet('user')
+//     .chain(user =>
+//         httpGet(`/comments/${user.id}`))
+
+// // Monads allow us to nest computation
+
+// httpGet('user')
+//     .chain(user =>
+//         httpGet(`/comments/${user.id}`))
+//     .chain(comments =>
+//         updateDOM(user, comments))
+```
+
+## Currying
+```js
+// Preloading a function with some arguments to create a new function is called currying
+// When you use currying you end up with a point that the data comes last
+
+const add = x => (y => x + y)
+
+const inc = add(1)
+const res1 = inc(2)
+
+const replace = regex => repl => str =>
+    str.replace(regex, repl)
+
+const censor = replace(/[aeiou]/ig)('*')
+const res2 = censor('hello world')
+
+console.log(res2) // h*ll* w*rld
+
+```
+## Applicative Functors
+
+```js
+// Applicative Functors for multiple arguments. If a type has an F.ap() method it calls applicative functors 
+
+const Box = x =>
+    ({
+        ap: b2 => b2.map(x),
+        chain: f => f(x),
+        map: f => Box(f(x)),
+        fold: f => f(x),
+        inspect: () => `Box(${x})`
+
+    })
+
+const add = x => y => x + y
+
+const res = Box(add).ap(Box(2)).ap(Box(3))
+console.log(
+    res
+)
+
+```
