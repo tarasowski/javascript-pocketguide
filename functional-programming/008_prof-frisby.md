@@ -562,3 +562,69 @@ app.fork(e => console.log('error', e),
 //app()
 
 ```
+## Functor
+
+[Source](https://egghead.io/lessons/javascript-you-ve-been-using-functors)
+
+```js
+// The definition of a functor is: any type with a map method must obey a few laws it must:
+// 1.Law any type fx.map(f).map(g) === fx.map(x => g(f(x))) - this law is the law that preserves function composition while mapping
+
+
+const Box = x =>
+    ({
+        map: f => Box(f(x)),
+        fold: f => f(x),
+        inspect: () => `Box(${x})`
+    })
+
+const res1 = Box('squarrels')
+    .map(s => s.substr(5))
+    .map(s => s.toUpperCase())
+
+const res2 = Box('squarrels')
+    .map(s => s.substr(5).toUpperCase())
+
+console.log(
+    res1,
+    res2
+)
+
+// Box(RELS) Box(RELS)
+// The results are equal and we see that preserves function composition
+//'squarrels'.substr(5).toUpperCase() this is also function composition
+
+// 2. Law when we map id over our functor that holds x fx and call id(fx) that should be the same
+// fx.map(id) === id(fx)
+const id = x => x
+
+const res3 = Box('crayons').map(id)
+const res4 = id(Box('crayons'))
+
+console.log(
+    res3,
+    res4
+)
+
+// Box(crayons) Box(crayons) - we have go the same result and can do it with any type such as Either, Task etc.
+```
+
+## Lifting a Value
+
+```js
+// Function `of` is a generic interface to be able to place a value into a type. We call it lifting a value into a type. We are just putting those values inside our type.
+
+// Task.of('hello') -> we'll end up with a Task('hello')
+// Either.of('hello) -> we'll end up of Right('hello')
+// Box.of(100) -> we'll end up of Box(100)
+
+// The main goal of is to create a generic interface without worrying about a factory functions such as Task((rej, res) => /*...*/)
+
+
+const f = x => x.concat('!!!')
+
+const res = Task.of('hello').map(f)
+res.fork(e => 'error', d => console.log(d)) // hello!!!
+
+Either.of('hello').map(f).fold(_ => _, d => console.log(d)) // hello!!!
+```
