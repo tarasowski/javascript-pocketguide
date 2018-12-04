@@ -762,3 +762,17 @@ res2.fork(console.error, d => console.log('runs concurrent', d))
 // runs concurrent Report: Project 20 compared to Project 8
 // runs sequential Report: Project 20 compared to Project 8
 ```
+```js
+const readFile = path => enc =>
+    Task((reject, resolve) => {
+        fs.readFile(path, enc, (err, content) =>
+            err
+                ? reject(err)
+                : resolve(content))
+    })
+
+const files = ['config.json', 'config2.json']
+
+const res = files.map(fn => readFile(fn)('utf-8'))
+res.map(e => e.fork(console.error, console.log))
+```
