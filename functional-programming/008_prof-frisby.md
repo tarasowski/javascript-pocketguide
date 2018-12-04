@@ -890,3 +890,51 @@ console.log(
 )
 
 ```
+## HttpGet + Other SideEffects
+
+```js
+const { Task, Either } = require('./ramda-x')
+const { Right, Left, fromNullable } = Either
+const request = require('request')
+
+// isolation of side effects -> we are wrapping a side effect into a Task
+const argv = Task((rej, res) => res(process.argv))
+const id = argv.map(args => args.slice(2))
+
+const url = id =>
+    `https://jsonplaceholder.typicode.com/todos/${id}`
+
+
+// isolation of side effects -> pure function
+const httpGet = url =>
+    Task((rej, res) =>
+        request(url, (error, response, body) =>
+            error ? rej(error) : res(body)))
+
+const title = o => {
+    return fromNullable(o.title)
+}
+
+// isolation of side effects -> pure function
+const parse = Either.try(JSON.parse)
+
+// type conversion from eitherToTask
+const eitherToTask = e =>
+    e.fold(Task.rejected, Task.of)
+
+
+// pure function
+const findPost = id =>
+    httpGet(url(id))
+        .map(parse)
+        .chain(eitherToTask)
+
+// pure function
+const main = ([id]) =>
+    Task.of(title => [title]).ap(findPost(id))
+
+// impure function
+id.chain(main).fork(console.error, x => console.log('success', x))
+// success [ '{\n  "userId": 1,\n  "id": 1,\n  "title": "delectus aut autem",\n  "completed": false\n}' ]
+
+```
