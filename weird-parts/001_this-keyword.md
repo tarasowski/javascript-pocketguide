@@ -278,3 +278,99 @@ setTimeout(myCat.logInfo.bind(myCat), 1000)
 ```
 
 * `myCat.logInfo.bind(myCat)` returns a new function that executes exactly like logInfo, but has `this` as `myCat`.
+
+### 4. Constructor Invocation
+
+* Constructor invocation is performed when `new` keyword is followed by an expression that evaluates to a function object. 
+
+```js
+function Country(name, traveled) {
+	this.name = name ? name : 'United Kingdom'
+  	this.traveled = Boolean(traveled)
+}
+
+Country.prototype.travel = function () {
+	this.traveled = true
+}
+
+const france = new Country('France', false)
+const uk = new Country
+
+```
+
+* `new Country('France', false)` is a constructor invocation of the `Country` function. The result of execution is a new object, which name property is `France`. 
+
+```js
+class City {
+constructor(name, traveled) {
+this.name = name
+this.traveled = false
+}
+travel() {
+  this.traveled = true
+}
+}
+
+const paris = new City('Paris', false)
+paris.travel()
+```
+* `new City('Paris', false) is a constructor invocation. The object initialization is handled by a special method in the class: `constructor`, which has `this` as the newly created object.
+
+* A constructor call reates an empty new object, which inherits propertis from constructor's prototype. The role of constructor function is to initialize the object. The context in this type of call is the created instance.
+
+* When a property accessor myObject.myFunction is preceded by `new` keyword, JavaScript will execute a constructor invocation, but not a method invocation. For example: `new Object.myFunction()`first the function is extracting using a property accessor `extractedFunction = myObject.myFunction`, then invoked as a constructor to create a new object: `new extractedFunction()`
+
+### 4.1 `this`in constructor invocation
+
+* `this`is the newly created object in a constructor invocation
+
+![Constructor](https://dmitripavlutin.com/content/images/2017/01/5-1.png)
+
+```js
+function Foo() {
+	console.log(this instanceof Foo) // true
+  	this.property = 'Default Value'
+}
+
+const fooInstance = new Foo()
+
+console.log(
+  fooInstance.property // Default Value
+)
+```
+
+* `new Foo() is making a constructor call where the context is `fooInstance`. Inside `Foo` the object is initialized: `this.property`is assigned with a default value.
+
+```js
+class Bar {  
+  constructor() {
+    console.log(this instanceof Bar); // => true
+    this.property = 'Default Value';
+  }
+}
+// Constructor invocation
+var barInstance = new Bar();  
+barInstance.property; // => 'Default Value'  
+```
+**Important:** At the time when `new Bar()` is executed, JavaScript creates an empty object and makes it the context of the constructor method. Now you can add propertis to object using `this`keyword: `this.property = 'Default Value'` 
+
+
+* Just some another examples
+```js
+const test = {
+	name: 'test',
+  	f() {return this.name}
+}
+
+test.hello = function() {return this}
+const x = test.hello
+
+console.log(
+	test.f(), // test
+  	test.hello(), // test object
+  	x() // undefied
+  	x.call(test) // test object
+)
+```
+
+
