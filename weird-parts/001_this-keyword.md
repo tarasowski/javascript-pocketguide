@@ -671,3 +671,5 @@ walkPeriod.format() // -> 2 hourse and 30 minutes
 ```
 
 * `walkPeriod.format()` is a method invocation on an object, with the context `walkPeriod` object. `this.hourse` evaluates to 2 and `this.minutes` to 30, so method returns the correct result.
+
+### Because the function invocation has the biggest impact on `this`, from now on do not ask yoursefl: `where is this takes from`but do as yourself: `How is the function invoked?` For an arrow function ask yourself: `What is `this` where the arrow function is defined?`
