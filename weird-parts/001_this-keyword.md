@@ -372,5 +372,128 @@ console.log(
   	x.call(test) // test object
 )
 ```
+## 5. Indirect Invocation
+
+* Indirect invocation is performed when a function called using `myFunn.call()` or `myfun.apply()`methods. 
+
+* Functions in JavaScript are first-calls objects which means that a function is an object! The type of this object is `Function`
+
+* From the list of methods that a function object has, `.call()` and `.apply()`are used to invoke the function with a configurable context.
+
+* The method `.call(thisArg[, arg1, [, arg2[,...]]])` accepts the first argument `thisArgs` as the context of the invocation and a list of arguments `arg1, arg2`that are passed as arguments to the called function
+
+```js
+
+const obj = {
+    numberA: 10,
+    numberB: 15
+}
 
 
+const add = function (a, b) {
+    return this.numberA + this.numberB + a + b
+}
+
+console.log(
+    add.call(obj, 5, 6) // 36
+)
+```
+
+* The method `.appyl(thisArg, [arg1, arg2, ...])` accepts the first argument `thisArg` as the context of the invocation and an **array-like object** of values `[arg1, arg2, ...]` that are passed as arguments to the called function.
+
+```js
+
+const obj = {
+    numberA: 10,
+    numberB: 15
+}
+
+
+const add = function (a, b) {
+    return this.numberA + this.numberB + a + b
+}
+
+console.log(
+    add.call(obj, 5, 6), // 36 -> expects arguments after the thisArg, arg1, arg2 etc.
+    add.apply(obj, [5, 6]) // 36 -> expects as the second argument array with arguments
+)
+```
+
+* The main difference between the two is that `.call()` accepts a list of arguments, for example `myFun.call(thisValue, 'val1', 'val2')`. But `.apply()` accepts a list of values in an array-like object e.g. `myFunc.apply(thisValue, ['val1', 'val2'])`
+
+## 5.1 `this` in indirect invocation
+
+* `this` is the first argument of `.call()` or `.apply()`in an indirect invoation.
+
+![This](https://dmitripavlutin.com/content/images/2017/01/6-1.png)
+
+```js
+const lion = { name: 'Jimbo' }
+
+function concatName(string) {
+    console.log(this === lion)
+    return string + this.name
+}
+
+console.log(
+    concatName.call(lion, 'Hello '), // Hello Jimbo
+    concatName.apply(lion, ['Hello ']) // Hello Jimbo
+)
+
+```
+
+```js
+const inc = function (number) {
+    return ++number
+}
+
+console.log(
+    inc.call(undefined, 10), // 11
+    inc.apply(undefined, [10]) // 11
+)
+```
+* The indirect invocation is useful when a functions should be executed with a specific context. For example to solve the context problems with function invocation, where `this` is always `window` or `undefined` in stric mode. **It can be used to simulate a method call on an object**
+
+* But it doesn't work with arrow functions
+
+```js
+const lion = { name: 'Jimbo' }
+
+const concatName = (string) =>
+    string + this.name
+
+
+console.log(
+    concatName.call(lion, 'Hello '), // Hello undefined
+    concatName.apply(lion, ['Hello ']), // Hello undefined
+)
+
+```
+
+* Another practical example is creating hierarchies of classes in ES5 to call the parent constructor. `runner.call(this, name)` inside `Rabbit` makes an indirect call of the parent function to initialize the object.
+
+```js
+function Runner(name) {
+    console.log(this instanceof Rabbit) // true
+    this.name
+}
+
+function Rabbit(name, countLegs) {
+    console.log(this instanceof Rabbit) // true
+    Runner.call(this, name)
+    this.countLegs = countLegs
+}
+
+const myRabbit = new Rabbit('White Rabbit', 4)
+
+console.log(
+    myRabbit // Rabbit { countLegs: 4}
+)
+
+```
+
+## 6. Bound function
+
+* A bound function is a function connected with an object. Usually it is created from the original function using `bind()` method. 
+
+* The method `.bind(thisArg[, arg1[, arg2[, ...]]])` accepts the first argument `thisArg` as the context
