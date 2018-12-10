@@ -565,3 +565,109 @@ console.log(
 )
 ```
 * Only `new one()` changes the context of the bound function, other types of invocation always have `this` equal to 1.
+
+## 7. Arrow function
+
+* Arrow function is designed to declare the fucntion in shorter form and **lexically** bind the context.
+
+* An arrow function is **anonymous** which means that name property is an empty string ''. This way it doesn't have a lexical function name.
+
+## 7.1 `this` ins arrow function
+
+* `this` is the enclosing context where **the arrow function is defined**
+
+* The arrow function doesn't create its own execution context, but takes `this` from the outer function where it is defined.
+
+![Arrow](https://dmitripavlutin.com/content/images/2017/01/8-1.png)
+
+```js
+class Point {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+    }
+    log() {
+        console.log(this === myPoint) // -> true
+        setTimeout(() => {
+            console.log(this === myPoint) // -> true
+            console.log(this.x + ':' + this.y) // -> 95:165
+        }, 1000)
+    }
+}
+
+const myPoint = new Point(95, 165)
+myPoint.log()
+```
+* `setTimeout` is calling the arrow function with the same context `myPoint` object as the `log()`method. As seen, the arrow function `inherits` the context from the function where it is defined.
+
+* If trying to use a regular function in this example, it would create its own context (`window` or `undefined`). So to make the same code work correclty with a function expression it's necessary to manually bind the context. `setTimeout(function() {...}.bind(this))`
+
+* If the arrow function is defined in the top most scope (outside any function), the context is always the global object (`window` in a browser)
+
+```js
+const getContext = () => {
+    console.log(this === window)
+    return this
+}
+
+console.log(getContext() === window)
+```
+
+> An arrow function is bound with the lexical context once and forever. `this` cannot be modified even if using the context modification methods. 
+
+```js
+/* jshint esnext: true */
+
+var numbers = [1, 2];
+(function () {
+    var get = () => {
+        return this;
+    };
+    console.log(this === numbers); // => true
+    console.log(get()); // => [1, 2]
+    // Use arrow function with .apply() and .call()
+    console.log(get.call([0]));  // => [1, 2]
+    console.log(get.apply([0])); // => [1, 2]
+    // Bind
+    console.log(get.bind([0])()); // => [1, 2]
+}).call(numbers);
+```
+* No matther how `get` is called, the arrow function always keeps the initial context `numbers`. Indirect call with other context `get.call([0])` or `.get.apply([0])`rebinding `get.bind([0])()` have no effect.
+
+* **Note:** Arrow functions cannot be used as a constructor. If invoking it as a constructor `new get()`JavaScript throws an error: `TypeError: get is not a constructor`
+
+## 7.2 Pitfall: defining method iwth arrow function
+
+```js
+fucntion Period (hours, minutes) {
+this.hours = hours
+this.minutes = minutes 
+}
+Period.prototype.format = () => {
+console.log(this === window) // true
+return this.hourse + ' hourse and ' + this.minutes + ' minutes'
+}
+const walkPeriod = new Period(2, 30)
+walkPeriod.format() // -> undefined hourse and undefined minutes
+```
+
+* Since `format` is an arrow function and is defined in the global context (top most scope), it has this as `window` object. Even if `format` is executed as a method on an object, `window` is kept as the context of invocation. It happens because arrow function has a static context that doesn't change on different invocation types.
+
+* `this` is `window`, so `this.hoours` and `this.minutes` are `undefined`. Teh method returns the string: `undefined hourse and undefined minutes`, which is not the expected result.
+
+* The function expression solves the problem, because a regular function does change its context depending on invocation:
+
+```js
+fucntion Period (hours, minutes) {
+this.hours = hours
+this.minutes = minutes 
+}
+Period.prototype.format = function() {
+console.log(this === walkPeriod) // true
+return this.hourse + ' hourse and ' + this.minutes + ' minutes'
+}
+const walkPeriod = new Period(2, 30)
+walkPeriod.format() // -> 2 hourse and 30 minutes
+```
+
+* `walkPeriod.format()` is a method invocation on an object, with the context `walkPeriod` object. `this.hourse` evaluates to 2 and `this.minutes` to 30, so method returns the correct result.
