@@ -31,6 +31,10 @@ console.log(
 )
 ```
 
+* Arrow function expression does not have its own this, arguments, super, or new.target.
+
+* These functions expressions are best suited for non-method functions, and cannot be used as constructors
+
 
 * `this` is a current execution context of a function. WHERE THE FUNCTION IS EXECUTED, AND NOT WHERE THE KEYWORD `this` KEYWORD IS PLACED...
 
