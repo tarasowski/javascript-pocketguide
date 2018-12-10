@@ -2,6 +2,36 @@
 
 [Source](https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/)
 
+> Traditional function expressions create a function whose `this` value is dynamic and is either object that calls it, or the global object when there is no explicit caller. Arrow function expressions, on the other hand, always assume the this value of the surrounding code. [Source](https://javascriptweblog.wordpress.com/2015/11/02/of-classes-and-arrow-functions-a-cautionary-tale/)
+
+```js
+let outerThis
+let tfeThis
+let afeThis
+
+let obj = {
+    name: 'test',
+    outer() {
+        outerThis = this
+        traditionalFE = function () { tfeThis = this }
+        traditionalFE()
+
+        arrowFE = () => afeThis = this
+        arrowFE()
+    }
+}
+
+obj.outer()
+
+console.log(
+    outerThis, // obj
+    tfeThis, // global
+    afeThis, // obj,
+    outerThis === afeThis // true
+)
+```
+
+
 * `this` is a current execution context of a function. WHERE THE FUNCTION IS EXECUTED, AND NOT WHERE THE KEYWORD `this` KEYWORD IS PLACED...
 
 * There are 4 function invocation types:
