@@ -497,3 +497,71 @@ console.log(
 * A bound function is a function connected with an object. Usually it is created from the original function using `bind()` method. 
 
 * The method `.bind(thisArg[, arg1[, arg2[, ...]]])` accepts the first argument `thisArg` as the context
+
+```js
+function multiply(number) {
+    'use strict'
+    return this * number
+}
+
+
+const double = multiply.bind(2)
+
+console.log(
+    double(5) // 10
+)
+```
+* **Note:** `multiply.bind()2`returns a new function object `double`, which is bound with number `2`. `multiply`and `double` have the same code and scope. Whereas `.apply()` and `.call()`methods invoke the function right away, the `bind()` method only returns a new function that is supposed to be invoked later with a pre-configured `this`
+
+## 6.1 `this` in bound function
+
+* `this` is the first argument of `.bind()` when invoking a bound function
+
+> The role of `.bind()`is to create a new function, which invocation will have the same context as the first argument passed to `bind()`. 
+
+![bind](https://dmitripavlutin.com/content/images/2017/01/7-1.png)
+
+```js
+const numbers = {
+    array: [3, 5, 10],
+    getNumbers: function () {
+        return this.array
+    }
+}
+
+const boundGetNumbers = numbers.getNumbers.bind(numbers)
+const simpleGetNumbers = numbers.getNumbers
+
+
+console.log(
+    boundGetNumbers(), // [3, 5, 10]
+    simpleGetNumbers() // undefined or throws an error in strict mode
+)
+
+```
+
+* `numbers.getNumbers.bind(numbers` returns a function `boundGetNumbers` that is bound with `numbers`object. Then `boundGetNumbers()` is invoked with `this` as `numbers` and returns the correct array object.
+
+* The function `numbers.getNumbers` can be extracted into a variable `simpleGetNumbers` without binding. On later function invocation `simpleGetnumbers()`has `this` as `window`or `undefined` in strict mode, but not `numbers` object.
+
+## 6.2 Tight context, binding
+
+> `bind()` makes a premanent context link and will always keep it. A bound function cannot change its linked ocntext when using `.call()` or `.apply()` with a different context, or even a rebound doesn't have any effect.
+
+```js
+function getThis() {
+    'use strict'
+    return this
+}
+
+const one = getThis.bind(1)
+
+console.log(
+    one(), // 1
+    one.call(2), // 1
+    one.apply(2), // 1
+    one.bind(2)(), // 1
+    new one() // -> Object {}
+)
+```
+* Only `new one()` changes the context of the bound function, other types of invocation always have `this` equal to 1.
