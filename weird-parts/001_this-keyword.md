@@ -692,7 +692,7 @@ walkPeriod.format() // -> undefined hourse and undefined minutes
 * The function expression solves the problem, because a regular function does change its context depending on invocation:
 
 ```js
-fucntion Period (hours, minutes) {
+function Period (hours, minutes) {
 this.hours = hours
 this.minutes = minutes 
 }
@@ -705,5 +705,18 @@ walkPeriod.format() // -> 2 hourse and 30 minutes
 ```
 
 * `walkPeriod.format()` is a method invocation on an object, with the context `walkPeriod` object. `this.hourse` evaluates to 2 and `this.minutes` to 30, so method returns the correct result.
+
+```js
+const a = { a: 'a' }
+
+function testObj() {
+    return () => this // goes up the lexial scope to outer function that has a this keyword that is bound to the object a or global w/o .call(a)
+}
+
+console.log(
+    testObj()(), // global object
+    testObj.call(a)() // 'a' object
+)
+```
 
 ### Because the function invocation has the biggest impact on `this`, from now on do not ask yoursefl: `where is this takes from`but do as yourself: `How is the function invoked?` For an arrow function ask yourself: `What is `this` where the arrow function is defined?`
