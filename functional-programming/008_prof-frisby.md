@@ -2,6 +2,41 @@
 
 [Source](https://egghead.io/lessons/javascript-linear-data-flow-with-container-style-types-box)
 
+* A Box should be able to hold any value. So there could be any value in the Box
+
+```js
+Right('arm animal')
+Right(1)
+Right({hair: 'brown')
+```
+
+* Either is a co-product that have different behaviours for branching the code or error handling
+
+* If something can go wrong e.g. `JSON.parse()`, `fs.readFileSync()` we should wrap it into `Either.try()`
+
+* `map, chain, fold` etc. they only operate on the values inside the Box() and return the values or `Box(value)` back. In case we use chain we are just taking the value `Box(value)` and apply the function to the value. If we have the `Task(Right(value))` we would only get the `Right(value)` transform it to the `Task(value)` and return it back, so further operations such as `.fork()` are possible.
+
+* `fold()` means everything is save and we can remove it from the data type. `fork()` is we are going to run the thing -> side-effects. You have the same intuition like `fold` but it's called `fork`, so people know that it's not safe.
+
+> You never want to call `fork()` until it's outside of your code base / library.
+
+* Task is better than a promise, because Task it doesn't immediately run. The reason it's better you can put it into data structures, you can manipulate, you can chain it and not worry about race conditions. 
+
+
+```js
+getJSON('post/2', (err, post) => {
+err ? throw err
+
+getJSON('post/2').map(post => post.title)
+```
+* What is so amazing about this example is that `getJSON` can be anything, a Task, Either etc. it's have this single interface `map`, so you don't need to rewrite the entire application  if you change from sync to async.
+
+* When you create a Promise it's starts going, everything starts running, you have hard time coordinating massive async work. There are lot of solutions to fix that generators. You have the principle `the least power` I want to make a webpage I should use Erlang because of the actor system to render my page. We have the same in JS, the generators are badass, I want to run everything with generators and it makes everything so much complex, instead of using the simplest solution the least amount of power that you need. 
+
+> In programming, the rule of least power is a design principle that "suggests choosing the least powerful [computer] language suitable for a given purpose.
+
+
+
 ```js
 // const nextCharForNumberString = str => {
 //     const trimmed = str.trim()
