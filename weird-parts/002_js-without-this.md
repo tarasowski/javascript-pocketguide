@@ -2,6 +2,7 @@
 
 [Source](http://radar.oreilly.com/2014/03/javascript-without-the-this.html)
 
+```js
 // function Car(numberOfDoors){
 //     this.numberOfDoors = numberOfDoors;
 //     this.numberOfWheels = 4;
