@@ -1,5 +1,7 @@
 # Redux with Dan Abramov
 
+[Source](https://egghead.io/lessons/react-redux-writing-a-counter-reducer-with-tests)
+
 ```js
 const test = require('tape')
 const expect = require('expect')
