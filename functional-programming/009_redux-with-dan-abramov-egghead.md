@@ -386,3 +386,123 @@ testToggleTodo([
     }
 ])
 ```
+## Combined Reducers
+
+```js
+'use strict'
+const expect = require('expect')
+const deepFreeze = require('./node_modules/deep-freeze')
+const combineReducers = require('./src/utils/combine-reducers')
+
+const todo = (todo = {}) => action => {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return {
+                id: action.id,
+                text: action.text,
+                completed: false
+            }
+        case 'TOGGLE_TODO':
+            return todo.id === action.id
+                ? { ...todo, completed: !todo.completed }
+                : todo
+        default:
+            return todo
+    }
+}
+
+
+const todos = (state = []) => action => {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return [...state, todo(undefined)(action)]
+        case 'TOGGLE_TODO':
+            return state.map(td => todo(td)(action))
+        default:
+            return state
+    }
+}
+
+const visibilityFilter = (state = 'SHOW_ALL') => action => {
+    switch (action.type) {
+        case 'SET_VISIBILITY_FILTER':
+            return action.filter
+        default:
+            return state
+    }
+}
+
+
+const todoApp = combineReducers({
+    todos: todos, // key = state field, value = reducer function
+    visibilityFilter: visibilityFilter // key = state field, value = reducer function
+})
+
+
+const testSetVisitiblityFilter = before => action => after =>
+    expect(
+        todoApp(deepFreeze(before))(deepFreeze(action))
+    ).toEqual(after)
+
+testSetVisitiblityFilter('')(
+    {
+        type: 'SET_VISIBILITY_FILTER',
+        filter: 'SHOW_COMPLETED'
+    })
+    ({
+        todos: [],
+        visibilityFilter: 'SHOW_COMPLETED'
+    })
+
+const testAddTodo = before => action => after =>
+    expect(
+        todos(deepFreeze(before))(deepFreeze(action))
+    ).toEqual(after)
+
+
+testAddTodo([])({
+    type: 'ADD_TODO',
+    id: 0,
+    text: 'Learn Redux'
+})([
+    {
+        id: 0,
+        text: 'Learn Redux',
+        completed: false
+    }
+])
+
+const testToggleTodo = before => action => after =>
+    expect(
+        todos(deepFreeze(before))(deepFreeze(action)) // reducer must be a pure function, therefore we use deepFreeze to make the values immutable so if reducers tries to modify a value instead of returning a new one, it's going to show an error: TypeError: Cannot assign to read only property 'completed' of object '#<Object>' 
+    ).toEqual(after)
+
+testToggleTodo([
+    {
+        id: 0,
+        text: 'Learn Redux',
+        completed: false
+    },
+    {
+        id: 1,
+        text: 'Go shopping',
+        completed: false
+    }
+])(
+    {
+        id: 1,
+        type: 'TOGGLE_TODO'
+    }
+)([
+    {
+        id: 0,
+        text: 'Learn Redux',
+        completed: false
+    },
+    {
+        id: 1,
+        text: 'Go shopping',
+        completed: true
+    }
+])
+```
