@@ -104,7 +104,7 @@ document.addEventListener('click', () =>
     store.dispatch({ type: 'INCREMENT' }))
 ```
 
-## deepFreeze & Immutability
+## deepFreeze & Immutability with Arrays
 
 ```js
 'use strict'
@@ -152,4 +152,44 @@ const testIncrementCounter = before => after =>
 
 
 testIncrementCounter([0, 10, 20])([0, 11, 20])
+```
+## deepFreeze && Immutability with Objects
+
+```js
+'use strict'
+const expect = require('expect')
+const deepFreeze = require('./node_modules/deep-freeze')
+
+
+const toggleTodo = todo =>
+    ({
+        ...todo,
+        completed: !todo.completed
+    })
+
+//this is mutable version
+// const toggleTodo = todo => {
+//     todo.completed = !todo.completed
+//     return todo
+// }
+
+
+const testToggleTodo = before => after =>
+    expect(
+        toggleTodo(deepFreeze(before))
+    ).toEqual(after)
+
+
+testToggleTodo(
+    {
+        id: 0,
+        text: 'Learn Redux',
+        completed: false
+    })(
+        {
+            id: 0,
+            text: 'Learn Redux',
+            completed: true
+        }
+    )
 ```
