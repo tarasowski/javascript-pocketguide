@@ -193,3 +193,34 @@ testToggleTodo(
         }
     )
 ```
+## Todos Reducer Example
+
+```js
+'use strict'
+const expect = require('expect')
+const deepFreeze = require('./node_modules/deep-freeze')
+
+
+const todos = (state = []) => action =>
+    action.type === 'ADD_TODO'
+        ? [...state, { id: action.id, text: action.text, completed: false }]
+        : state
+
+const testAddTodo = before => action => after =>
+    expect(
+        todos(deepFreeze(before))(deepFreeze(action))
+    ).toEqual(after)
+
+
+testAddTodo([])({
+    type: 'ADD_TODO',
+    id: 0,
+    text: 'Learn Redux'
+})([
+    {
+        id: 0,
+        text: 'Learn Redux',
+        completed: false
+    }
+])
+```
