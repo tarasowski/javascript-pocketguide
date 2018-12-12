@@ -85,7 +85,7 @@ sum(15,16) // 31
 window.myNumber // 20
 this // window object
 ```
-* At the time `sum(15, 16) is called, JavaScript automatically sets this as the global object, which ins a browser is `window`
+* At the time `sum(15, 16)` is called, JavaScript automatically sets this as the global object, which ins a browser is `window`
 
 * When `this`  is used outside any function scope, it also refers to the global object.
 
@@ -185,7 +185,7 @@ const message = myObject.helloFunction()
 
 > Property accessors provide access to an object's properties by using the dot notaton or the bracket notation.
 
-* It's important to disinguish function invocation from method invocation, because they are different types. The main difference is that method invocation requires a proeprty accessor form to call the function (`obj.myFunc()` or obj.['myFunc'](), while function does not (`fn()`)
+* It's important to disinguish function invocation from method invocation, because they are different types. The main difference is that method invocation requires a property accessor form to call the function (`obj.myFunc()` or `obj.['myFunc']()`, while function does not (`fn()`)
 
 ```js
 const obj = {}
@@ -266,7 +266,7 @@ console.log(
 
 > A method from an object can be extracted into a separated vairable `const alone = myObj.method`. when the method is called `alone()`, detached from the original object, then `this` is the global object `window`or `undefined`.
 
-* Creating a bound function `const alone = myObj.myMethod.bidn(myObj) fixes the context, aming it the object that owns the method.
+* Creating a bound function `const alone = myObj.myMethod.bind(myObj)` fixes the context, aming it the object that owns the method.
 
 ```js
 function Animal(type, legs) {
@@ -282,7 +282,7 @@ const myCat = new Animal('Cat', 4)
 
 setTimeout(myCat.logInfo, 1000)
 ```
-* The method is separated fro its object when passed as a parameter: `setTimeout(myCat.logInfo)`
+* The method is separated from its object when passed as a parameter: `setTimeout(myCat.logInfo)`
 
 ```js
 setTimeout(myCat.logInfo)
@@ -294,7 +294,7 @@ setTimeout(extractedLogInfo)
 
 * When the separated logInfo is invoked as a function, `this` is global object or undefined in strict mode
 
-* A functin can be bound with an object using `.bind()`method. 
+* A function can be bound with an object using `.bind()`method. 
 
 ```js
 function Animal(type, legs) {
@@ -348,9 +348,9 @@ travel() {
 const paris = new City('Paris', false)
 paris.travel()
 ```
-* `new City('Paris', false) is a constructor invocation. The object initialization is handled by a special method in the class: `constructor`, which has `this` as the newly created object.
+* `new City('Paris', false)` is a constructor invocation. The object initialization is handled by a special method in the class: `constructor`, which has `this` as the newly created object.
 
-* A constructor call reates an empty new object, which inherits propertis from constructor's prototype. The role of constructor function is to initialize the object. The context in this type of call is the created instance.
+* A constructor call reates an empty new object, which inherits propertis from constructor's prototype. The role of constructor function is to initialize the object. **The context in this type of call is the created instance.**
 
 * When a property accessor myObject.myFunction is preceded by `new` keyword, JavaScript will execute a constructor invocation, but not a method invocation. For example: `new Object.myFunction()`first the function is extracting using a property accessor `extractedFunction = myObject.myFunction`, then invoked as a constructor to create a new object: `new extractedFunction()`
 
@@ -373,7 +373,7 @@ console.log(
 )
 ```
 
-* `new Foo() is making a constructor call where the context is `fooInstance`. Inside `Foo` the object is initialized: `this.property`is assigned with a default value.
+* `new Foo()` is making a constructor call where the context is `fooInstance`. Inside `Foo` the object is initialized: `this.property`is assigned with a default value.
 
 ```js
 class Bar {  
@@ -486,7 +486,7 @@ console.log(
     inc.apply(undefined, [10]) // 11
 )
 ```
-* The indirect invocation is useful when a functions should be executed with a specific context. For example to solve the context problems with function invocation, where `this` is always `window` or `undefined` in stric mode. **It can be used to simulate a method call on an object**
+* The indirect invocation is useful when a functions should be executed with a specific context. For example to solve the context problems with function invocation, where `this` is always `window` or `undefined` in strict mode. **It can be used to simulate a method call on an object**
 
 * But it doesn't work with arrow functions
 
@@ -545,7 +545,7 @@ console.log(
     double(5) // 10
 )
 ```
-* **Note:** `multiply.bind()2`returns a new function object `double`, which is bound with number `2`. `multiply`and `double` have the same code and scope. Whereas `.apply()` and `.call()`methods invoke the function right away, the `bind()` method only returns a new function that is supposed to be invoked later with a pre-configured `this`
+* **Note:** `multiply.bind(2)`returns a new function object `double`, which is bound with number `2`. `multiply`and `double` have the same code and scope. Whereas `.apply()` and `.call()`methods invoke the function right away, the `bind()` method only returns a new function that is supposed to be invoked later with a pre-configured `this`
 
 ## 6.1 `this` in bound function
 
@@ -580,7 +580,7 @@ console.log(
 
 ## 6.2 Tight context, binding
 
-> `bind()` makes a premanent context link and will always keep it. A bound function cannot change its linked ocntext when using `.call()` or `.apply()` with a different context, or even a rebound doesn't have any effect.
+> `bind()` makes a premanent context link and will always keep it. A bound function cannot change its linked context when using `.call()` or `.apply()` with a different context, or even a rebound doesn't have any effect.
 
 ```js
 function getThis() {
@@ -670,7 +670,7 @@ var numbers = [1, 2];
 
 * **Note:** Arrow functions cannot be used as a constructor. If invoking it as a constructor `new get()`JavaScript throws an error: `TypeError: get is not a constructor`
 
-## 7.2 Pitfall: defining method iwth arrow function
+## 7.2 Pitfall: defining method with arrow function
 
 ```js
 fucntion Period (hours, minutes) {
@@ -704,7 +704,7 @@ const walkPeriod = new Period(2, 30)
 walkPeriod.format() // -> 2 hourse and 30 minutes
 ```
 
-* `walkPeriod.format()` is a method invocation on an object, with the context `walkPeriod` object. `this.hourse` evaluates to 2 and `this.minutes` to 30, so method returns the correct result.
+* `walkPeriod.format()` is a method invocation on an object, with the context `walkPeriod` object. `this.hours` evaluates to 2 and `this.minutes` to 30, so method returns the correct result.
 
 ```js
 const a = { a: 'a' }
@@ -719,4 +719,6 @@ console.log(
 )
 ```
 
-### Because the function invocation has the biggest impact on `this`, from now on do not ask yoursefl: `where is this takes from`but do as yourself: `How is the function invoked?` For an arrow function ask yourself: `What is `this` where the arrow function is defined?`
+### Because the function invocation has the biggest impact on `this`, from now on do not ask yourself: 
+* For regular functions ask yourself: `How is the function invoked?` 
+* For an arrow function ask yourself: Where the arrow function is defined?
