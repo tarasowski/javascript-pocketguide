@@ -107,6 +107,7 @@ document.addEventListener('click', () =>
 ## deepFreeze & Immutability
 
 ```js
+'use strict'
 const expect = require('expect')
 const deepFreeze = require('./node_modules/deep-freeze')
 
