@@ -719,6 +719,6 @@ console.log(
 )
 ```
 
-* Because the function invocation has the biggest impact on `this`, from now on do not ask yourself: 
-	- For regular functions ask yourself: **How is the function invoked?** 
-	- For an arrow function ask yourself: **Where is the arrow function defined?**
+* Because the function invocation has the biggest impact on `this`, from now ask yourself: 
+	- For regular functions: **How is the function invoked?** 
+	- For an arrow function: **Where is the arrow function defined?**
