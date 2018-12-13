@@ -267,55 +267,6 @@ console.log(`
 
 > Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework. Just a function. Start with the simplest implementation, and move to more complex implementations only as required.
 
----
-### `this` keyword
-
-[Source](https://medium.freecodecamp.org/learn-es6-the-dope-way-part-ii-arrow-functions-and-the-this-keyword-381ac7a32881)
-
->  ‘this’, always references the owner of the function it is in! When it is inside of an object’s method — the function’s owner is the object. Thus the ‘this’ keyword is bound to the object. Yet when it is inside of a function, either stand alone or within another method, it will always refer to the window/global object.
-
-```js
-const standAloneFunc = function(){
-  alert(this);
-}
-
-standAloneFunc(); // [object Window]
-```
-
-> Unlike a regular function, an arrow function does not bind this. Instead, this is bound lexically (i.e. this keeps its meaning from its original context). Basically from where the function was called.
-
-```js
-function Counter() {
-  this.num = 0;
-  this.timer = setInterval(function add() {
-    this.num++;
-    console.log(this.num);
-  }, 1000);
-}
-var b = new Counter();
-// NaN
-// NaN
-// NaN
-// ...
-```
-* In the example above the console.log was called from the `setInterval()` function which is part of the global context, it means it's owned by the global context. It doesn't matter where it will be called inside an object etc.
-
-```js
-function Counter() {
-  this.num = 0;
-  this.timer = setInterval(() => {
-    this.num++;
-    console.log(this.num);
-  }, 1000);
-}
-var b = new Counter();
-// 1
-// 2
-// 3
-// ...
-```
-
-* In the example above the `this` is bound to the object and it's called on the object, which means `this` is bound to the current object where it was called.
 
 ### Object Composition
 
@@ -644,3 +595,179 @@ const ChannelStrip = (options) => {
 
 * **Learn functional programming.** It will help you not think in classes, so you won’t be compelled to use them even though you know their pitfalls.
 
+## Why Composition is Harder with Classes
+
+[Source](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa)
+
+* But what does `new` actually do?
+
+1) Crates a new object and binds `this` to it in the constructor function
+2) Implicitly returns `this`, unless you explicitly return another object.
+3) Sets the instance `[[Prototype]]`( an internal reference to `Constructor.prototype`, so that `Object.getPropertyOf(instance) === Constructor.prototype`
+
+## The Delegate Prototype
+
+* you may eventually need to refactor from a class to a factory function and if you require callers to use the `new` keyword, that refactor could break client code.
+
+* Factory functions don't automatically wire up a delegate prototype link.
+
+## Functional Mixins
+
+[Source](https://medium.com/javascript-scene/functional-mixins-composing-software-ffb66d5e731c)
+
+> Functional mixins are composable factory functions which connect together in a pipeline, each function adding some properties or behaviors like workers on an assembly line.
+
+* Functional mixins don't depend on or require a base factory or constructor. simply pass any arbitrary object into a mixin, and an enhanced version of that object will be returned.
+
+* The atomic units of composition are one of two things:
+  - Functions
+  - Data structures
+
+* Application structure is defined by the composition of those atomic units. 
+
+> Mixins are a form of object composition, where component features get mixed into a composite object so that properties of each mixin become properties of the composite object.
+
+* Object mixins: You start with an empty object and mix in feature to exted it. 
+
+```js
+const chocolate = {
+  hasChocolate: () => true
+}
+
+const caramelSwirl = {
+  hasCaramelSwirl: () => true
+}
+
+const pecans = {
+  hasPecans: () => true
+}
+
+const iceCream = Object.assign({}, chocolate, caramelSwirl, pecans)
+
+const iceCreamSpread = {...chocolate, ...caramelSwirl, ...pecans}
+
+console.log(
+  iceCreamSpread.hasChocolate(),
+  iceCreamSpread.hasCaramelSwirl(),
+  iceCreamSpread.hasPecans(),
+)
+```
+
+### What is Functional Inheritance?
+
+> Functional inheritance is the process of inheriting features by applying an augmenting function to an object instance. The function supplies a closure scope wich you can use to keep some data private.
+
+```js
+// Base object factory
+const base = spec => {
+    let that = {} // create an empty object
+    that.name = spec.name // add it a 'name' property
+    return that
+}
+
+// Construct a child object, inheriting from 'base'
+const child = spec => {
+    // Create the object through the 'base' constructor
+    let that = base(spec)
+    that.sayHello = () =>
+        `Hello, I'm ${that.name}`
+    return that
+}
+
+const result = child({ name: 'a functional object' })
+console.log(result) // "Hello, I'm a functional object"
+```
+
+* Because 'child()' is tightly coupled to `base()` when you add `grandchild()`, `greatGrandchild()` etc. you'll op into most of the common problems from class inheritance.
+
+### What is functional Mixin?
+
+* Functional mixins are composable function which mix new properties or behaviors with properties from a given object. Functional mixins don't depend on or require a base factory or constructor: Simply pass any arbitrary object into a mixin, and it will be extended.
+
+```js
+'use strict'
+
+const flying = o => {
+    let isFlying = false
+    return {
+        ...o, ...{
+            fly() {
+                isFlying = true
+                return this
+            },
+            isFlying: () => isFlying,
+            land() {
+                isFlying = false
+                return this
+            }
+        }
+    }
+}
+
+const bird = flying({})
+console.log(
+    bird.isFlying(), // false
+    bird.fly().isFlying() // true
+)
+```
+* Notice that when we call `flying()`, we need to pass an object in to be extended. Functional mixins are designed for function composition. Let's create something to compose with:
+
+```js
+const quacking = quack => o => ({ ...o, ...{ quack: () => quack } })
+const quacker = quacking('Quack!')({})
+
+console.log(
+    quacker.quack() // Quack!
+)
+```
+
+## Composing Functional Mixins
+
+```j
+const compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x)
+
+const flying = o => {
+    let isFlying = false
+    return {
+        ...o, ...{
+            fly() {
+                isFlying = true
+                return this
+            },
+            isFlying: () => isFlying,
+            land() {
+                isFlying = false
+                return this
+            }
+        }
+    }
+}
+
+const quacking = quack => o => ({ ...o, ...{ quack: () => quack } })
+
+const createDuck = quack => compose(
+    quacking(quack),
+    flying
+)({})
+
+const duck = createDuck('Qack!')
+
+console.log(
+    duck.fly().quack()
+)
+```
+### When to use Functional Mixins
+
+> You should always use the simplest possible abstraction to solve the problem you are working on. Start with a pure function. If you need an object with persistent state, try a factory function. If you need need to build more complex object, try functional mixins.
+
+* Here are some good use-cases for functional mixis:
+
+  * Application state management, e.g. a Redux store
+  * Certain cross-cutting concerns and services e.g. centralized logger
+  * Composable functional data types e.g. the JavaScript Array type implements Semigroup, Functor, Foldable. Some algebraic structures can be derived in terms of other algebraic structures, meaning that certain derivations can be composed into a new data type without cusomization.
+  
+* To avoid problems with with functional mixins use following rules:
+  * Start on the left and move to the right only as needed: **pure functions > factories > functional mixins > classes**
+  * Avoid the creation of is-a relationships between object, mixins, or data types
+  * Avaoid implicit dependecies between mixins - whenever possible functiona mixins should be self-contained, and have not knowledge of other mixins.
+   * Functional mixins doesn't mean 'functional programming'
