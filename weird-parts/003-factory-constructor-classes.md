@@ -723,7 +723,7 @@ console.log(
 
 ## Composing Functional Mixins
 
-```j
+```js
 const compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x)
 
 const flying = o => {
