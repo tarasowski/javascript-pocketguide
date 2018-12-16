@@ -6,7 +6,7 @@
 
   - Utilities like `.toString()` and `.valueOf()`
   
-  ```js
+```js
   'use strict'
 
 const map = function (f) {
