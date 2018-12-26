@@ -72,4 +72,4 @@ console.log(
   a // null
 )
 ```
-  
+* Do use `try/catch` for operations that can return errors, but not for operations that can return `null/undefined`.
