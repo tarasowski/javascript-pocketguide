@@ -51,3 +51,25 @@ console.log(
 )
 
 ```
+* [Source](https://dmitripavlutin.com/7-tips-to-handle-undefined-in-javascript/)
+
+* Common scenarios to get `undefined`
+  1) A delcared variable that is not yet assigned with a value (uninitialized) is by default undefined `let a`
+  2) When accessign a non-existing object property, JavaScript returns `undefined` `const obj = {a: 'a'}; obj.b // undefined`
+  3) The function parameters implicitly default to `undefined` `const f = (x, y, z) => x + y + z; f(10) // y = undefined, z = undefined`
+  4) Functions without `return` statement return `undefined`
+  5) You get `undefined` when accessign an array element with an out of bounds index `cons arr = [1, 2,3]; arr[5] // undefined`
+  
+### Difference between `undefined` and `null`
+
+* The main difference is that `undefined` represents a value of a varaible that wasn't yet initialized, while `null` represents an intentional absence of an object. 
+
+### Other Examples
+
+```js
+const a = document.getElementById('a')
+console.log(
+  a // null
+)
+```
+  
