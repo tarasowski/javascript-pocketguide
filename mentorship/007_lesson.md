@@ -2,7 +2,7 @@
 const func = () => new Date()
 ```
 
-* reading (cuuid() or newDate()) is not a side effect it' makes the function impure
+* reading (cuuid() or newDate()) is not a side effect it' makes the function impure because it depends on the global variable or shared state!!!
 
 * side effect is mutation outside of the function // procedure e.g. network call, console.log, something that does change something outside of the function
 
