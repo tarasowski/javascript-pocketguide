@@ -1,3 +1,14 @@
+
+## Books
+
+* [Structure and Interpretation of Computer Programs](https://web.mit.edu/alexmv/6.037/sicp.pdf)
+
+* midldeware that listens for actions at the store (messaging passing how to isolate side-effect from the store) - messaging is the feature of object oriented programming.
+
+* message passing is how you decouple side-effect from 
+
+
+
 ```js
 const func = () => new Date()
 ```
