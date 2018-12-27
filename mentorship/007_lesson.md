@@ -1,4 +1,12 @@
 ```js
+const func = () => new Date()
+```
+
+* reading (cuuid() or newDate()) is not a side effect it' makes the function impure
+
+* side effect is mutation outside of the function // procedure e.g. network call, console.log, something that does change something outside of the function
+
+```js
 console.clear();
 
 // What is `this`?
@@ -66,7 +74,5 @@ class Foo {
 const myFoo = new Foo();
 
 console.log(myFoo instanceof Foo);
-
-
 
 ```
