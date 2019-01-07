@@ -216,6 +216,32 @@ testRejection({type: 'NEW_USER'})
 
 > I've seen too many suites using `beforeEach()`and `afterEach()`accidentally mutate shared state between tests, only to cause problems when the order of test execution gets rearranged, or when tests are run in parallel in order to save time.
 
+# Object Composition
 
+[Source](https://ericelliottjs.com/premium-content/object-composition/)
 
+## Why is OOP - why does it exists?
 
+* Programming using objects or classes as the atomic unit of composition. 
+
+* Any data that can be obserbed by other parts of the program is basically shared mutable state. AVOID IT!!!
+	* Global Variables
+	* Console programs that puts stuff into the console and programs that wait for stuff from a console
+	* DOM that gets some stuff enjected and other programs that waiting for changes in the dome
+	
+* Message passing was the main feature of OOP. Only the object can mutate it's state, if you need to mutate it's state you need to send a message to that object and the object is only can mutate it's state.
+
+* Encapsulation was anther main feature of OOP. 
+
+* Polymorphism - a single interface can represent many different kinds of potential implementations. Makes a possible to have a composite object which represents access to that composite object component objects. 
+
+* What is an object?
+	* name/values - names associated with a value. In JS we get encapsulation through a closure.
+
+* **Object composition** is assembling object to get more complex behavior.
+
+* **A composite object** is a container for primitive data types.
+
+* Class inheritance - Is-A relationship (Animals -> Dog -> Chiauau). Given enough time and evolution all single-ancestor class taxonomies are eventually wrong for new use-cases.
+
+* Fragile base class problem - calss inheritance is the tightest from a coupling. If you change the base class all instances will change. 
