@@ -71,3 +71,59 @@ test('What component aspect are you testing?', assert => {
 });
 
 ```
+
+# JavaScript Factory Function vs. Constructor Functions vs. Classes
+
+```js
+// class
+class CarClass {
+	drive() {
+    console.log('Vroom!')
+    }
+}
+
+const car1 = new CarClass()
+car1.drive() // Vroom!
+
+// constructor
+function ConstructorCar() {
+}
+
+ConstructorCar.prototype.drive = function() {
+	console.log('Vroom!')
+}
+
+const car2 = new ConstructorCar()
+car2.drive() // Vroom!
+
+
+// factory
+
+const proto = {
+	drive() {
+    	console.log('Vroom!')
+    }
+}
+
+function factoryCar() {
+	return Object.create(proto)
+}
+
+const car3 = factoryCar()
+car3.drive() // Vroom!
+```
+
+* **Note:** The Object.create() method creates a new object, using an existing object as the prototype of the newly created object. [Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+
+> In JavaScript, any function can return a new object. When it's not a constructor function or class, it's called a factory function.
+
+* The main drawback of constructors and class is the caller is tightly couples to the constructor implementation. If you ever need the additional flexibility of the factory, the refactor is a breaking change.
+
+> In JavaScript switching from a constructor or class to a factory is a breaking change.
+
+* The main drawback of using class  is that it leads user to create problematic class hierarchies using the `extend` keyword. Calss hierarchies lead to a bunch of well-known problems in object oriented design, including the fragile base calss problem, the gorilla banana problem, the duplication by necesseity problem. 
+
+* Factories are much more flexible than either consturctor functions or classes. You can return any arbitrary object and use any arbitrary prototype. 
+  * No refactories worries, you would never have a need to convert from a factory to a constructor.
+  * No `new`keyword. No ambiguity about using `new`.
+  * Standard `this`behavior, `this`behaves as it normally would, so you can use it to access the parent object. Be aware that `this`doesn't refer to a the new object inside the factory.
