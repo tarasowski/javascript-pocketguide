@@ -1,6 +1,6 @@
 # Cost of Skipping TDD 
 
-* [Source](https://medium.com/javascript-scene/the-outrageous-cost-of-skipping-tdd-code-reviews-57887064c412)
+[Source](https://medium.com/javascript-scene/the-outrageous-cost-of-skipping-tdd-code-reviews-57887064c412)
 
 * It takes 30% longer to build-out projetc with TDD
 * TDD reduces production bug density 40%-80%
@@ -10,7 +10,7 @@
 
 # 5 Questions Every Unit Test Must Answer
 
-* [Source](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)
+[Source](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)
 
 * Your tests are your first and best line of defense agains software defects
 * Your tests are more important than linting & static analysis (cannot find the problems with your logic)
@@ -130,7 +130,7 @@ car3.drive() // Vroom!
   
 # How to Use Classes and Sleep at Night
   
-* [Source](https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4)
+[Source](https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4)
   
 * Classes encourage inheritance but you should prefer composition
   
@@ -146,4 +146,76 @@ car3.drive() // Vroom!
   
 # TDD the RITE Way
 
-* [Source](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
+[Source](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
+
+* Here is another video from Dan Abramov how to do TDD [Video](https://egghead.io/lessons/react-redux-writing-a-counter-reducer-with-tests)
+
+* TDD the RITE Way means
+	* Readable: 
+		1) What component being tested 'double() should return x'
+		2) What behavior of the component is being tested (test setup / givens)?
+		3) What are the actual results?
+		4) What are expected results?
+		5) How can actual results be reproduced.
+	* Isolated OR Integrated
+	* Thorough
+	* Explicit
+	
+* Keep the code in your test to a minimum. You shoul dbe able to handle setup and teardom using factory functions. For example testing reducers: use a factory function to create the initial state for the test. That way the setuup logic doesn't add much clutter to the test itself.
+
+```js
+const defaultState = {
+	user: {
+		name: 'Anonymous'
+	},
+	asks: []
+}
+
+const getExpectedState = (
+	props = {}
+) => ({...defaultState, ...props})
+
+const testRejection = action => user => msg =>
+	expect(rejectionReducer(getExpectedState(), action))
+		.toEqual(getExpectedState(user))
+
+testRejection({type: 'NEW_USER'})
+	({name: 'George'})('should return state with a new user')
+```
+* There are 3 major kinds of tests, all equally important. Functional/E2E tests, integration tests, and unit tests.
+	* Unit tests must test isolated components
+	* Functional/E2E & integration
+	* All tests must be isolated from other tests. Test should have no shared mutable state
+	
+* Isolated components means that we're testing a unit of code (think module) in isolation from other parts of the system. You test them at the black box interface level. Each component is treated like a self-contained mini-program. 
+
+* Instead of testing the whole program as we do with functional/E2E tests, we test units in isolation from the rest of the program, and in isolation from other loosely coupled modules. 
+
+* To satisfy RITE way requireemnts, unit tests must:
+	1) Run fast in order to provide developer realtime feedback as they code.
+	2) Be deterministic: Given the same component with the same input, the test should always produce the same result. 
+
+> The black box has only one-way communication: Something goes in (generally arguments), and something comes out (generally a return value). Your tests should not care what happens in between.
+
+* For components with side-effects, it's usually better to forget about unit tests, and instead rely on functional or integration tests. 
+
+* Why? Because if you try to test code which is tightly coupled to non-deterministic process, two things happen:
+
+1) **Tests are no longer deterministic** meaning that tests can break even when the code works properly. Unit tests should never break for those reasons.
+2) **Unit testing code with side-effects requires mocking.** Attempting to isolate tightly coupled code from non-deterministic processes requires lots of mocking. Mocking is code smell.
+
+* If you find that you have to mock a lot of things to test a little thing, that could be an indication that your application is too tightly coupled. You should be able to separate things like network/database/API communication from the logic that processes the data returned from the network/database/API. 
+
+* The part of the code that processes that data can and likey should be implemented using deterministic processes & pure functions. **Isolate side effects from business rules and domain logic**
+
+* **Functional Tests Must be Integrated** The idea of functional tests is that they make sure that the whole app works when all the components are working together. That means that you need all the parts of the app running, from database to UI, with all of the required services hooked up and live.
+
+* Because the integrated app will incur penalties from network latencies, and real delays, functional tests tend to be too-slow to provide realtime test feedback to developers as they code. For that reason, keep functional tests and unit tests separate, and run them independed of each other. Functional tests typically require a deplyoment of the app to testing servers during automated continuous integration tests.
+
+* Your unit test should contain everything you need to know to reproduce the results. Avoid magic. Avoid references to shared state - especially shared mutable state between unit tests. Instead, use factory functions.
+
+> I've seen too many suites using `beforeEach()`and `afterEach()`accidentally mutate shared state between tests, only to cause problems when the order of test execution gets rearranged, or when tests are run in parallel in order to save time.
+
+
+
+
