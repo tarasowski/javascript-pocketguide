@@ -1,6 +1,6 @@
 # Cost of Skipping TDD 
 
-[Source](https://medium.com/javascript-scene/the-outrageous-cost-of-skipping-tdd-code-reviews-57887064c412)
+* [Source](https://medium.com/javascript-scene/the-outrageous-cost-of-skipping-tdd-code-reviews-57887064c412)
 
 * It takes 30% longer to build-out projetc with TDD
 * TDD reduces production bug density 40%-80%
@@ -10,7 +10,7 @@
 
 # 5 Questions Every Unit Test Must Answer
 
-[Source](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)
+* [Source](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)
 
 * Your tests are your first and best line of defense agains software defects
 * Your tests are more important than linting & static analysis (cannot find the problems with your logic)
@@ -130,7 +130,7 @@ car3.drive() // Vroom!
   
 # How to Use Classes and Sleep at Night
   
-[Source](https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4)
+* [Source](https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4)
   
 * Classes encourage inheritance but you should prefer composition
   
@@ -144,3 +144,6 @@ car3.drive() // Vroom!
 
 * **Don't expect people to use your classes.** Even if you choose to provide your classes as a public API, prefer duck typing when accepting inputs.
   
+# TDD the RITE Way
+
+* [Source](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
