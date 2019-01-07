@@ -245,3 +245,10 @@ testRejection({type: 'NEW_USER'})
 * Class inheritance - Is-A relationship (Animals -> Dog -> Chiauau). Given enough time and evolution all single-ancestor class taxonomies are eventually wrong for new use-cases.
 
 * Fragile base class problem - calss inheritance is the tightest from a coupling. If you change the base class all instances will change. 
+
+## Object composition: Aggregation
+
+* An object that contains subobjects. it's collection of objects. 
+* The subobject retain their identity, means we can add or remove the objects
+* Examples: Arrays, Maps, Sets, Graphs, Trees (DOM nodes) -> all are aggregations 
+* Whenever you need collection of object which need to share common operations use aggregation. 
