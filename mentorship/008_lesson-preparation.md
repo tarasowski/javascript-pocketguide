@@ -127,3 +127,20 @@ car3.drive() // Vroom!
   * No refactories worries, you would never have a need to convert from a factory to a constructor.
   * No `new`keyword. No ambiguity about using `new`.
   * Standard `this`behavior, `this`behaves as it normally would, so you can use it to access the parent object. Be aware that `this`doesn't refer to a the new object inside the factory.
+  
+# How to Use Classes and Sleep at Night
+  
+[Source](https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4)
+  
+* Classes encourage inheritance but you should prefer composition
+  
+* Classes make inheritance not transparent
+  
+* **Resist making classes your public API.** You can always hide your classes behind the factory functions.
+  
+* **Don't inherit more than once.** Instead of creating a class hierarchy, consider creating several factory functions. They may call each other in chain, tweaking the behavior of each other. 
+
+* **Don't make super calls from methods.** Better turn your calsses into factory functions and keep the relationships between them very explicit (input -> output). When your only tools are parameters and return values, it's easier to discover the right balance of repsonsiblities. 
+
+* **Don't expect people to use your classes.** Even if you choose to provide your classes as a public API, prefer duck typing when accepting inputs.
+  
