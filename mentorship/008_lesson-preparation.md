@@ -227,9 +227,9 @@ testRejection({type: 'NEW_USER'})
 * Any data that can be obserbed by other parts of the program is basically shared mutable state. AVOID IT!!!
 	* Global Variables
 	* Console programs that puts stuff into the console and programs that wait for stuff from a console
-	* DOM that gets some stuff enjected and other programs that waiting for changes in the dome
+	* DOM that gets some stuff enjected and other programs that waiting for changes in the DOM
 	
-* Message passing was the main feature of OOP. Only the object can mutate it's state, if you need to mutate it's state you need to send a message to that object and the object is only can mutate it's state.
+* Message passing was the main feature of OOP. Only the object can mutate it's state, if you need to mutate it's state you need to send a message to that object and the object is the only who can mutate it's state.
 
 * Encapsulation was anther main feature of OOP. 
 
