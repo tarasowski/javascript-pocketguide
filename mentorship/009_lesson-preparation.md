@@ -155,3 +155,87 @@ const duck = createDuck('Quack!')
 * Be aware, 'functional mixins' doesn#t imply 'functional programming' - it simply means, 'mixins using functions'. 
 
 > Start with the simplest implementation and move to more complex implementeations only as required: Functions > objects > factory functions > functional mixins > classes
+
+# How to Redux
+
+* [Source](https://ericelliottjs.com/premium-content/how-to-redux/)
+
+* Why does Redux exist?
+	* In the last 20 years we have got stucked with MVC.
+	* We have also two way data binding - Complex 2 way data flow - Angular -> Problem: nondeterministic view render
+		* The view can fire off network request and introduces more nondetermenistic view render
+		* You are not fully aware of the side-effects that are happening
+	* Facebook wanted to abondon MVC and do 1 way data flow. If we have some specific state we always can count on the output. 
+		* The view can fire off action (these are objects, not function calls) and that object described the action type. This is the intent of the particular action and what should happen in response to particular network events. And the action goes to dispatcher and the dispatcher gives it to the store and the store decides to make changes to the state. 
+		* This gives us deterministic view render, we have now isolation of all side-effects I/O, user clicks and other changes to the shared mutuble state. It isolates your side-effects from your logic that manipulates the state. You should keep the side-effects at the edges of your app
+![Flux](https://cdn-images-1.medium.com/max/1600/1*MdaK2tzd5f9BqadwMvPoKg.png)
+
+## Redux
+
+* Redux = Flux + FP
+
+* FP = simple, pure, composable functions
+
+* Redux applies reducers to a stream of action objects (instead of an array). State manipulations that happens all the time within your application. It takes the stream and reduces it over a stream.
+
+* Your reducers should always return a state, therefore you should have the `default` inside the Reducer
+		
+* Action object stream = Append-only op log (like on a database). It's like a transaction record, you can see the entire state of your history. You can see how your state got manipulated, you can rewind and replay your action objects = time travel debugging.
+
+* It gives deterministic state reproduction, if a user has sent you a bug, you have a collection of all state changes, so you can how the state was updated.
+
+* It gives immutable state history. Mutability is problematic it throws away the knowledge it hides it from you. In an immutable state history you have the complete record of what has happened. 
+
+* You can completely eliminate the timing-dependency bug (race conditions). Because all the side-effects are isolated. 
+
+* Easy Undo/Redo. If you app is just sequence of object, you can rewind all the actions. Because there is only 1 way to manipulate the state. 
+
+> Reducers MUST BE the single source of trught for an app's state. They are in charge of state changes. Reducers must be pure functions, but actions can be impure function. They can read from DOM, or Date but shouldn't do any side effects.
+
+* Pure function:
+	* Given the same input, always return the same output (e.g. Reducers should not e.g. generate random ids, calling the server, trying manipulate the view directly). The reducer shouldn't know anything about except your are passing in the arguments. If you need to know the time of date, do it outside of the reducers.
+	* No side effects (ANY mutation of any outside-observable state). Including objects and arrays in JavaScript. If you manipuate the value of the object or array, it's a side effect. Instead you need to return a new object or new array.
+	
+> "nondeterminism = parallel processing + mutable state
+
+* If you mutate state outside of the reducers you defend the whole purpose of Redux.
+
+![Redux](https://raw.githubusercontent.com/pluralsight/guides/master/images/79263077-e972-47c6-93dc-44e466a8e191.gif)
+
+* Isolating side-effects. One thing responsible for all of your API-calls and network IO. It's all isolated into one place. You get an event from the view and the view will fire off that event to your store, the middleware will fire off to your action creator and say "hey we want to make an API call".
+
+* The only way to update the store is to dispatch an action and go to the reducer so the state can be updated. The whole purpose of this is SEPARATION OF CONCERNS.
+
+* View / Component = Dumb:
+	* Zero business logic
+	* Zero request dispatching
+	* Limit side-effects to the DOM (only draw to the screen
+* Action creator service OR Sagas/Epics = Traffic control (it's a replacement of a controler in the MVC)
+	* Dispatch actions
+	* Trigger async request
+	* Dispatch more action when async complete
+	* ONLY soure of server I/O side-effects
+* Reducers = State Updates:
+	* ONLY modules allowed to touch state
+	* Provide actions types (constants with a string value = the way to identify the state update). The reason in larger apps, you can have a lot of stuff with the same type but can mean a lot of different things. 
+	* Provide selectors to isolate store shape
+	
+## Unit Testing
+* One of the great benefits of Redux is simplifies your testing of your application. 
+
+* Isolate concerns to different test modules (view, reducers, i/o) 
+	* You create separate tests for these modules
+
+* Less mocking required (complex mocking is a code smell)
+
+* If you have to do a lot of mocking it says that your application is tightly coupled together.
+
+* Simpel tests lead to simple code
+
+* **Component tests:** Given some value it should return some other value for component test (from raw data to HTML)
+
+* **Network I/O tests:** Action creators / sagas / epics / middleware -> they can be mocked so you don't have to wait. 
+
+> Actions dispatch synchronously. Requests dispatch asynchronously
+
+
