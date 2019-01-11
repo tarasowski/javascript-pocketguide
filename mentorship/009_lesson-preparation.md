@@ -238,4 +238,36 @@ const duck = createDuck('Quack!')
 
 > Actions dispatch synchronously. Requests dispatch asynchronously
 
+# 5 Common Misconceptions About TDD & Unit Tests
 
+1) **TDD is too Time Consuming.**
+	* Fixing bugs interrups the normal flow of software developer, which causes context switching that can cost up to 10 minutes per bug. That's 20 minutes where the developer is doing nothing productive - **just trying to reboot the brain to figure out the context of the new problem**, and then recover the context of the problem they were working on prior to the interruption.
+	
+2) **You can't write tests unitl you know the design, & you can't know the design unit you implement the code.**
+	* Developers who have not developed the test-first TDD discipline often charge into the implementation of the code before they know what the API will look like. They start implementing code before they hae even designed a function signature.
+	* This is the opposite of TDD. The point of TDD is that it forces you to have a direction in mind before you start charging into the fray, and having a direction in mind leads to better designs.
+	
+3) **You have to write all tests before you start the code
+	* 100% design-up-front is a myth in every type of engineering. Design is exploratory. We try things out, throw them away, try different things unit we reach something that we like. 
+	* You don't write all the tests upfront. TDD offers another way of building up software:
+		1) Write one test
+		2) Watch if fail
+		3) Implement the code
+		4) Watch the test pass
+		5) Repeat
+
+4) **Red, Green and ALWAYS Refactor?**
+	* One of the great benefits of TDD is that it can hep you refactor when you need to: You only refactor when your code is unreadable, or you've bencharmarked it and discovered it's too slow, you probably don't need to refactor. 
+	
+> Perfect is the enemy of good. Voltaire
+
+* Look over your code and see if there are opportunities to make it better, but don't refactor just for the sake of refactoring. Time is wasting. Move on to the next test.
+
+5) **Everything Needs Unit Test
+* Unit tests work best for pure functions - functions which:
+	1. Given the same input, always return the same output
+	2. Have no side-effects (don't mutate shared state, save data, talk to the network, draw things to screen, log to the console etc.)
+* If you have to do a lot of mocking to create a proper unit test, maybe that code doesn't need unit tests at all.
+* Your code should be modular enough that it's easy to keep I/O dependent modules at the edges of your program, leaving huge parts of the app that can be easily unit tested.
+
+		
