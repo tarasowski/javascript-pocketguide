@@ -1,3 +1,4 @@
+```js
 /*
 Factory vs Constructor
 
