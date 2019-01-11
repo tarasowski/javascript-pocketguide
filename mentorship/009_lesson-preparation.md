@@ -270,4 +270,120 @@ const duck = createDuck('Quack!')
 * If you have to do a lot of mocking to create a proper unit test, maybe that code doesn't need unit tests at all.
 * Your code should be modular enough that it's easy to keep I/O dependent modules at the edges of your program, leaving huge parts of the app that can be easily unit tested.
 
+# 10 Tips for Better Redux Architecture
+
+[Source](https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44)
+
+1) Understand the Benefits of Redux
+	* Deterministic view renders. When your view render is isolated from network I/O and state updates, you can achieve a deterministic view render, meaning: given the same state, the view will always render the same output. 
+	* Deterministic state reproduction
+	* The main purpose of Redux is to isolate state management from I/O side effects such as rendering the view or working whith the network. 
+	* Flux Architecture does enforce strict separation and sequence, which obeys these rules every time:
+		1) First, we get into a known, fixed state...
+		2) Then we render the view. Nothing change the state again for this render loop.
+		3) Givent he same state, the view will always render the same way
+		4) Event listeners listen for user input and network request handlers. When they get them, actions are dispatched to the store.
+		5) When an action is dispatched, the sate is updated to a new known state and the sequence repeats. Only dispatched actions can touch the state. It's a one-way data flow architecture for your UI:
 		
+![Flux](https://cdn-images-1.medium.com/max/800/1*2FrT8oMXswVWiVEfBCXlAQ.png)
+	* With the flux architecture, the view listeners for user input, translates those into action objects, which gets dispatched to the store. The store updates the application state and notifies the view to render again. Of course, the view is rarely the only source of input and events, but that's no problem Additional event listeners dispatch action objects, just like the view.
+
+![Flux + Server](https://cdn-images-1.medium.com/max/800/1*MdaK2tzd5f9BqadwMvPoKg.png)
+
+	* **Important:** State updates in Flux are transactional. Instead of simply calling an update method on the state, or directly manipulating a value, action objects get dispatched to the store.  An action object is a trasaction record. You can thin of it like a bank transaction - a record of the change to be made. When you make a deposit to your bank, your balance from 5 minutes ago doesn't get wiped out. Instead, a new balance is appended to the transaction history. Action objects add a transaction history to your applcation state. 
+	
+2) Some Apps Don't Need Redux
+	* User workflows are simple
+	* User don't collaborate
+	* You don't need to manage server side events (SSE) or websockets
+	* You fetch data from a single data source per view
+
+3) You Need Redux, If
+	* Users workflows are complex
+	* Your app has a large variaty of user workflows (consider both regular users and admins)
+	* Users can collaborate
+	* You're using web sockets or SSE
+	* You're loading data from multiple endpoints to build a single view
+
+4) Understand Reducers
+	* Redux = Flux + Functional Programming
+	* The primary building block of Redux state managemetn is the reducer function. Inf unctional programming, the common utility `reduce()`or `fold()` is used to apply a reducer function to each value in a list of values in order to accumulate a single output value. 
+	
+5) Reducers Must Be Pure Functions
+	* In order to achieve deterministic state reproduction, reducers must be pure fuctions. No exceptions.
+		1) Gien the same input, always returns the same output.
+		2) Has no side-effects.
+	* Reducers should always return a new object. You can do that with `Object.assign({}, state, {thigToChagne} )
+	* The same rule applies to arrays. You can't just `.push()` new items to an array in a reducer, because `.push()` is a mutating operation. 
+	
+```js
+const ADD_CHAT = 'CHAT::ADD_CHAT';
+
+const defaultState = {
+  chatLog: [],
+  currentChat: {
+    id: 0,
+    msg: '',
+    user: 'Anonymous',
+    timeStamp: 1472322852680
+  }
+};
+
+const chatReducer = (state = defaultState, action = {}) => {
+  const { type, payload } = action;
+  switch (type) {
+    case ADD_CHAT:
+      return Object.assign({}, state, {
+        chatLog: state.chatLog.concat(payload)
+      });
+    default: return state;
+  }
+};
+```
+
+5) Reducers Must be the Single Source of Truth
+	* All state in your app should have a single source of truth, meaning that the state is stored in a single place, and anywhere else that state is needed should access to the state by reference to its single source of truth.
+	* When you store any state in a Redux store, any access to that state should be made through Redux. 
+
+6) Use Constants for Action Types
+	* Keeping all the action types for a reducer gathered in one place at the top of the file can also help you:
+		1) Keep names consistent
+		2) Quickly understand the reducer API
+		3) See what's changed in pull requests
+		
+7) User Action Creators to Decouple Action Logic from Dispatch Callers
+	* Where is a good place to handle impure logic like that without repeating it everywhere you need to use the action? In an action creator. Action creators have other benefits, as well:
+		* Keep action type constantcs encapsulated in your reducer file so you don't have to import them anywhere else. 
+		* **Make some calculations on inputs prior to dispatching the action.**
+		* Reduce boilerplate
+
+```js
+// Action creators can be impure.
+export const addChat = ({
+  // cuid is safer than random uuids/v4 GUIDs
+  // see usecuid.org
+  id = cuid(),
+  msg = '',
+  user = 'Anonymous',
+  timeStamp = Date.now()
+} = {}) => ({
+  type: ADD_CHAT,
+  payload: { id, msg, user, timeStamp }
+});
+```
+* **Note:** As you can see above, we're using cuid to generate random ids for each chat message, and `Date.now()`to generate the timeStamp. Both of those are impure operations which are not safe to run in the reducer - but it's perfectly OK to run them in action creators. 
+
+> If you store your constants, reducers, and action creators all in the same file, you'll reduce boilerplate required when you import them from separate locations. 
+
+8) Use ES6 Parameter Defaults for Signature Documentation
+
+9) Use Selectors for Calculated State and Decoupling
+	* If your data structure of your state needs to be changed at any time. You should use selectors in order not to change the render components. 
+	* For every reducer you should create a selector that simply exports all the varaibles you need to construct the view. Usually you fix your data structure in your selectors and there is no need to change the view component if some data struture has changed.
+	* If you put all your calculated state in selectors, you:
+		1) Reduce the complexity of your reducers & components
+		2) Decouple the rest of your app from your state shape
+		3) Objey the single source of truth principle, even within your reducer.
+		
+10) Use TDD: Write Test First
+
