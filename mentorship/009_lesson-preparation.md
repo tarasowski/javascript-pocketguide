@@ -387,3 +387,17 @@ export const addChat = ({
 		
 10) Use TDD: Write Test First
 
+# What are Redux Selectors?
+
+* [Source](https://www.saltycrane.com/blog/2017/05/what-are-redux-selectors-why-use-them/)
+
+* Why? 
+	* One reason is to avoid duplicated data in Redux. Redux state can be thought of like a database and selectros like SELECT queries to get useful data from the database. 
+
+* Why not perform the data transformations in the component?
+	* Performing data transformations in the component makes them more coupled to the Redux state and less generic/reusable. It makes sense to keep selectors near reducers because they operate on the same state. If the state schema changes, it is easier to update the selectors than to update the components. 
+
+* Performance
+	* mapStateToProps gets called a lot so performing expensive calculations there is not good. This is where the the `reselect` library comes in. Selectors created with reselect's `createSelector` will memoize to avoid unnecessary recalculations. Note if performance is not an issue `createSelector` is not needed. 
+	
+
