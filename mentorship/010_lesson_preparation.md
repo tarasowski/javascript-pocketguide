@@ -95,8 +95,152 @@ console.log(
 ### How do we remove coupling?
 
 * To remove it we need to understand where the coupling comes from:
- * Class inheritance (coupling is multiplied by each layer of inheritance)
- * Global variables
- * Other mutable global state (DOM, shared storage, network)
- * Module imports with side-effects
- * Implicit dependencies from composition e.g. `const widgetFactory = compose(eventEmitter, widgetFactory)` where 
+
+	 * Class inheritance (coupling is multiplied by each layer of inheritance)
+	 * Global variables
+	 * Other mutable global state (DOM, shared storage, network)
+	 * Module imports with side-effects
+	 * Implicit dependencies from composition e.g. `const widgetFactory = compose(eventEmitter, widgetFactory)` where `widgetFactory`depends on `eventEmitter`
+	 * Dependency injection containers
+	 * Dependency injection parameters
+	 * Mutable parameters
+
+* Loose coupling:
+	* Module imports without side-effects
+	* Message passing/pubsub
+	* Immutable parameters
+
+* Now how to remove coupling?
+	* Use pure functions: as the atomic unit of composition, as opposed to classes, imperative procedures, or mutating functions.
+	* Isolate side-effects: from the rest of your program logic. That means don#t mix logic with I/O (including network I/O, rendering UI, logging)
+	* Remove dependet logic: from imperative compositions so that they can become declarative compositions which don't need their own unit tests. If there's no logic there's nothing meaningful to unit test.
+	
+* **That means that the code you use to set up network requests and request handlers won't need unit tests. Use integration tests for those, instead.
+
+### Use pure functions
+
+* Pure functions can't directly mutate global variables, the arguments passed into them, the network, the disk, or the screen. All they can do is return a value.
+
+> If you're passsed an array or an object, and you want to return a changed version of that object, you can't just make the changes to the object and return it. You have to create a new copy of the object with the required changed. You can do that with the [array accessor methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype) **not the mutation methods**, `Object.assign({}, toCopy, toCopy)` or the array or object spread syntax.
+
+```js
+//Not pure
+const singInUser = user => user.isSignedIn = true
+
+const foo = {
+	name: 'Foo',
+  	isSignedIn: false
+}
+
+console.log(
+	signInUser(foo),
+  	foo, // {name: 'Foo', isSignedIn: true}
+)
+
+// Pure
+const signInUserPure = user => ({...user, isSignedIn: true})
+
+console.log(
+	signInUserPure(foo), // {name: 'Foo', isSignedIn: true}
+  	foo, // // {name: 'Foo', isSignedIn: false}
+)
+```
+
+* **Note:** Creating a new object instead of reusing the existing ones, the side-effect of that is that we can detect changes to object by using an identity comparison (`===` check), so we don't have to traverse through the entire object to discover if anything has changed.
+
+* Pure functions can be momoized, meaning that you don't have to build the whole object again if you've seen the same inputs before. For computationally expensive processes which don't require unbounded memory, this may be a great optimization strategy. Also because they have no side-effects, it's safe to distribute complex computations over large clusters of processors.
+
+### Use pub/sub
+
+* In the pub/sub pattern, units don't directly call each other. Instead, they publish messages that other units (subscribers) can listen to. Publishers don't know what (if any) units will subscribe, and subscribers don't know what (if any) publishers will publish.
+
+* Pub/sub is backed into the DOM. Any component in your application can listen to events dispatched from DOM elements, such as mouse clicks. 
+
+* Pub/sub is also baked into Redux. You dispatch an action object with a special key, `type`which various reducers can listen for and respond to. 
+
+* **Isolate logic from I/O**
+
+* Sometimes you can use modan compositions (like promises) to eliminate dpendent logic from your composition. For example the following function contains logic that you can't unit test without mocking all of the async functions:
+
+```js
+async function uploadFiles({user, folder, files}) {
+  const dbUser = await readUser(user);
+  const folderInfo = await getFolderInfo(folder);
+  if (await haveWriteAccess({dbUser, folderInfo})) {
+    return uploadToFolder({dbUser, folderInfo, files });
+  } else {
+    throw new Error("No write access to that folder");
+  }
+}
+```
+
+* Refactor this to use promise composition via `asyncPipe()`:
+
+```js
+const asyncPipe = (...fns) => x => (
+  fns.reduce(async (y, f) => f(await y), x)
+);
+const uploadFiles = asyncPipe(
+  readUser,
+  getFolderInfo,
+  haveWriteAccess,
+  uploadToFolder
+);
+uploadFiles({user, folder, files})
+  .then(log)
+;
+```
+* The conditional logic is easily removed because promises have conditional branching built-in. The idea is that logic and I/O don't mix well, so we want to remove the logic from the I/O dependent code.
+
+* **Important:** Each fo these function takes and resolves with the same data type. We could create a `pipelineData`type for this composition which is just an object containing the following keys: `{user, folder, files, dbUser?, folderInfo?,}`. **This creates a structure sharing depencency between the components!!!**, but you can use more generic version of these functions in other places and specialize them for this pipeline with thin wrapping functions.
+
+* With those conditions met, it's trivial to test each of these functions in isolation form each other without mocking the other functions. Since we've extracted all of the logic out of the pipeline, there's nothing meaningful left to unit test in this file. All that's left to thest are the integrations.
+
+* Use object that represent future computations. The strategy used by redux-sage is to use objects that represent future computations. The idea is similar to returning a moand. Monads are capable of composing function with the chain operation, but you can manually chain functions using imperative-style code, instead.
+
+```js
+// sugar for console.log we'll use later
+const log = msg => console.log(msg);
+const call = (fn, ...args) => ({ fn, args });
+const put = (msg) => ({ msg });
+// imported from I/O API
+const sendMessage = msg => Promise.resolve('some response');
+// imported from state handler/Reducer
+const handleResponse = response => ({
+  type: 'RECEIVED_RESPONSE',
+  payload: response
+});
+const handleError = err => ({
+  type: 'IO_ERROR',
+  payload: err
+});
+
+function* sendMessageSaga (msg) {
+  try {
+    const response = yield call(sendMessage, msg);
+    yield put(handleResponse(response));
+  } catch (err) {
+    yield put(handleError(err));
+  }
+}
+
+const iter = sendMessageSaga('Hello, world!');
+// Returns an object representing the status and value:
+const step1 = iter.next();
+log(step1);
+/* =>
+{
+  done: false,
+  value: {
+    fn: sendMessage
+    args: ["Hello, world!"]
+  }
+}
+*/
+```
+
+> Code smells are warning signs, not laws. Mocks are not evil. 
+
+> I've seen developers create elaborate fakes and mocks of things like express, the session middleware, log handlers, realtime network protocols. I've faced hard mocking questions myself, but the correct answer is simple: This file doesn't need unit tests.
+
+* Mocking is great for integration tests, because integration tests test collaborative integrations between units, it's perfectly OK to face servers, network protocols, network messages, and so on in order to reproduce all the various conditions you'll encounter during communication with other units, potentially distributed across clusters of CPUs or separate machines on a nework. 
