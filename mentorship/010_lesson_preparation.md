@@ -58,3 +58,45 @@
   * Promise or monaidc composition (asyncPipe(), Kleisli composition)
   
 ### When you use generic composition utilities, each element of the composition can be unit tested in isolation without mocking the other.
+
+```js
+console.clear()
+
+const compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x)
+
+
+const g = n => n + 1
+const f = n => n * 2
+
+//Imperative composition
+const doStuffBadly = x => {
+	   const afterG = g(x)
+    const afterF = f(afterG)
+    return afterF
+}
+
+//Declarative composition
+const doStuffBetter = compose(f, g)
+
+console.log(
+	doStuffBadly(20), // 42
+  	doStuffBetter(20) // 42
+)
+```
+
+* Function composition is the process of applying a function to the return value of another function. You create a pipeline of functions, then pass a value to the pipeline, and the value will go through each function like a stage in an assembly line.
+
+* Imperative style means that we're commanding the computer to do something step-by-step.
+
+* Declarative style means we're telling the computer the relationship between things. It's a description of structure using equational reasoning. `doStuffBetter` is the piped composition of `g` and `f`. 
+
+**Note:** Assuming `f`and `g` have their own unit tests, and `compose()`hast its own unit tests, there is not new logic here to unit test. In order for this style to work correctly, the units we compose need to be decoupled.
+
+### How do we remove coupling?
+
+* To remove it we need to understand where the coupling comes from:
+ * Class inheritance (coupling is multiplied by each layer of inheritance)
+ * Global variables
+ * Other mutable global state (DOM, shared storage, network)
+ * Module imports with side-effects
+ * Implicit dependencies from composition e.g. `const widgetFactory = compose(eventEmitter, widgetFactory)` where 
