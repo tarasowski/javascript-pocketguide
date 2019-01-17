@@ -196,7 +196,7 @@ uploadFiles({user, folder, files})
 
 * With those conditions met, it's trivial to test each of these functions in isolation form each other without mocking the other functions. Since we've extracted all of the logic out of the pipeline, there's nothing meaningful left to unit test in this file. All that's left to thest are the integrations.
 
-* Use object that represent future computations. The strategy used by redux-sage is to use objects that represent future computations. The idea is similar to returning a moand. Monads are capable of composing function with the chain operation, but you can manually chain functions using imperative-style code, instead.
+* Use object that represent future computations. The strategy used by redux-sage is to use objects that represent future computations. The idea is similar to returning a monad. Monads are capable of composing function with the chain operation, but you can manually chain functions using imperative-style code, instead.
 
 ```js
 // sugar for console.log we'll use later
