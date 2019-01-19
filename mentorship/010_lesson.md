@@ -25,14 +25,16 @@ const doubleAll = arr => {
 
 // const doubleAll = map(x => x * 2);
 
-// String to Numbers
+// String to Number
 //A -> B
 const length = a => [...a].length
+
 /*
 Category Theory
 A String
 B Number
 C Boolean
+* An object in category theory is a set. A set is a collection of objects (e.g. Number, String, Boolean)
 * Objects and arrows (called morphisms) between objects
 * Identity: ID_A = A -> A
 * Composition: A -> B -> C. A -> C
