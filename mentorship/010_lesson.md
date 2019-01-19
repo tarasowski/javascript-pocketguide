@@ -27,7 +27,7 @@ const doubleAll = arr => {
 
 // String to Numbers
 //A -> B
-const lenght = a => [...a].length
+const length = a => [...a].length
 /*
 Category Theory
 A String
