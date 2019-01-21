@@ -23,8 +23,12 @@ const factorial = n =>
     ? n
     : n * factorial(n - 1)
 
+// call stack representation
 // 4 * factorial(3) * factorial(2) * factorial(1)
-// 4 *      3       *       2      *      1
+// 4 * factorial(3) * factorial(2) <-- 1
+// 4 * factorial(3) <-- 2
+// 4 <-- 6
+// 24
 
 console.log(
   factorial(4),
