@@ -8,6 +8,7 @@ Describing structure -
 Functions as mappings/equalities
 */
 
+// functions as mappings
 const map = f => mappable => mappable.map(f);
 
 // function as procedure
@@ -20,10 +21,6 @@ const doubleAll = arr => {
 };
 
 
-
-
-
-// const doubleAll = map(x => x * 2);
 
 // String to Number
 //A -> B
