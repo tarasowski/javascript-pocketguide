@@ -19,7 +19,7 @@ const sum = (num1, ...nums) =>
 
 
 const factorial = n =>
-  n == 1
+  n == 1 // base condition
     ? n
     : n * factorial(n - 1)
 
