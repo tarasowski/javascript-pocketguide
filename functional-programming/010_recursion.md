@@ -23,6 +23,7 @@ const factorial = n =>
     ? n
     : n * factorial(n - 1)
 
+// https://duckduckgo.com/?q=recursion+computerphile&t=h_&ia=videos&iax=videos&iai=Mv9NEXX1VHc
 // call stack representation
 // 4 * factorial(3) * factorial(2) * factorial(1)
 // 4 * factorial(3) * factorial(2) <-- 1
