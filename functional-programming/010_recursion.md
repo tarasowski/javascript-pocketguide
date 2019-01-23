@@ -1,3 +1,7 @@
+# Recursion
+
+[Source](https://github.com/getify/Functional-Light-JS/blob/master/manuscript/ch8.md)
+
 ```js
 const foo = (x) =>
   x < 5
@@ -39,7 +43,7 @@ console.log(
 )
 
 ```
-# Coninuation-passing style
+# Continuation-passing style
 
 [Source](http://matt.might.net/articles/by-example-continuation-passing-style/)
 
