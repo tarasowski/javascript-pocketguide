@@ -39,3 +39,23 @@ console.log(
 )
 
 ```
+# Coninuation-passing style
+
+[Source](http://matt.might.net/articles/by-example-continuation-passing-style/)
+
+```js
+const id = (x, ret) => ret(x)
+
+id(10, console.log)
+
+const fact = (n, ret) =>
+  tail_fact(n, 1, ret)
+
+const tail_fact = (n, a, ret) =>
+  n == 0
+  ? ret(a)
+  : tail_fact(n-1, n*a, ret)
+
+fact(20, console.log)
+
+```
