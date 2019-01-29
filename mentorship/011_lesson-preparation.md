@@ -14,7 +14,7 @@
 
 * For collections / complex data structures (arrays, streams) `.map()` typically iterates over the collection and applies the given function to each value in the collection, but not all functors iterate. **Functors are about applying a function in a specific context.
 
-**Note:** Promises use the name `.then()`instead of `.map()`. You can usually think of `.then()`as an asynchronous `.map()`method, except when you have a nested promise, **in which case it automatically unwraps the outer promise.**. For values that are not promises `.map()` acts like an async `.map()`. For values that are promises themselves, `.then()` acts like the `.chain()` method from monads (also calles `.bind()` or `.flatMap()`)
+**Note:** Promises use the name `.then()`instead of `.map()`. You can usually think of `.then()`as an asynchronous `.map()`method, except when you have a nested promise, **in which case it automatically unwraps the outer promise.**. For values that are not promises `.then()` acts like an async `.map()`. For values that are promises themselves, `.then()` acts like the `.chain()` method from monads (also calles `.bind()` or `.flatMap()`)
 
 * Functor Laws:
 	- Identity: x => x if you pass it into a `f.map()` where `f` is any functor, the rsult shold be equivalent to `f`
