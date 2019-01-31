@@ -84,6 +84,46 @@ const trace = label => value => (console.log(`${label}: ${value}`), value)
     result.then(r => console.log(r)) // 40
 }
 
+{
+    // The algebraic definition of function composition
+    // (f . g)(x) = f(g(x))
+    const compose = (f, g) => x => f(g(x))
+    const x = 20 // The value
+    const arr = [x] // The context -> sugar for Array.of(x)
+
+    // Some functions to compose
+    const g = n => n + 1
+    const f = n => n * 2
+
+    //Proof that .map() accomplishes function composition
+    // Chaining calls to map is function compositon
+    console.log(
+        arr.map(g).map(f), // [42]
+        arr.map(compose(f, g)) // [42]
+    )
+}
+
+{
+    const composePromises = (...ms) =>
+        ms.reduce((f, g) => x => g(x).then(f))
+
+    const g = n => Promise.resolve(n + 1)
+    const f = n => Promise.resolve(n * 2)
+    const h = composePromises(f, g)
+    h(20).then(console.log) // 42
+}
+
+{
+    // Higher order function that can handle different cases
+    const composeM = method => (...ms) =>
+        ms.reduce((f, g) => x => g(x)[method](f))
+
+    // Now we can write the specialied implementation like this:
+    const composePromises = composeM('then')
+    const composeMap = composeM('map')
+    const composeFlatMap = composeM('flatMap')
+}
+
 console.log(
     result,
     flatten
