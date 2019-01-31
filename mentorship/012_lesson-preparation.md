@@ -72,3 +72,18 @@ h = composeM(f, g): a => M(c)
 > You may have heard that a promise is not strictly a monad. That's because it will only unwrap the outer promise if the value is a promise to begin with. Otherwise, `.then()` behaves like `.map()`
 
 * **Note:** But because it behaves differently for pomise values and other values, `.then()`does not strictly obey all the mathematical laws that all functors and /or monads must satisfy for all given values.
+
+> Whenever you have a function that takes some data, hits an API, and returns a corresponsind value, and other function that takes that data, hits another API, and returns the result of a computation on that data, you'll want to compose functions of type `a => Monad(b)`. Because the API calls are asynchronous, you'll need to wrap values in something like a promise or obeservalbe. In other words, the signatures for those functions are `a -> Monad(b)`, and `b -> Monad(c)`, respectively.
+
+```js
+{
+    const composePromises = (...ms) =>
+        ms.reduce((f, g) => x => g(x).then(f))
+
+    const g = n => Promise.resolve(n + 1)
+    const f = n => Promise.resolve(n * 2)
+    const h = composePromises(f, g)
+    h(20).then(console.log) // 42
+}
+```
+* When you hit the second function `f`, (remember `f`after `g`), the input value is a promise. It's not type `b`, it's type `Promise(b)`, but f takes type `b`, unwrapped. So what's going on? Inside `.then()`there's an unwrapping process that goes from `Promise(b) -> b`. That operation is called `join` or `flatten()`. 
