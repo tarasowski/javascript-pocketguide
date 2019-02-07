@@ -1,3 +1,38 @@
+# TDD the RITE Way
+[Source](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
+
+1. Start with a function e.g. `const double = x => {}`
+2. Write a test to prove the requirements e.g. `const testDouble = before => after => expect(before).toEqual(after)`
+3. What the test fail. This proves that the test won't produce a false positive e.g. `testDouble(1)(2)`
+4. Add the implementation code e.g. `const double = x => x * 2`
+5. Watch the test pass -> run the test again and see it working!
+6. Look over the code and improve -> do some refactoring if needed
+
+## TDD the RITE Way
+  - Redable: Every tests shold be readable: 
+    0. What component is under test? `double() should double the numbers` -> here you see that `double()` is under test
+    1. What was the actual result?
+    2. What was the expected result?
+    3. How do you reproduce the findings?
+
+  - Isolated: Isolated components means that we're testing a unit of code (think module) in isolation from other parts of the system. You tests them in a black box interface level.
+      - Tests should be isolated from each other. In unit tests, units should be isolted from the rest of the app. Integration tests - test that modules work correctly with other modules and in the context of the running. 
+    1. Unit tests should run fast to provide needed developer feedback. Because they need to run fast, they should not depend on the network, access to storage etc.
+    2. Be deterministic: Given the same component with the same input, the test should always produce the same result. 
+
+> The black box has only one-way communcation: Something goes in (arguments), and something comes out (a return value). Your tests should not care what happens between.
+
+* If your components have side-effects, you should usually forget about unit-tests, instead rely on functional or integration tests. Why?
+  1. **Tests are no longer deterministic**, meaning that test can break even when the code works properly. Unit tests should never break for those reasons.
+  2. **Unit testing code with side-effects requires mocking.** Attempting to isolate tightly coupled code from non-deterministic processes requires lots of mocking. **Mocking is code smell**
+
+> Isolate side-effects from business logic and you'll find not only that your software becomes easier to test, but also to debug, easier to extend, and easier to maintain.
+
+  - Thorough: You should test all of the likey edge cases. (Error states, malicious data (e.g. you can verfiy the structure with the JSONSchema), numbers, test0, 1, very large, very small)
+  - Explicit: Your unit test should contain everything you need to know to reproduce the results. Avoid magic. Avoid references to shared state - especially shared mutable state
+
+
+
 # JavaScript Monads Made Simple
 
 [Source](https://medium.com/javascript-scene/javascript-monads-made-simple-7856be57bfe8)
