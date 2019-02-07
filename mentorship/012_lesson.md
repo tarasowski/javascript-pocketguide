@@ -21,14 +21,13 @@ state shape:
 ]
 */
 ```
-
-- Question: Error handling in JS. Q1. When to return null? Q2. When to throw? Q3. How to handle undefined?
+### Question: Error handling in JS. Q1. When to return null? Q2. When to throw? Q3. How to handle undefined?
 
 1. You should probably NEVER return `null`. Return a promise, or an empty array (you can safely map over empty arrays because the map function simply won't be called), etc...
 2. Pure functions CAN'T throw because throwing is a side-effect. Instead of throwing, try rejecting a promise, returning an empty array, dispatching an error message, etc... pure functions can return an object that represents an error case. It's usually OK to throw inside a promise, because it will automatically return a rejected promise.
 3. undefined usually represents an error case, if it does, use the same strategies as above. Sometimes, undefined can be replaced with a default value that makes sense. If it can, use a default.
 
-- Question: How to handle multiple try / catch 
+### Question: How to handle multiple try / catch 
 
 * Use asyncPipe, and use the promise error handling instead of try/catch:
 
@@ -51,7 +50,7 @@ myPipeline(pipeData)
   
  ```
  
- - Question: How to build up an object via function composition from multiple database calls?
+ ### Question: How to build up an object via function composition from multiple database calls?
  
  * We can take and return an object which each function in the pipeline is expecting. Each function in an async pipeline needs to return a promise.
 
