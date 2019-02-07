@@ -1,7 +1,7 @@
 # TDD the RITE Way
 [Source](https://medium.com/javascript-scene/tdd-the-rite-way-53c9b46f45e3)
 
-* Important: Checkout the video from [Dan Abramov](https://egghead.io/lessons/react-redux-writing-a-todo-list-reducer-adding-a-todo) he shows how to do it right.
+* Important: Checkout this video from [Dan Abramov](https://egghead.io/lessons/react-redux-writing-a-todo-list-reducer-adding-a-todo) he shows how to do it right.
 
 1. Start with a function e.g. `const double = x => {}`
 2. Write a test to prove the requirements e.g. `const testDouble = before => after => expect(before).toEqual(after)`
