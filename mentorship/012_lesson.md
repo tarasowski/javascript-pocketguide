@@ -1,3 +1,6 @@
+1. Why is Either.fromNullabel() is not a real null check
+  - Because you only check once for a null or undefined value. When the data enters your app. For instance, the data comes from a db call and you need to map over specific value. Do you all the null checks before you map over, that means after that you don't have to do any other null checks since you can be sure that there is some value. You simply put the value inside the box and map over, when there is a null, the map operations gets skipped and you move to the Left(x) side of the type. 
+
 ```js
 console.clear();
 
