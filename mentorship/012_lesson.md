@@ -52,6 +52,7 @@ myPipeline(pipeData)
   .catch(handleRemainingErrors);
   
  ```
+ * Checkout this gist, there is an example how to do it [Promise Pipeline](https://gist.github.com/tarasowski/b3ff7f13ca50159fd941ac81906bce13)
  
  ### Question: How to build up an object via function composition from multiple database calls?
  
