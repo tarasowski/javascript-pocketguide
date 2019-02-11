@@ -12,10 +12,10 @@
 
 ## TDD the RITE Way
   - Redable: Every tests shold be readable: 
-    0. What component is under test? `double() should double the numbers` -> here you see that `double()` is under test
-    1. What was the actual result?
-    2. What was the expected result?
-    3. How do you reproduce the findings?
+    1. What component is under test? `double() should double the numbers` -> here you see that `double()` is under test
+    2. What was the actual result?
+    3. What was the expected result?
+    4. How do you reproduce the findings?
 
   - Isolated: Isolated components means that we're testing a unit of code (think module) in isolation from other parts of the system. You tests them in a black box interface level.
       - Tests should be isolated from each other. In unit tests, units should be isolted from the rest of the app. Integration tests - test that modules work correctly with other modules and in the context of the running. 
