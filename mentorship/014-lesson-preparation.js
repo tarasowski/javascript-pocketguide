@@ -1,4 +1,5 @@
 const {expect} = require('expect.equal')
+const {trace} = require('compose.helpers')
 
 const Identity = x => ({
   map: f => Identity(f(x)),
@@ -114,5 +115,70 @@ h composeM(f, g):
   a flaten(M(b)) -> b -> map(b -> M(c)) -> M(c)
 
 - Monads are needed because lots of functions aren't simple mapping from a -> b. Some functions need to deal with side effects (promises, streams), ahndle branching (Maybe), deal with expections (Either). Basically if you want to compose functions of different types you need Monads. Monad is a function that has a chain method. A Monad can be anything e.g. a Promise when we want to compose Promises.
-
 */
+
+{
+  // Identity monad
+  const Id = value => ({
+    // Functor mapping
+    // Preserve the wraping for .map() by
+    // passing the mapped value into the type lift:
+    map: f => Id.of(f(value)),
+
+    // Monad chaining
+    // Discard one level of wrapping
+    // by omitting the .of() type lift:
+    chain: f => f(value),
+
+    // Just a convenient way to inspect 
+    // the values
+    toString: () => `Id(${value})`
+
+    })
+
+    // The type lift for this monad is just 
+    // a reference to the factory.
+    Id.of = Id
+
+    const g = n => Id(n + 1)
+    const f = n => Id(n * 2)
+
+    // Left identity
+    // unit(x).chain(f) === f(x)
+    trace('Id monad left identity')([
+      Id(20).chain(f).toString(),
+      f(20).toString()
+    ])
+    // Right identity
+    // m.chain(unit) === m
+    trace('Id monad right identity')([
+    Id(20).chain(Id.of).toString(),
+    Id(20).toString()
+    ])
+    //Associativity
+    // m.chain(f).chain(g) ===
+    // m.chain(x => f(x).chain(g))
+    trace('Id monad associativity')([
+    Id(20).chain(g).chain(f).toString(),
+    Id(20).chain(x => g(x).chain(f)).toString()
+    ])
+}
+
+// Monad laws
+/*
+- Monads must satisfy three laws (axioms) -> monad laws:
+  * Left identity: unit(x).chain(f) === f(x)
+  * Right identity: m.chain(unit) === m
+  * Associativity: m.chain(f).chain(g) === m.chain(x => f(x).chain(g))
+
+// Conclusion
+/*
+- Functors are things you can map over. Monads are things you can flatMap over:
+  * Functions map: a -> b
+  * Functors map with context: Functor(a) -> Functor(b)
+  * Monads flatten and map with context: Monad(Monad(a)) -> Monad(b)
+- A monad is based on simply symmetry - A way to wrap a value into a context, and a way to unwrap the value from the context:
+  * Lift/Unit: A type lift from some type into the monad context: a -> M(a)
+  * Flatten/Join: Unwrapping the type from the context: M(a) -> a
+  * Map: Map with context preserved: M(a) -> M(b)
+  * Chain: Combine flatten with map, and you get chain - function composition for lifting functions, aka Kleisli composition M(M(a)) -> M(b)
