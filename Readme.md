@@ -6,26 +6,6 @@ You will find here quick and to the point JavaScript guides. I'll try to cut out
 
 [You can find here the JavaScript Glossar](https://docs.google.com/spreadsheets/d/1_f7PLYnoB9fPp0K2ZmkKr2sFo1oZxK0tDRugsRXeENg/edit#gid=0)
 
-## My personal todo list - Learning Strategy
-
-### Design patterns recommended by @gornov: 
-- [ ] mvc, 
-- [ ] singleton, 
-- [x] factory, 
-- [ ] decorator, 
-- [ ] strategy, 
-- [ ] observer, 
-- [ ] dependency injection, 
-- [ ] service locator
-
-
-**Resources:**
-* Many of the patterns are covered in the book of [Addy Osmani](https://addyosmani.com/resources/essentialjsdesignpatterns/book/) + [Github Repo](https://github.com/addyosmani/essential-js-design-patterns)
-* [The Comprehensive Guide to JavaScript Design Patterns](https://www.toptal.com/javascript/comprehensive-guide-javascript-design-patterns)
-* [Gang of Four book Design Patterns: Elements of Reusable javascript](http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf)
-* [All the 23 (GoF) design patterns implemented in Javascript](https://github.com/fbeline/Design-Patterns-JS)
-
----
 
 ### Algorithms and data structures recommended by @morgunov-d:
 - [ ] hashmap
