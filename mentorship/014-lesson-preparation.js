@@ -182,3 +182,4 @@ h composeM(f, g):
   * Flatten/Join: Unwrapping the type from the context: M(a) -> a
   * Map: Map with context preserved: M(a) -> M(b)
   * Chain: Combine flatten with map, and you get chain - function composition for lifting functions, aka Kleisli composition M(M(a)) -> M(b)
+*/
