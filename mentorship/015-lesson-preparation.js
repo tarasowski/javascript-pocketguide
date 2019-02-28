@@ -146,3 +146,71 @@ const cOver = lens => f => store =>
     b(store)
   )
 }
+
+// Generators
+
+function* foo() {
+  yield 'a'
+  yield 'b'
+  yield 'c'
+}
+
+const [...values] = foo()
+console.log(values)
+
+function* crossBridge() {
+  const reply = yield 'What is your favorite color?'
+  console.log(reply)
+  return reply !== 'yellow' 
+    ? 'Wrong!' 
+    : 'You may pass'
+}
+
+{
+  const iter = crossBridge()
+  const q = iter.next().value // yields a questions
+  console.log(q)
+  const a = iter.next('blue').value // passes blue back to reply -> reassigns the variable
+  console.log(a)
+}
+
+{
+  const iter = crossBridge()
+  const q = iter.next().value
+  console.log(q)
+  const a = iter.next('yellow').value
+  console.log(a)
+}
+
+const isPromise = obj => Boolean(obj) && typeof obj.then === 'function'
+
+const next = (iter, callback, prev = undefined) => {
+  const item = iter.next(prev)
+  const value = item.value
+  if (item.done) return callback(prev)
+  if (isPromise(value)) {
+    value.then(val => {
+      setImmediate(() => next(iter, callback, val))
+    })
+  } else {
+    setImmediate(() => next(iter, callback, value))
+  }
+}
+
+
+const gensync = (fn) =>
+  (...args) => new Promise(resolve =>
+    next(fn(...args), val => resolve(val)))
+
+const fetchSomething = () => new Promise((resolve) =>
+  setTimeout(() => resolve('future value'), 500))
+
+const asyncFunc = gensync(function* () {
+  const result = yield fetchSomething()
+  yield result + 2
+})
+
+asyncFunc('param1', 'param2', 'param3')
+  .then(val => console.log(val))
+
+
